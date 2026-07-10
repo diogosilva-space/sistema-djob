@@ -1,0 +1,48 @@
+---
+description: "Regras para a stack de tecnologia, bibliotecas e importações do projeto DJOB ERP."
+alwaysApply: true
+---
+
+# ✅ Regra: Stack de Tecnologia e Bibliotecas
+
+## 1. Stack Principal
+
+- **Framework:** React 18+
+- **Linguagem:** TypeScript
+- **Build Tool:** Vite
+- **Estilização:** Tailwind CSS
+- **Biblioteca de Componentes:** shadcn/ui
+
+## 2. Gerenciamento de Estado e Dados
+
+- Para estado de servidor e cache de API, use **React Query (TanStack Query)**.
+- Para estado global da UI (ex: estado de um menu lateral, tema), use **Zustand**.
+- Não use `useState` para dados de servidor. Sempre busque e gerencie dados de API com React Query.
+
+## 3. Importações
+
+- As importações devem ser organizadas em grupos na seguinte ordem: `React`, `bibliotecas externas`, `componentes da UI`, `tipos`, `utilitários`, `arquivos locais`.
+- Use sempre importações absolutas a partir de `src/`. Configure os `paths` no `tsconfig.json` para suportar isso (ex: `@/components/*`).
+
+```typescript
+// Exemplo de ordenação de importação
+import React, { useState } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+import { z } from 'zod';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+import { type User } from '@/features/users/types';
+
+import { api } from '@/lib/api';
+
+import { LocalComponent } from './LocalComponent';
+```
+
+## 4. Bibliotecas Proibidas
+
+- **NÃO** use `Material-UI (MUI)`, `Ant Design`, ou `Chakra UI`. Todos os componentes de UI devem vir de `shadcn/ui` ou ser construídos do zero com Tailwind CSS.
+- **NÃO** use `Redux` para gerenciamento de estado.
+- **NÃO** use `CSS-in-JS` (ex: `styled-components`, `Emotion`). A estilização é exclusivamente com Tailwind CSS.

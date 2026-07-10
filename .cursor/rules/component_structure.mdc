@@ -1,0 +1,86 @@
+---
+description: "Regras para a estrutura de pastas, nomeação de arquivos e organização de componentes."
+alwaysApply: true
+---
+
+# ✅ Regra: Estrutura de Arquivos e Componentes
+
+## 1. Estrutura de Pastas (Feature-Based)
+
+O projeto seguirá uma estrutura de pastas baseada em funcionalidades (`feature-based`). Todo o código da aplicação deve residir dentro de `src/`.
+
+```
+src/
+├── assets/          # Imagens, fontes, etc.
+├── components/      # Componentes de UI globais e reutilizáveis (ex: Layout, Header)
+│   └── ui/          # Componentes do shadcn/ui
+├── config/          # Arquivos de configuração (ex: firebase, i18n)
+├── features/        # Cada funcionalidade de negócio é um módulo aqui
+│   └── crm/         # Exemplo: Módulo CRM
+│       ├── api/     # Funções de API e hooks do React Query
+│       ├── components/ # Componentes React específicos do CRM
+│       ├── hooks/   # Hooks React específicos do CRM
+│       ├── types/   # Tipos e interfaces TypeScript do CRM
+│       └── index.ts # Ponto de entrada para exportar componentes da feature
+├── hooks/           # Hooks React globais
+├── lib/             # Funções utilitárias (ex: formatadores, validações)
+├── pages/           # Componentes de página (roteamento)
+├── providers/       # Provedores de contexto React
+├── routes/          # Configuração de rotas
+└── styles/          # Estilos globais
+```
+
+## 2. Nomeação de Arquivos
+
+- **Componentes:** Use `PascalCase` (ex: `CustomerForm.tsx`).
+- **Hooks:** Use `camelCase` com o prefixo `use` (ex: `useCustomerQuery.ts`).
+- **Tipos:** Use `PascalCase` com o sufixo `.types` (ex: `Customer.types.ts`).
+- **APIs:** Use `camelCase` com o sufixo `.api` (ex: `customer.api.ts`).
+
+## 3. Estrutura de um Componente
+
+Cada componente deve ser autocontido e seguir esta estrutura interna:
+
+1.  **Importações**
+2.  **Definição de Tipos (Props)**
+3.  **Componente Funcional**
+4.  **Hooks (useState, useEffect, useQuery, etc.)**
+5.  **Funções de Manipulação de Eventos (Handlers)**
+6.  **Retorno JSX**
+
+```typescript
+// Exemplo de estrutura de componente
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+import { Button } from '@/components/ui/button';
+
+// 2. Definição de Tipos
+interface MyComponentProps {
+  initialData: string;
+}
+
+// 3. Componente Funcional
+export const MyComponent: React.FC<MyComponentProps> = ({ initialData }) => {
+  // 4. Hooks
+  const { register, handleSubmit } = useForm();
+
+  // 5. Funções de Manipulação de Eventos
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
+  // 6. Retorno JSX
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('name')} defaultValue={initialData} />
+      <Button type="submit">Enviar</Button>
+    </form>
+  );
+};
+```
+
+## 4. Componentes de UI vs. Componentes de Feature
+
+- **`src/components/`**: Contém apenas componentes de UI puros, genéricos e reutilizáveis em toda a aplicação. Eles não devem conter lógica de negócio. Ex: `Header`, `Footer`, `PageLayout`.
+- **`src/features/[nome_da_feature]/components/`**: Contém componentes que possuem lógica de negócio específica daquela feature. Ex: `CustomerForm`, `ProductTable`.
