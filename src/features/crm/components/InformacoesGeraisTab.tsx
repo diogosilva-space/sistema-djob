@@ -3,7 +3,13 @@ import { maskCPF, maskCNPJ } from '@/lib/utils/masks';
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Badge } from '@/components/ui/badge';
@@ -54,9 +60,7 @@ export const InformacoesGeraisTab: React.FC<InformacoesGeraisTabProps> = ({
       {/* Razão Social / Nome */}
       <FormField name="razaoSocial">
         <FormItem>
-          <FormLabel>
-            {isPessoaJuridica ? 'Razão Social' : 'Nome Completo'} *
-          </FormLabel>
+          <FormLabel>{isPessoaJuridica ? 'Razão Social' : 'Nome Completo'} *</FormLabel>
           <FormControl>
             <Input
               placeholder={isPessoaJuridica ? 'Digite a razão social' : 'Digite o nome completo'}
@@ -88,9 +92,7 @@ export const InformacoesGeraisTab: React.FC<InformacoesGeraisTabProps> = ({
         {/* CPF / CNPJ */}
         <FormField name="cpfCnpj">
           <FormItem>
-            <FormLabel>
-              {isPessoaJuridica ? 'CNPJ' : 'CPF'} *
-            </FormLabel>
+            <FormLabel>{isPessoaJuridica ? 'CNPJ' : 'CPF'} *</FormLabel>
             <FormControl>
               <Input
                 placeholder={isPessoaJuridica ? '00.000.000/0000-00' : '000.000.000-00'}
@@ -237,9 +239,7 @@ export const InformacoesGeraisTab: React.FC<InformacoesGeraisTabProps> = ({
               />
             </div>
           </FormControl>
-          <FormDescription>
-            Ex: "Fiel", "Potencial", "VIP", etc.
-          </FormDescription>
+          <FormDescription>Ex: "Fiel", "Potencial", "VIP", etc.</FormDescription>
         </FormItem>
       </FormField>
 

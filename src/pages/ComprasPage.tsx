@@ -9,7 +9,7 @@ import {
   AlertCircle,
   MoreHorizontal,
   FileText,
-  Truck
+  Truck,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -22,14 +22,14 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 import { pedidosCompraMock } from '@/lib/mockDataCompras';
 import { StatusPedidoCompra } from '@/features/compras/types/Compras.types';
@@ -45,13 +45,20 @@ export const ComprasPage: React.FC = () => {
   };
   const getStatusColor = (status: StatusPedidoCompra) => {
     switch (status) {
-      case 'Rascunho': return 'outline';
-      case 'Aguardando Aprovação': return 'secondary';
-      case 'Pedido Enviado': return 'secondary';
-      case 'Recebido Parcial': return 'default';
-      case 'Recebedio Total': return 'default';
-      case 'Cancelado': return 'destructive';
-      default: return 'outline';
+      case 'Rascunho':
+        return 'outline';
+      case 'Aguardando Aprovação':
+        return 'secondary';
+      case 'Pedido Enviado':
+        return 'secondary';
+      case 'Recebido Parcial':
+        return 'default';
+      case 'Recebedio Total':
+        return 'default';
+      case 'Cancelado':
+        return 'destructive';
+      default:
+        return 'outline';
     }
   };
 
@@ -64,9 +71,7 @@ export const ComprasPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Compras</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Gestão de fornecedores e suprimentos
-          </p>
+          <p className="text-sm text-muted-foreground mt-1">Gestão de fornecedores e suprimentos</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" className="h-9 gap-2 font-medium">
@@ -150,12 +155,17 @@ export const ComprasPage: React.FC = () => {
                 <FileText size={18} className="text-primary" />
                 Histórico de Pedidos
               </CardTitle>
-              <CardDescription className="text-xs">Acompanhe o status e prazos dos pedidos de compra</CardDescription>
+              <CardDescription className="text-xs">
+                Acompanhe o status e prazos dos pedidos de compra
+              </CardDescription>
             </div>
             <div className="flex items-center gap-2">
               <div className="relative w-64">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Buscar por número ou fornecedor..." className="h-9 pl-9 text-xs" />
+                <Input
+                  placeholder="Buscar por número ou fornecedor..."
+                  className="h-9 pl-9 text-xs"
+                />
               </div>
               <Button variant="outline" size="sm" className="h-9">
                 <Filter size={14} className="mr-2" />
@@ -179,12 +189,19 @@ export const ComprasPage: React.FC = () => {
             </TableHeader>
             <TableBody>
               {pedidosCompraMock.map((pedido) => (
-                <TableRow key={pedido.id} className="hover:bg-muted/20 transition-colors cursor-pointer group">
-                  <TableCell className="text-[13px] font-mono font-medium py-3">{pedido.numero}</TableCell>
+                <TableRow
+                  key={pedido.id}
+                  className="hover:bg-muted/20 transition-colors cursor-pointer group"
+                >
+                  <TableCell className="text-[13px] font-mono font-medium py-3">
+                    {pedido.numero}
+                  </TableCell>
                   <TableCell className="py-3">
                     <div className="flex flex-col">
                       <span className="text-[13px] font-bold">{pedido.fornecedorNome}</span>
-                      <span className="text-[11px] text-muted-foreground font-medium uppercase tracking-tighter">Homologado</span>
+                      <span className="text-[11px] text-muted-foreground font-medium uppercase tracking-tighter">
+                        Homologado
+                      </span>
                     </div>
                   </TableCell>
                   <TableCell className="text-[13px] text-muted-foreground py-3">
@@ -200,14 +217,21 @@ export const ComprasPage: React.FC = () => {
                     {formatCurrency(pedido.valorTotal)}
                   </TableCell>
                   <TableCell className="text-center py-3">
-                    <Badge variant={getStatusColor(pedido.status)} className="h-5 text-[10px] uppercase font-bold">
+                    <Badge
+                      variant={getStatusColor(pedido.status)}
+                      className="h-5 text-[10px] uppercase font-bold"
+                    >
                       {pedido.status}
                     </Badge>
                   </TableCell>
                   <TableCell className="py-3">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-8 w-8 opacity-0 group-hover:opacity-100"
+                        >
                           <MoreHorizontal size={14} />
                         </Button>
                       </DropdownMenuTrigger>
@@ -239,7 +263,9 @@ export const ComprasPage: React.FC = () => {
             <div className="h-2 w-2 rounded-full bg-success" /> Recebido Total
           </span>
         </div>
-        <Button variant="link" className="text-xs p-0 h-auto">Ver fornecedores sem pedidos há mais de 30 dias</Button>
+        <Button variant="link" className="text-xs p-0 h-auto">
+          Ver fornecedores sem pedidos há mais de 30 dias
+        </Button>
       </div>
 
       <PedidoCompraModal

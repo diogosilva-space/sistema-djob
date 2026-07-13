@@ -12,10 +12,7 @@ interface ContatosTabProps {
   onChange: (field: string, value: any) => void;
 }
 
-export const ContatosTab: React.FC<ContatosTabProps> = ({
-  formData,
-  onChange,
-}) => {
+export const ContatosTab: React.FC<ContatosTabProps> = ({ formData, onChange }) => {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -49,9 +46,7 @@ export const ContatosTab: React.FC<ContatosTabProps> = ({
                 <Phone className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-green-500" />
               </div>
             </FormControl>
-            <FormDescription>
-              Número com WhatsApp para contato rápido
-            </FormDescription>
+            <FormDescription>Número com WhatsApp para contato rápido</FormDescription>
           </FormItem>
         </FormField>
       </div>
@@ -102,9 +97,7 @@ export const ContatosTab: React.FC<ContatosTabProps> = ({
                   onChange={(e) => onChange('contatoPrincipal', e.target.value)}
                 />
               </FormControl>
-              <FormDescription>
-                Nome da pessoa responsável pelo contato na empresa
-              </FormDescription>
+              <FormDescription>Nome da pessoa responsável pelo contato na empresa</FormDescription>
             </FormItem>
           </FormField>
 

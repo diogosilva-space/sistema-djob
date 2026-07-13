@@ -13,7 +13,7 @@ import {
   Eye,
   Edit,
   Truck,
-  DollarSign
+  DollarSign,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -26,14 +26,14 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 import { vendasMock, StatusVenda } from '@/lib/mockDataVendas';
 import { format } from 'date-fns';
@@ -43,13 +43,20 @@ export const VendasPage: React.FC = () => {
 
   const getStatusColor = (status: StatusVenda) => {
     switch (status) {
-      case 'Aprovado': return 'default';
-      case 'Orçamento': return 'secondary';
-      case 'Faturado': return 'default';
-      case 'Entregue': return 'outline';
-      case 'Em Produção': return 'secondary';
-      case 'Cancelado': return 'destructive';
-      default: return 'outline';
+      case 'Aprovado':
+        return 'default';
+      case 'Orçamento':
+        return 'secondary';
+      case 'Faturado':
+        return 'default';
+      case 'Entregue':
+        return 'outline';
+      case 'Em Produção':
+        return 'secondary';
+      case 'Cancelado':
+        return 'destructive';
+      default:
+        return 'outline';
     }
   };
 
@@ -146,7 +153,9 @@ export const VendasPage: React.FC = () => {
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <CardTitle className="text-base">Histórico Comercial</CardTitle>
-              <CardDescription className="text-xs">Visualize todos os orçamentos e pedidos de venda</CardDescription>
+              <CardDescription className="text-xs">
+                Visualize todos os orçamentos e pedidos de venda
+              </CardDescription>
             </div>
             <div className="flex items-center gap-2">
               <div className="relative w-64">
@@ -176,7 +185,9 @@ export const VendasPage: React.FC = () => {
               <TableBody>
                 {vendasMock.map((venda) => (
                   <TableRow key={venda.id} className="hover:bg-muted/20 transition-colors group">
-                    <TableCell className="text-[13px] font-mono font-medium">{venda.numero}</TableCell>
+                    <TableCell className="text-[13px] font-mono font-medium">
+                      {venda.numero}
+                    </TableCell>
                     <TableCell>
                       <span className="text-[13px] font-bold">{venda.clienteNome}</span>
                     </TableCell>
@@ -187,14 +198,21 @@ export const VendasPage: React.FC = () => {
                       {formatCurrency(venda.valorTotal)}
                     </TableCell>
                     <TableCell className="text-center">
-                      <Badge variant={getStatusColor(venda.status) as any} className="h-5 text-[10px] uppercase font-bold">
+                      <Badge
+                        variant={getStatusColor(venda.status) as any}
+                        className="h-5 text-[10px] uppercase font-bold"
+                      >
                         {venda.status}
                       </Badge>
                     </TableCell>
                     <TableCell>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 opacity-0 group-hover:opacity-100"
+                          >
                             <MoreHorizontal size={14} />
                           </Button>
                         </DropdownMenuTrigger>

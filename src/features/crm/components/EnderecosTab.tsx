@@ -4,7 +4,13 @@ import { Trash2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FormField, FormItem, FormLabel, FormControl, FormDescription } from '@/components/ui/form';
 
@@ -16,10 +22,7 @@ interface EnderecosTabProps {
   onChange: (field: string, value: any) => void;
 }
 
-export const EnderecosTab: React.FC<EnderecosTabProps> = ({
-  formData,
-  onChange,
-}) => {
+export const EnderecosTab: React.FC<EnderecosTabProps> = ({ formData, onChange }) => {
   const [buscandoCEP, setBuscandoCEP] = useState<number | null>(null);
 
   const enderecos = formData.enderecos || [];
@@ -86,9 +89,7 @@ export const EnderecosTab: React.FC<EnderecosTabProps> = ({
           <Card key={index}>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg">
-                  Endereço {index + 1}
-                </CardTitle>
+                <CardTitle className="text-lg">Endereço {index + 1}</CardTitle>
                 <Button
                   type="button"
                   variant="ghost"
@@ -133,7 +134,9 @@ export const EnderecosTab: React.FC<EnderecosTabProps> = ({
                       <Input
                         placeholder="00000-000"
                         value={endereco.cep}
-                        onChange={(e) => handleEnderecoChange(index, 'cep', maskCEP(e.target.value))}
+                        onChange={(e) =>
+                          handleEnderecoChange(index, 'cep', maskCEP(e.target.value))
+                        }
                         onBlur={(e) => handleBuscarCEP(index, e.target.value)}
                         required
                       />
@@ -147,9 +150,7 @@ export const EnderecosTab: React.FC<EnderecosTabProps> = ({
                       </Button>
                     </div>
                   </FormControl>
-                  <FormDescription>
-                    O endereço será preenchido automaticamente
-                  </FormDescription>
+                  <FormDescription>O endereço será preenchido automaticamente</FormDescription>
                 </FormItem>
               </FormField>
 
@@ -197,9 +198,7 @@ export const EnderecosTab: React.FC<EnderecosTabProps> = ({
                     <Input
                       placeholder="Apto, Sala, Bloco, etc."
                       value={endereco.complemento || ''}
-                      onChange={(e) =>
-                        handleEnderecoChange(index, 'complemento', e.target.value)
-                      }
+                      onChange={(e) => handleEnderecoChange(index, 'complemento', e.target.value)}
                     />
                   </FormControl>
                 </FormItem>

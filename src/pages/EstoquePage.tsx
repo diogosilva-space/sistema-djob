@@ -9,7 +9,7 @@ import {
   History,
   Download,
   Box,
-  MoreHorizontal
+  MoreHorizontal,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -22,14 +22,14 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 import { itensEstoqueMock } from '@/lib/mockDataEstoque';
 import { CategoriaItem } from '@/features/estoque/types/Estoque.types';
@@ -44,10 +44,14 @@ export const EstoquePage: React.FC = () => {
   };
   const getCategoriaColor = (categoria: CategoriaItem) => {
     switch (categoria) {
-      case 'Matéria-Prima': return 'bg-category-2/10 text-category-2 border-category-2/20';
-      case 'Produto Acabado': return 'bg-category-5/10 text-category-5 border-category-5/20';
-      case 'Brinde': return 'bg-category-1/10 text-category-1 border-category-1/20';
-      default: return 'bg-muted/50 text-muted-foreground border-muted';
+      case 'Matéria-Prima':
+        return 'bg-category-2/10 text-category-2 border-category-2/20';
+      case 'Produto Acabado':
+        return 'bg-category-5/10 text-category-5 border-category-5/20';
+      case 'Brinde':
+        return 'bg-category-1/10 text-category-1 border-category-1/20';
+      default:
+        return 'bg-muted/50 text-muted-foreground border-muted';
     }
   };
 
@@ -137,9 +141,7 @@ export const EstoquePage: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">4.2x</div>
-            <p className="text-[11px] text-muted-foreground mt-1 font-medium">
-              Trimestre atual
-            </p>
+            <p className="text-[11px] text-muted-foreground mt-1 font-medium">Trimestre atual</p>
           </CardContent>
         </Card>
       </div>
@@ -149,7 +151,9 @@ export const EstoquePage: React.FC = () => {
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <CardTitle className="text-base">Inventário Atual</CardTitle>
-              <CardDescription className="text-xs">Consulte saldos e localize itens no armazém</CardDescription>
+              <CardDescription className="text-xs">
+                Consulte saldos e localize itens no armazém
+              </CardDescription>
             </div>
             <div className="flex items-center gap-2">
               <div className="relative w-64">
@@ -177,7 +181,9 @@ export const EstoquePage: React.FC = () => {
                   <TableHead className="text-xs font-semibold text-right">Mínimo</TableHead>
                   <TableHead className="text-xs font-semibold text-right">Reservado</TableHead>
                   <TableHead className="text-xs font-semibold text-right">Saldo Atual</TableHead>
-                  <TableHead className="w-[100px] text-xs font-semibold text-center">Status</TableHead>
+                  <TableHead className="w-[100px] text-xs font-semibold text-center">
+                    Status
+                  </TableHead>
                   <TableHead className="w-[60px]"></TableHead>
                 </TableRow>
               </TableHeader>
@@ -188,12 +194,18 @@ export const EstoquePage: React.FC = () => {
                     <TableRow key={item.id} className="hover:bg-muted/20 transition-colors">
                       <TableCell>
                         <div className="flex flex-col">
-                          <span className="text-[13px] font-bold leading-none mb-1">{item.itemNome}</span>
-                          <span className="text-[11px] font-mono text-muted-foreground">{item.itemSku}</span>
+                          <span className="text-[13px] font-bold leading-none mb-1">
+                            {item.itemNome}
+                          </span>
+                          <span className="text-[11px] font-mono text-muted-foreground">
+                            {item.itemSku}
+                          </span>
                         </div>
                       </TableCell>
                       <TableCell>
-                        <div className={`text-[10px] font-bold uppercase py-0.5 px-2 rounded-full border inline-block ${getCategoriaColor(item.categoria)}`}>
+                        <div
+                          className={`text-[10px] font-bold uppercase py-0.5 px-2 rounded-full border inline-block ${getCategoriaColor(item.categoria)}`}
+                        >
                           {item.categoria}
                         </div>
                       </TableCell>
@@ -204,15 +216,25 @@ export const EstoquePage: React.FC = () => {
                         {item.quantidadeMinima} {item.unidadeMedida}
                       </TableCell>
                       <TableCell className="text-right text-[13px] font-medium text-info">
-                        {item.quantidadeReservada > 0 ? `${item.quantidadeReservada} ${item.unidadeMedida}` : '--'}
+                        {item.quantidadeReservada > 0
+                          ? `${item.quantidadeReservada} ${item.unidadeMedida}`
+                          : '--'}
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className={`text-[13px] font-bold ${status.color === 'destructive' ? 'text-destructive' : 'text-foreground'}`}>
-                          {item.quantidadeAtual} <span className="text-[11px] font-medium text-muted-foreground">{item.unidadeMedida}</span>
+                        <span
+                          className={`text-[13px] font-bold ${status.color === 'destructive' ? 'text-destructive' : 'text-foreground'}`}
+                        >
+                          {item.quantidadeAtual}{' '}
+                          <span className="text-[11px] font-medium text-muted-foreground">
+                            {item.unidadeMedida}
+                          </span>
                         </span>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Badge variant={status.color as any} className="h-5 text-[10px] uppercase font-bold">
+                        <Badge
+                          variant={status.color as any}
+                          className="h-5 text-[10px] uppercase font-bold"
+                        >
                           {status.label}
                         </Badge>
                       </TableCell>
@@ -224,9 +246,15 @@ export const EstoquePage: React.FC = () => {
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="text-xs">
-                            <DropdownMenuItem className="cursor-pointer">Ver Histórico</DropdownMenuItem>
-                            <DropdownMenuItem className="cursor-pointer">Ajustar Saldo</DropdownMenuItem>
-                            <DropdownMenuItem className="cursor-pointer">Transferir Local</DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
+                              Ver Histórico
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
+                              Ajustar Saldo
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer">
+                              Transferir Local
+                            </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </TableCell>

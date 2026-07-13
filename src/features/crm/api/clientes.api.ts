@@ -25,8 +25,7 @@ export const clientesApi = {
   /**
    * Atualiza um cliente existente
    */
-  update: ({ id, ...data }: UpdateClienteDTO) => 
-    api.put<Cliente>(`/clientes/${id}`, data),
+  update: ({ id, ...data }: UpdateClienteDTO) => api.put<Cliente>(`/clientes/${id}`, data),
 
   /**
    * Remove um cliente
@@ -36,6 +35,5 @@ export const clientesApi = {
   /**
    * Busca clientes por termo de pesquisa
    */
-  search: (termo: string) => 
-    api.get<Cliente[]>(`/clientes/search?q=${encodeURIComponent(termo)}`),
+  search: (termo: string) => api.get<Cliente[]>(`/clientes/search?q=${encodeURIComponent(termo)}`),
 };

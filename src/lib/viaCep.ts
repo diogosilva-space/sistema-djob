@@ -32,7 +32,7 @@ export async function buscarCEP(cep: string): Promise<ViaCEPResponse | null> {
 
   try {
     const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
-    
+
     if (!response.ok) {
       throw new Error('Erro ao buscar CEP');
     }

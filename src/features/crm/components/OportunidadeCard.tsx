@@ -55,16 +55,15 @@ export const OportunidadeCard: React.FC<OportunidadeCardProps> = ({
     <Card
       ref={setNodeRef}
       style={style}
-      className={`cursor-pointer hover:shadow-md transition-shadow ${isDragging ? 'shadow-lg' : ''
-        }`}
+      className={`cursor-pointer hover:shadow-md transition-shadow ${
+        isDragging ? 'shadow-lg' : ''
+      }`}
       onClick={onClick}
     >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
-            <h4 className="text-sm font-semibold truncate">
-              {oportunidade.nomeCliente}
-            </h4>
+            <h4 className="text-sm font-semibold truncate">{oportunidade.nomeCliente}</h4>
             <div className="flex items-center gap-2 mt-2">
               <DollarSign className="h-3 w-3 text-muted-foreground" />
               <span className="text-sm font-medium text-success">
@@ -99,9 +98,7 @@ export const OportunidadeCard: React.FC<OportunidadeCardProps> = ({
         {/* Vendedor */}
         <div className="flex items-center gap-2">
           <User className="h-3 w-3 text-muted-foreground" />
-          <span className="text-xs text-muted-foreground truncate">
-            {oportunidade.vendedor}
-          </span>
+          <span className="text-xs text-muted-foreground truncate">{oportunidade.vendedor}</span>
         </div>
 
         {/* Última Interação */}

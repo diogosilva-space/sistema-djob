@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { FormField, FormItem, FormLabel, FormControl, FormDescription } from '@/components/ui/form';
 
 import { Cliente, CondicaoPagamento } from '../types/Cliente.types';
@@ -11,10 +17,7 @@ interface ComercialTabProps {
   onChange: (field: string, value: any) => void;
 }
 
-export const ComercialTab: React.FC<ComercialTabProps> = ({
-  formData,
-  onChange,
-}) => {
+export const ComercialTab: React.FC<ComercialTabProps> = ({ formData, onChange }) => {
   const formatarMoeda = (valor: string) => {
     // Remove tudo que não é número
     const numero = valor.replace(/\D/g, '');
@@ -60,9 +63,7 @@ export const ComercialTab: React.FC<ComercialTabProps> = ({
               />
             </div>
           </FormControl>
-          <FormDescription>
-            Limite de crédito aprovado para este cliente
-          </FormDescription>
+          <FormDescription>Limite de crédito aprovado para este cliente</FormDescription>
         </FormItem>
       </FormField>
 
@@ -90,9 +91,7 @@ export const ComercialTab: React.FC<ComercialTabProps> = ({
               </SelectContent>
             </Select>
           </FormControl>
-          <FormDescription>
-            Condição de pagamento padrão para este cliente
-          </FormDescription>
+          <FormDescription>Condição de pagamento padrão para este cliente</FormDescription>
         </FormItem>
       </FormField>
 
@@ -116,9 +115,7 @@ export const ComercialTab: React.FC<ComercialTabProps> = ({
               </SelectContent>
             </Select>
           </FormControl>
-          <FormDescription>
-            Tabela de preços diferenciada para este cliente
-          </FormDescription>
+          <FormDescription>Tabela de preços diferenciada para este cliente</FormDescription>
         </FormItem>
       </FormField>
 
@@ -144,9 +141,7 @@ export const ComercialTab: React.FC<ComercialTabProps> = ({
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Tabela de Preço:</span>
-              <span className="font-medium">
-                {formData.tabelaPreco || 'Padrão'}
-              </span>
+              <span className="font-medium">{formData.tabelaPreco || 'Padrão'}</span>
             </div>
           </div>
         </div>

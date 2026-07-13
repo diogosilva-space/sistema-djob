@@ -4,12 +4,42 @@ import { Users, Lock, Building2, Mail, FileText, Settings } from 'lucide-react';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const sections = [
-  { icon: <Users className="size-5 text-muted-foreground" />, title: 'Usuários', description: 'Gerenciar usuários e acessos', path: '/configuracoes/usuarios' },
-  { icon: <Lock className="size-5 text-muted-foreground" />, title: 'Permissões', description: 'Perfis de acesso do sistema', path: '/configuracoes/usuarios' },
-  { icon: <Building2 className="size-5 text-muted-foreground" />, title: 'Empresa', description: 'Dados da empresa', path: '#' },
-  { icon: <Mail className="size-5 text-muted-foreground" />, title: 'E-mail', description: 'Configurações de e-mail', path: '#' },
-  { icon: <FileText className="size-5 text-muted-foreground" />, title: 'Templates', description: 'Orçamentos e documentos', path: '#' },
-  { icon: <Settings className="size-5 text-muted-foreground" />, title: 'Parâmetros', description: 'Configurações gerais', path: '#' },
+  {
+    icon: <Users className="size-5 text-muted-foreground" />,
+    title: 'Usuários',
+    description: 'Gerenciar usuários e acessos',
+    path: '/configuracoes/usuarios',
+  },
+  {
+    icon: <Lock className="size-5 text-muted-foreground" />,
+    title: 'Permissões',
+    description: 'Perfis de acesso do sistema',
+    path: '/configuracoes/usuarios',
+  },
+  {
+    icon: <Building2 className="size-5 text-muted-foreground" />,
+    title: 'Empresa',
+    description: 'Dados da empresa',
+    path: '#',
+  },
+  {
+    icon: <Mail className="size-5 text-muted-foreground" />,
+    title: 'E-mail',
+    description: 'Configurações de e-mail',
+    path: '#',
+  },
+  {
+    icon: <FileText className="size-5 text-muted-foreground" />,
+    title: 'Templates',
+    description: 'Orçamentos e documentos',
+    path: '#',
+  },
+  {
+    icon: <Settings className="size-5 text-muted-foreground" />,
+    title: 'Parâmetros',
+    description: 'Configurações gerais',
+    path: '#',
+  },
 ];
 
 export const ConfiguracoesPage: React.FC = () => {

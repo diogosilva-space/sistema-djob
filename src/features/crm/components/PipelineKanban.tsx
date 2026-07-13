@@ -72,7 +72,7 @@ export const PipelineKanban: React.FC<PipelineKanbanProps> = ({
       activationConstraint: {
         distance: 8,
       },
-    })
+    }),
   );
 
   // Agrupar oportunidades por status
@@ -98,7 +98,7 @@ export const PipelineKanban: React.FC<PipelineKanbanProps> = ({
   const calcularValorTotal = (status: StatusOportunidade) => {
     return oportunidadesPorStatus[status].reduce(
       (total, oportunidade) => total + oportunidade.valor,
-      0
+      0,
     );
   };
 
@@ -127,16 +127,12 @@ export const PipelineKanban: React.FC<PipelineKanbanProps> = ({
 
   const activeOportunidade = useMemo(
     () => oportunidades.find((o) => o.id === activeId),
-    [activeId, oportunidades]
+    [activeId, oportunidades],
   );
 
   // Retorno JSX
   return (
-    <DndContext
-      sensors={sensors}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className="flex gap-4 overflow-x-auto pb-4">
         {COLUNAS_KANBAN.map((coluna) => (
           <div key={coluna.id} className="flex-shrink-0 w-80">
@@ -144,9 +140,7 @@ export const PipelineKanban: React.FC<PipelineKanbanProps> = ({
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-base font-semibold">
-                      {coluna.titulo}
-                    </CardTitle>
+                    <CardTitle className="text-base font-semibold">{coluna.titulo}</CardTitle>
                     <div className="flex items-center gap-2 mt-2">
                       <Badge variant="secondary" className="text-xs">
                         {oportunidadesPorStatus[coluna.id].length}{' '}
@@ -195,9 +189,7 @@ export const PipelineKanban: React.FC<PipelineKanbanProps> = ({
 
       {/* Overlay durante drag */}
       <DragOverlay>
-        {activeOportunidade && (
-          <OportunidadeCard oportunidade={activeOportunidade} isDragging />
-        )}
+        {activeOportunidade && <OportunidadeCard oportunidade={activeOportunidade} isDragging />}
       </DragOverlay>
     </DndContext>
   );

@@ -40,20 +40,21 @@ interface OrcamentoFormProps {
 }
 
 // Componente Funcional
-export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
-  mode = 'criar',
-  initialData,
-}) => {
+export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({ mode = 'criar', initialData }) => {
   const navigate = useNavigate();
 
   // Estado do formulário
-  const [numero] = useState(`ORC-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000).toString().padStart(5, '0')}`);
+  const [numero] = useState(
+    `ORC-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000)
+      .toString()
+      .padStart(5, '0')}`,
+  );
   const [clienteId, setClienteId] = useState('');
   const [validade, setValidade] = useState('30 dias');
   const [vendedorId] = useState('vendedor1');
   const [oportunidadeId, setOportunidadeId] = useState('');
   const [observacoesInternas, setObservacoesInternas] = useState('');
-  
+
   const [itens, setItens] = useState<ItemOrcamento[]>([]);
   const [freteEstimado, setFreteEstimado] = useState(0);
   const [descontoGlobalPorcentagem, setDescontoGlobalPorcentagem] = useState(0);
@@ -116,7 +117,7 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
         updated.subtotal = subtotalSemDesconto - descontoValor;
 
         return updated;
-      })
+      }),
     );
   };
 
@@ -134,10 +135,8 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
 
     setItens((prev) =>
       prev.map((item) =>
-        item.id === itemEditandoPersonalizacao
-          ? { ...item, personalizacao }
-          : item
-      )
+        item.id === itemEditandoPersonalizacao ? { ...item, personalizacao } : item,
+      ),
     );
 
     setItemEditandoPersonalizacao(null);
@@ -147,9 +146,10 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
   const subtotalProdutos = itens.reduce((acc, item) => acc + item.subtotal, 0);
   const custoPersonalizacao = itens.reduce(
     (acc, item) => acc + (item.personalizacao?.custoCalculado || 0) * item.quantidade,
-    0
+    0,
   );
-  const descontoGlobalValor = (subtotalProdutos + custoPersonalizacao + freteEstimado) * (descontoGlobalPorcentagem / 100);
+  const descontoGlobalValor =
+    (subtotalProdutos + custoPersonalizacao + freteEstimado) * (descontoGlobalPorcentagem / 100);
   const total = subtotalProdutos + custoPersonalizacao + freteEstimado - descontoGlobalValor;
 
   // Handler de submit
@@ -194,9 +194,7 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
       <Card>
         <CardHeader>
           <CardTitle>Cabeçalho do Orçamento</CardTitle>
-          <CardDescription>
-            Informações gerais do orçamento
-          </CardDescription>
+          <CardDescription>Informações gerais do orçamento</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
@@ -207,11 +205,7 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
 
             <div className="space-y-2">
               <Label htmlFor="dataEmissao">Data de Emissão</Label>
-              <Input
-                id="dataEmissao"
-                value={new Date().toLocaleDateString('pt-BR')}
-                readOnly
-              />
+              <Input id="dataEmissao" value={new Date().toLocaleDateString('pt-BR')} readOnly />
             </div>
 
             <div className="space-y-2">
@@ -278,9 +272,7 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>Itens do Orçamento</CardTitle>
-              <CardDescription>
-                Adicione produtos e configure personalizações
-              </CardDescription>
+              <CardDescription>Adicione produtos e configure personalizações</CardDescription>
             </div>
             <div className="flex items-center gap-2">
               <Combobox
@@ -320,9 +312,7 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
                     <TableCell>
                       <div>
                         <p className="font-medium">{item.produtoNome}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {item.produtoDescricao}
-                        </p>
+                        <p className="text-xs text-muted-foreground">{item.produtoDescricao}</p>
                       </div>
                     </TableCell>
                     <TableCell>
@@ -331,11 +321,7 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
                         min="1"
                         value={item.quantidade}
                         onChange={(e) =>
-                          handleUpdateItem(
-                            item.id,
-                            'quantidade',
-                            parseInt(e.target.value) || 1
-                          )
+                          handleUpdateItem(item.id, 'quantidade', parseInt(e.target.value) || 1)
                         }
                         className="w-20"
                       />
@@ -350,7 +336,7 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
                           handleUpdateItem(
                             item.id,
                             'precoUnitario',
-                            parseFloat(e.target.value) || 0
+                            parseFloat(e.target.value) || 0,
                           )
                         }
                         className="w-24"
@@ -363,18 +349,12 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
                         max="100"
                         value={item.desconto}
                         onChange={(e) =>
-                          handleUpdateItem(
-                            item.id,
-                            'desconto',
-                            parseFloat(e.target.value) || 0
-                          )
+                          handleUpdateItem(item.id, 'desconto', parseFloat(e.target.value) || 0)
                         }
                         className="w-20"
                       />
                     </TableCell>
-                    <TableCell className="font-medium">
-                      R$ {item.subtotal.toFixed(2)}
-                    </TableCell>
+                    <TableCell className="font-medium">R$ {item.subtotal.toFixed(2)}</TableCell>
                     <TableCell>
                       <Button
                         type="button"
@@ -441,9 +421,7 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
                 min="0"
                 max="100"
                 value={descontoGlobalPorcentagem}
-                onChange={(e) =>
-                  setDescontoGlobalPorcentagem(parseFloat(e.target.value) || 0)
-                }
+                onChange={(e) => setDescontoGlobalPorcentagem(parseFloat(e.target.value) || 0)}
               />
             </div>
           </div>
@@ -451,15 +429,11 @@ export const OrcamentoForm: React.FC<OrcamentoFormProps> = ({
           <div className="border-t pt-4 space-y-2">
             <div className="flex justify-between text-sm">
               <span>Subtotal Produtos:</span>
-              <span className="font-medium">
-                R$ {subtotalProdutos.toFixed(2)}
-              </span>
+              <span className="font-medium">R$ {subtotalProdutos.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Custo de Personalização:</span>
-              <span className="font-medium">
-                R$ {custoPersonalizacao.toFixed(2)}
-              </span>
+              <span className="font-medium">R$ {custoPersonalizacao.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span>Frete Estimado:</span>

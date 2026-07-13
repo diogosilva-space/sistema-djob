@@ -13,7 +13,7 @@ import {
   Download,
   CheckCircle2,
   Calendar,
-  FileText
+  FileText,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -27,14 +27,14 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 import { titulosMock, Titulo } from '@/lib/mockDataFinanceiro';
 import { format } from 'date-fns';
@@ -60,15 +60,19 @@ export const FinanceiroPage: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Pago': return 'default';
-      case 'Pendente': return 'secondary';
-      case 'Atrasado': return 'destructive';
-      default: return 'outline';
+      case 'Pago':
+        return 'default';
+      case 'Pendente':
+        return 'secondary';
+      case 'Atrasado':
+        return 'destructive';
+      default:
+        return 'outline';
     }
   };
 
-  const contasAReceber = titulosMock.filter(t => t.tipo === 'Receita');
-  const contasAPagar = titulosMock.filter(t => t.tipo === 'Despesa');
+  const contasAReceber = titulosMock.filter((t) => t.tipo === 'Receita');
+  const contasAPagar = titulosMock.filter((t) => t.tipo === 'Despesa');
 
   return (
     <div className="space-y-6">
@@ -131,7 +135,7 @@ export const FinanceiroPage: React.FC = () => {
             <TrendingDown size={14} className="text-destructive" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(42150.80)}</div>
+            <div className="text-2xl font-bold">{formatCurrency(42150.8)}</div>
             <div className="flex items-center gap-1 text-[11px] text-destructive font-medium mt-1">
               <ArrowDownRight size={12} />
               <span>R$ 2k em atraso</span>
@@ -159,10 +163,16 @@ export const FinanceiroPage: React.FC = () => {
         <div className="flex items-center justify-between">
           <TabsList className="bg-muted/50 p-1">
             <TabsTrigger value="receber" className="gap-2 text-xs py-1.5 px-4 h-8">
-              A Receber <Badge variant="secondary" className="h-4 px-1 text-[10px]">{contasAReceber.length}</Badge>
+              A Receber{' '}
+              <Badge variant="secondary" className="h-4 px-1 text-[10px]">
+                {contasAReceber.length}
+              </Badge>
             </TabsTrigger>
             <TabsTrigger value="pagar" className="gap-2 text-xs py-1.5 px-4 h-8">
-              A Pagar <Badge variant="secondary" className="h-4 px-1 text-[10px]">{contasAPagar.length}</Badge>
+              A Pagar{' '}
+              <Badge variant="secondary" className="h-4 px-1 text-[10px]">
+                {contasAPagar.length}
+              </Badge>
             </TabsTrigger>
             <TabsTrigger value="fluxo" className="gap-2 text-xs py-1.5 px-4 h-8">
               Fluxo de Caixa
@@ -172,7 +182,10 @@ export const FinanceiroPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <div className="relative w-64">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Buscar por descrição ou cliente..." className="h-9 pl-9 text-xs" />
+              <Input
+                placeholder="Buscar por descrição ou cliente..."
+                className="h-9 pl-9 text-xs"
+              />
             </div>
             <Button variant="outline" className="h-9 gap-2 text-xs">
               <Filter size={14} />
@@ -190,7 +203,9 @@ export const FinanceiroPage: React.FC = () => {
                     <TableRow className="hover:bg-transparent">
                       <TableHead className="text-xs font-semibold">Descrição</TableHead>
                       <TableHead className="text-xs font-semibold">Cliente</TableHead>
-                      <TableHead className="text-xs font-semibold text-center">Vencimento</TableHead>
+                      <TableHead className="text-xs font-semibold text-center">
+                        Vencimento
+                      </TableHead>
                       <TableHead className="text-xs font-semibold text-right">Valor</TableHead>
                       <TableHead className="text-xs font-semibold text-center">Status</TableHead>
                       <TableHead className="w-[60px]"></TableHead>
@@ -198,15 +213,24 @@ export const FinanceiroPage: React.FC = () => {
                   </TableHeader>
                   <TableBody>
                     {contasAReceber.map((titulo) => (
-                      <TableRow key={titulo.id} className="hover:bg-muted/20 transition-colors group">
+                      <TableRow
+                        key={titulo.id}
+                        className="hover:bg-muted/20 transition-colors group"
+                      >
                         <TableCell>
                           <div className="flex flex-col">
-                            <span className="text-[13px] font-bold leading-none mb-1">{titulo.descricao}</span>
-                            <span className="text-[11px] text-muted-foreground uppercase tracking-tighter">{titulo.categoriaFinanceira}</span>
+                            <span className="text-[13px] font-bold leading-none mb-1">
+                              {titulo.descricao}
+                            </span>
+                            <span className="text-[11px] text-muted-foreground uppercase tracking-tighter">
+                              {titulo.categoriaFinanceira}
+                            </span>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <span className="text-[13px] font-medium">{titulo.clienteFornecedorNome}</span>
+                          <span className="text-[13px] font-medium">
+                            {titulo.clienteFornecedorNome}
+                          </span>
                         </TableCell>
                         <TableCell className="text-center text-[13px] text-muted-foreground">
                           {format(titulo.dataVencimento, 'dd/MM/yyyy')}
@@ -215,14 +239,21 @@ export const FinanceiroPage: React.FC = () => {
                           {formatCurrency(titulo.valorAtual)}
                         </TableCell>
                         <TableCell className="text-center">
-                          <Badge variant={getStatusColor(titulo.status) as any} className="h-5 text-[10px] uppercase font-bold">
+                          <Badge
+                            variant={getStatusColor(titulo.status) as any}
+                            className="h-5 text-[10px] uppercase font-bold"
+                          >
                             {titulo.status}
                           </Badge>
                         </TableCell>
                         <TableCell>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 opacity-0 group-hover:opacity-100"
+                              >
                                 <MoreHorizontal size={14} />
                               </Button>
                             </DropdownMenuTrigger>
@@ -260,7 +291,9 @@ export const FinanceiroPage: React.FC = () => {
                     <TableRow className="hover:bg-transparent">
                       <TableHead className="text-xs font-semibold">Descrição</TableHead>
                       <TableHead className="text-xs font-semibold">Fornecedor</TableHead>
-                      <TableHead className="text-xs font-semibold text-center">Vencimento</TableHead>
+                      <TableHead className="text-xs font-semibold text-center">
+                        Vencimento
+                      </TableHead>
                       <TableHead className="text-xs font-semibold text-right">Valor</TableHead>
                       <TableHead className="text-xs font-semibold text-center">Status</TableHead>
                       <TableHead className="w-[60px]"></TableHead>
@@ -268,15 +301,24 @@ export const FinanceiroPage: React.FC = () => {
                   </TableHeader>
                   <TableBody>
                     {contasAPagar.map((titulo) => (
-                      <TableRow key={titulo.id} className="hover:bg-muted/20 transition-colors group">
+                      <TableRow
+                        key={titulo.id}
+                        className="hover:bg-muted/20 transition-colors group"
+                      >
                         <TableCell>
                           <div className="flex flex-col">
-                            <span className="text-[13px] font-bold leading-none mb-1">{titulo.descricao}</span>
-                            <span className="text-[11px] text-muted-foreground uppercase tracking-tighter">{titulo.categoriaFinanceira}</span>
+                            <span className="text-[13px] font-bold leading-none mb-1">
+                              {titulo.descricao}
+                            </span>
+                            <span className="text-[11px] text-muted-foreground uppercase tracking-tighter">
+                              {titulo.categoriaFinanceira}
+                            </span>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <span className="text-[13px] font-medium">{titulo.clienteFornecedorNome}</span>
+                          <span className="text-[13px] font-medium">
+                            {titulo.clienteFornecedorNome}
+                          </span>
                         </TableCell>
                         <TableCell className="text-center text-[13px] text-muted-foreground">
                           {format(titulo.dataVencimento, 'dd/MM/yyyy')}
@@ -285,14 +327,21 @@ export const FinanceiroPage: React.FC = () => {
                           {formatCurrency(titulo.valorAtual)}
                         </TableCell>
                         <TableCell className="text-center">
-                          <Badge variant={getStatusColor(titulo.status) as any} className="h-5 text-[10px] uppercase font-bold">
+                          <Badge
+                            variant={getStatusColor(titulo.status) as any}
+                            className="h-5 text-[10px] uppercase font-bold"
+                          >
                             {titulo.status}
                           </Badge>
                         </TableCell>
                         <TableCell>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 opacity-0 group-hover:opacity-100"
+                              >
                                 <MoreHorizontal size={14} />
                               </Button>
                             </DropdownMenuTrigger>
@@ -328,22 +377,32 @@ export const FinanceiroPage: React.FC = () => {
                 <div className="flex justify-center gap-4">
                   <div className="h-40 w-12 bg-success/20 rounded-t-md relative flex items-end">
                     <div className="h-[80%] w-full bg-success rounded-t-md" />
-                    <span className="absolute -top-6 left-0 right-0 text-[10px] font-bold">Jan</span>
+                    <span className="absolute -top-6 left-0 right-0 text-[10px] font-bold">
+                      Jan
+                    </span>
                   </div>
                   <div className="h-40 w-12 bg-success/20 rounded-t-md relative flex items-end">
                     <div className="h-[65%] w-full bg-success rounded-t-md" />
-                    <span className="absolute -top-6 left-0 right-0 text-[10px] font-bold">Fev</span>
+                    <span className="absolute -top-6 left-0 right-0 text-[10px] font-bold">
+                      Fev
+                    </span>
                   </div>
                   <div className="h-40 w-12 bg-success/20 rounded-t-md relative flex items-end">
                     <div className="h-[95%] w-full bg-success rounded-t-md" />
-                    <span className="absolute -top-6 left-0 right-0 text-[10px] font-bold">Mar</span>
+                    <span className="absolute -top-6 left-0 right-0 text-[10px] font-bold">
+                      Mar
+                    </span>
                   </div>
                   <div className="h-40 w-12 bg-destructive/20 rounded-t-md relative flex items-end">
                     <div className="h-[40%] w-full bg-destructive rounded-t-md" />
-                    <span className="absolute -top-6 left-0 right-0 text-[10px] font-bold">Abr</span>
+                    <span className="absolute -top-6 left-0 right-0 text-[10px] font-bold">
+                      Abr
+                    </span>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground max-w-sm">Gráfico interativo de fluxo de caixa mensal (Receitas vs Despesas)</p>
+                <p className="text-sm text-muted-foreground max-w-sm">
+                  Gráfico interativo de fluxo de caixa mensal (Receitas vs Despesas)
+                </p>
               </div>
             </CardContent>
           </Card>

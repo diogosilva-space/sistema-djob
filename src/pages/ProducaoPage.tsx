@@ -1,14 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Plus,
-  Search,
-  Filter,
-  Eye,
-  Clock,
-  AlertCircle,
-  CheckCircle2
-} from 'lucide-react';
+import { Plus, Search, Filter, Eye, Clock, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,7 +12,7 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from '@/components/ui/table';
 
 import { ordensProducaoMock } from '@/lib/mockDataProducao';
@@ -33,20 +25,29 @@ export const ProducaoPage: React.FC = () => {
 
   const getStatusColor = (status: StatusOP) => {
     switch (status) {
-      case 'Aguardando Material': return 'destructive';
-      case 'Em Produção': return 'secondary';
-      case 'Finalizada': return 'default';
-      case 'Cancelada': return 'destructive';
-      default: return 'outline';
+      case 'Aguardando Material':
+        return 'destructive';
+      case 'Em Produção':
+        return 'secondary';
+      case 'Finalizada':
+        return 'default';
+      case 'Cancelada':
+        return 'destructive';
+      default:
+        return 'outline';
     }
   };
 
   const getPrioridadeColor = (prioridade: PrioridadeOP) => {
     switch (prioridade) {
-      case 'Alta': return 'bg-destructive/10 text-destructive border-destructive/20';
-      case 'Normal': return 'bg-info/10 text-info border-info/20';
-      case 'Baixa': return 'bg-muted/50 text-muted-foreground border-muted';
-      default: return '';
+      case 'Alta':
+        return 'bg-destructive/10 text-destructive border-destructive/20';
+      case 'Normal':
+        return 'bg-info/10 text-info border-info/20';
+      case 'Baixa':
+        return 'bg-muted/50 text-muted-foreground border-muted';
+      default:
+        return '';
     }
   };
 
@@ -75,9 +76,7 @@ export const ProducaoPage: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">8</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              5 sendo processadas agora
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">5 sendo processadas agora</p>
           </CardContent>
         </Card>
 
@@ -90,9 +89,7 @@ export const ProducaoPage: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-destructive">3</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Ordens bloqueadas
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">Ordens bloqueadas</p>
           </CardContent>
         </Card>
 
@@ -105,9 +102,7 @@ export const ProducaoPage: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">42</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              +12% em relação ao mês anterior
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">+12% em relação ao mês anterior</p>
           </CardContent>
         </Card>
 
@@ -120,9 +115,7 @@ export const ProducaoPage: React.FC = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">87%</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Meta atingida
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">Meta atingida</p>
           </CardContent>
         </Card>
       </div>
@@ -160,14 +153,20 @@ export const ProducaoPage: React.FC = () => {
                   <TableHead className="text-xs font-semibold">Cliente</TableHead>
                   <TableHead className="w-[80px] text-xs font-semibold text-center">Qtd</TableHead>
                   <TableHead className="text-xs font-semibold text-center">Entrega</TableHead>
-                  <TableHead className="w-[100px] text-xs font-semibold text-center">Prioridade</TableHead>
+                  <TableHead className="w-[100px] text-xs font-semibold text-center">
+                    Prioridade
+                  </TableHead>
                   <TableHead className="w-[140px] text-xs font-semibold">Status</TableHead>
                   <TableHead className="w-[60px]"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {ordensProducaoMock.map((op) => (
-                  <TableRow key={op.id} className="cursor-pointer hover:bg-muted/20" onClick={() => navigate(`/producao/ordem/${op.id}`)}>
+                  <TableRow
+                    key={op.id}
+                    className="cursor-pointer hover:bg-muted/20"
+                    onClick={() => navigate(`/producao/ordem/${op.id}`)}
+                  >
                     <TableCell className="font-mono text-xs font-medium">{op.numero}</TableCell>
                     <TableCell>
                       <div className="flex flex-col">
@@ -176,22 +175,33 @@ export const ProducaoPage: React.FC = () => {
                       </div>
                     </TableCell>
                     <TableCell className="text-[13px]">{op.clienteNome}</TableCell>
-                    <TableCell className="text-center font-medium text-[13px]">{op.quantidade}</TableCell>
+                    <TableCell className="text-center font-medium text-[13px]">
+                      {op.quantidade}
+                    </TableCell>
                     <TableCell className="text-center text-[13px]">
                       {format(op.dataEntregaPrometida, 'dd/MM/yyyy', { locale: ptBR })}
                     </TableCell>
                     <TableCell className="text-center">
-                      <div className={`text-[10px] font-bold uppercase py-0.5 px-2 rounded-full border inline-block ${getPrioridadeColor(op.prioridade)}`}>
+                      <div
+                        className={`text-[10px] font-bold uppercase py-0.5 px-2 rounded-full border inline-block ${getPrioridadeColor(op.prioridade)}`}
+                      >
                         {op.prioridade}
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={getStatusColor(op.status)} className="h-5 text-[10px] font-semibold uppercase">
+                      <Badge
+                        variant={getStatusColor(op.status)}
+                        className="h-5 text-[10px] font-semibold uppercase"
+                      >
                         {op.status}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-primary"
+                      >
                         <Eye size={16} />
                       </Button>
                     </TableCell>
@@ -205,8 +215,12 @@ export const ProducaoPage: React.FC = () => {
               Mostrando {ordensProducaoMock.length} de 45 ordens de produção
             </p>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" className="h-8 text-xs" disabled>Anterior</Button>
-              <Button variant="outline" size="sm" className="h-8 text-xs">Próxima</Button>
+              <Button variant="outline" size="sm" className="h-8 text-xs" disabled>
+                Anterior
+              </Button>
+              <Button variant="outline" size="sm" className="h-8 text-xs">
+                Próxima
+              </Button>
             </div>
           </div>
         </CardContent>

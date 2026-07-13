@@ -120,9 +120,7 @@ export const PersonalizacaoModal: React.FC<PersonalizacaoModalProps> = ({
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Detalhes da Personalização</DialogTitle>
-          <DialogDescription>
-            Configure os detalhes da personalização do produto
-          </DialogDescription>
+          <DialogDescription>Configure os detalhes da personalização do produto</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
@@ -167,13 +165,9 @@ export const PersonalizacaoModal: React.FC<PersonalizacaoModalProps> = ({
                 min="1"
                 max="10"
                 value={formData.numeroCores || 1}
-                onChange={(e) =>
-                  handleFieldChange('numeroCores', parseInt(e.target.value) || 1)
-                }
+                onChange={(e) => handleFieldChange('numeroCores', parseInt(e.target.value) || 1)}
               />
-              <p className="text-xs text-muted-foreground">
-                Quantidade de cores diferentes (1-10)
-              </p>
+              <p className="text-xs text-muted-foreground">Quantidade de cores diferentes (1-10)</p>
             </div>
           )}
 
@@ -217,9 +211,7 @@ export const PersonalizacaoModal: React.FC<PersonalizacaoModalProps> = ({
                 <SelectItem value="Pequeno (5x5cm)">Pequeno (5x5cm)</SelectItem>
                 <SelectItem value="Médio (10x10cm)">Médio (10x10cm)</SelectItem>
                 <SelectItem value="Grande (20x20cm)">Grande (20x20cm)</SelectItem>
-                <SelectItem value="Extra Grande (30x30cm)">
-                  Extra Grande (30x30cm)
-                </SelectItem>
+                <SelectItem value="Extra Grande (30x30cm)">Extra Grande (30x30cm)</SelectItem>
                 <SelectItem value="Personalizado">Personalizado</SelectItem>
               </SelectContent>
             </Select>

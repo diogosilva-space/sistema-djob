@@ -10,11 +10,7 @@ import {
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 export interface ComboboxOption {
   value: string;
@@ -61,9 +57,7 @@ export function Combobox({
             <div className="flex flex-col items-start">
               <span>{selectedOption.label}</span>
               {selectedOption.description && (
-                <span className="text-xs text-muted-foreground">
-                  {selectedOption.description}
-                </span>
+                <span className="text-xs text-muted-foreground">{selectedOption.description}</span>
               )}
             </div>
           ) : (
@@ -89,15 +83,13 @@ export function Combobox({
                 <Check
                   className={cn(
                     'mr-2 h-4 w-4',
-                    value === option.value ? 'opacity-100' : 'opacity-0'
+                    value === option.value ? 'opacity-100' : 'opacity-0',
                   )}
                 />
                 <div className="flex flex-col">
                   <span>{option.label}</span>
                   {option.description && (
-                    <span className="text-xs text-muted-foreground">
-                      {option.description}
-                    </span>
+                    <span className="text-xs text-muted-foreground">{option.description}</span>
                   )}
                 </div>
               </CommandItem>

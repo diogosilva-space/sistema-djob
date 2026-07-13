@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-border: var(--border);
@@ -45,6 +45,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-muted: var(--sidebar-muted);
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -57,7 +58,6 @@
     from {
       height: 0;
     }
-
     to {
       height: var(--radix-accordion-content-height);
     }
@@ -67,138 +67,168 @@
     from {
       height: var(--radix-accordion-content-height);
     }
-
     to {
       height: 0;
     }
   }
 }
 
+/* ═══════════════════════════════════════════════════
+   LIGHT MODE — "Premium Teal"
+   Paleta sofisticada com cinza-azulado quente e teal DJOB
+   ═══════════════════════════════════════════════════ */
 @layer base {
   :root {
-    --background: oklch(98.511% 0.00011 271.152);
-    --foreground: oklch(0.14 0.005 285);
+    /* ── Superfícies ── */
+    --background: oklch(0.975 0.003 250);
+    --foreground: oklch(0.145 0.015 260);
     --card: oklch(1 0 0);
-    --card-foreground: oklch(0.14 0.005 285);
+    --card-foreground: oklch(0.145 0.015 260);
     --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.14 0.005 285);
+    --popover-foreground: oklch(0.145 0.015 260);
 
-    /* Petróleo Djob - #6DADB7 */
-    --primary: oklch(0.68 0.08 206);
-    --primary-foreground: oklch(0.14 0.005 285);
+    /* ── Primária: Teal Petróleo DJOB ── */
+    --primary: oklch(0.55 0.1 210);
+    --primary-foreground: oklch(0.99 0 0);
 
-    /* Djob Vermelho - #EC5466 */
-    --secondary: oklch(0.627 0.194 15.34);
-    --secondary-foreground: oklch(1 0 15);
+    /* ── Secundária: Vermelho DJOB (dessaturado para badges) ── */
+    --secondary: oklch(0.6 0.16 18);
+    --secondary-foreground: oklch(0.99 0 0);
 
-    --muted: oklch(0.94 0.005 240);
-    --muted-foreground: oklch(0.5 0.01 285);
-    --accent: oklch(0.94 0.005 240);
-    --accent-foreground: oklch(0.2 0.005 285);
+    /* ── Neutros ── */
+    --muted: oklch(0.955 0.005 250);
+    --muted-foreground: oklch(0.46 0.015 260);
+    --accent: oklch(0.955 0.005 250);
+    --accent-foreground: oklch(0.2 0.015 260);
 
-    --destructive: oklch(0.627 0.194 15.34);
-    --destructive-foreground: oklch(1 0 0);
+    /* ── Destrutiva ── */
+    --destructive: oklch(0.58 0.2 22);
+    --destructive-foreground: oklch(0.99 0 0);
 
-    /* Cores Semânticas */
-    --success: oklch(0.65 0.13 150);
-    --success-foreground: oklch(1 0 0);
-    --warning: oklch(0.82 0.12 85);
-    --warning-foreground: oklch(0.2 0.05 85);
-    --info: oklch(0.68 0.08 206);
-    /* Same as Petroleum */
-    --info-foreground: oklch(1 0 0);
+    /* ── Semânticas ── */
+    --success: oklch(0.55 0.16 155);
+    --success-foreground: oklch(0.99 0 0);
+    --warning: oklch(0.75 0.14 75);
+    --warning-foreground: oklch(0.22 0.06 60);
+    --info: oklch(0.55 0.12 245);
+    --info-foreground: oklch(0.99 0 0);
 
-    --category-1: oklch(0.65 0.15 280);
-    /* Roxo */
-    --category-2: oklch(0.78 0.14 75);
-    /* Amarelo */
-    --category-3: oklch(0.68 0.16 40);
-    /* Laranja */
-    --category-4: oklch(0.72 0.12 195);
-    /* Ciano */
-    --category-5: oklch(0.62 0.14 255);
-    /* Azul */
+    /* ── Categorias de Gráficos ── */
+    --chart-1: oklch(0.55 0.1 210); /* Teal primary */
+    --chart-2: oklch(0.6 0.16 18); /* Vermelho secondary */
+    --chart-3: oklch(0.58 0.17 280); /* Roxo */
+    --chart-4: oklch(0.72 0.14 75); /* Âmbar */
+    --chart-5: oklch(0.55 0.16 155); /* Esmeralda */
 
-    --border: oklch(0.88 0.01 240);
-    --input: oklch(0.88 0.01 240);
-    --ring: oklch(0.68 0.08 206);
-    --radius: 0.65rem;
+    /* ── Bordas e Interação ── */
+    --border: oklch(0.905 0.008 250);
+    --input: oklch(0.905 0.008 250);
+    --ring: oklch(0.55 0.1 210);
+    --radius: 0.75rem;
 
-    --sidebar: oklch(0.99 0.001 240);
-    --sidebar-foreground: oklch(0.14 0.005 285);
-    --sidebar-primary: oklch(0.68 0.08 206);
-    --sidebar-primary-foreground: oklch(1 0 0);
-    --sidebar-accent: oklch(0.95 0.005 240);
-    --sidebar-accent-foreground: oklch(0.14 0.005 285);
-    --sidebar-border: oklch(0.88 0.01 240);
-    --sidebar-ring: oklch(0.68 0.08 206);
+    /* ── Sidebar — Claro ── */
+    --sidebar: oklch(0.985 0.002 250);
+    --sidebar-foreground: oklch(0.145 0.015 260);
+    --sidebar-primary: oklch(0.55 0.1 210);
+    --sidebar-primary-foreground: oklch(0.99 0 0);
+    --sidebar-accent: oklch(0.95 0.005 250);
+    --sidebar-accent-foreground: oklch(0.145 0.015 260);
+    --sidebar-border: oklch(0.905 0.008 250);
+    --sidebar-ring: oklch(0.55 0.1 210);
+    --sidebar-muted: oklch(0.46 0.015 260);
 
-    --chart-1: oklch(0.68 0.08 206);
-    --chart-2: oklch(0.627 0.194 15.34);
-    --chart-3: oklch(0.65 0.15 280);
-    --chart-4: oklch(0.78 0.14 75);
-    --chart-5: oklch(0.72 0.12 195);
+    /* ── Layout ── */
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 68px;
+    --header-height: 56px;
   }
 
+  /* ═══════════════════════════════════════════════════
+     DARK MODE — "Deep Ocean"
+     Azul-navy profundo, não cinza puro. Melhor separação
+     entre níveis de superfície.
+     ═══════════════════════════════════════════════════ */
   .dark {
-    --background: oklch(0.12 0.015 240);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(22.989% 0.01653 240.887);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.18 0.02 240);
-    --popover-foreground: oklch(0.985 0 0);
+    /* ── Superfícies ── */
+    --background: oklch(0.135 0.018 250);
+    --foreground: oklch(0.95 0.005 250);
+    --card: oklch(0.185 0.02 248);
+    --card-foreground: oklch(0.95 0.005 250);
+    --popover: oklch(0.2 0.022 248);
+    --popover-foreground: oklch(0.95 0.005 250);
 
-    --primary: oklch(0.72 0.08 206);
-    --primary-foreground: oklch(0.12 0.015 240);
+    /* ── Primária: Teal mais luminoso para contraste ── */
+    --primary: oklch(0.68 0.1 210);
+    --primary-foreground: oklch(0.135 0.018 250);
 
-    --secondary: oklch(0.65 0.15 15);
-    --secondary-foreground: oklch(1 0 0);
+    /* ── Secundária ── */
+    --secondary: oklch(0.65 0.15 18);
+    --secondary-foreground: oklch(0.99 0 0);
 
-    --muted: oklch(0.22 0.02 240);
-    --muted-foreground: oklch(0.7 0.015 240);
-    --accent: oklch(0.22 0.02 240);
-    --accent-foreground: oklch(0.985 0 0);
+    /* ── Neutros ── */
+    --muted: oklch(0.24 0.018 248);
+    --muted-foreground: oklch(0.65 0.015 250);
+    --accent: oklch(0.24 0.018 248);
+    --accent-foreground: oklch(0.95 0.005 250);
 
-    --destructive: oklch(0.6 0.18 22);
-    --destructive-foreground: oklch(1 0 0);
+    /* ── Destrutiva ── */
+    --destructive: oklch(0.62 0.18 22);
+    --destructive-foreground: oklch(0.99 0 0);
 
-    --success: oklch(0.65 0.13 150);
-    --success-foreground: oklch(1 0 0);
-    --warning: oklch(0.85 0.12 85);
-    --warning-foreground: oklch(0.2 0.05 85);
-    --info: oklch(0.75 0.08 206);
-    --info-foreground: oklch(1 0 0);
+    /* ── Semânticas ── */
+    --success: oklch(0.6 0.16 155);
+    --success-foreground: oklch(0.99 0 0);
+    --warning: oklch(0.78 0.14 75);
+    --warning-foreground: oklch(0.22 0.06 60);
+    --info: oklch(0.62 0.12 245);
+    --info-foreground: oklch(0.99 0 0);
 
-    --border: oklch(0.25 0.025 240);
-    --input: oklch(0.25 0.025 240);
-    --ring: oklch(0.72 0.08 206);
+    /* ── Categorias de Gráficos ── */
+    --chart-1: oklch(0.68 0.1 210);
+    --chart-2: oklch(0.65 0.15 18);
+    --chart-3: oklch(0.68 0.18 280);
+    --chart-4: oklch(0.78 0.14 75);
+    --chart-5: oklch(0.6 0.16 155);
 
-    --sidebar: oklch(0.15 0.015 240);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.72 0.08 206);
-    --sidebar-primary-foreground: oklch(0.12 0.015 240);
-    --sidebar-accent: oklch(0.22 0.02 240);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(0.25 0.025 240);
-    --sidebar-ring: oklch(0.72 0.08 206);
+    /* ── Bordas e Interação ── */
+    --border: oklch(0.28 0.02 248);
+    --input: oklch(0.28 0.02 248);
+    --ring: oklch(0.68 0.1 210);
 
-    --chart-1: oklch(0.75 0.08 206);
-    --chart-2: oklch(0.65 0.15 15);
-    --chart-3: oklch(0.75 0.2 280);
-    --chart-4: oklch(0.85 0.15 85);
-    --chart-5: oklch(0.8 0.15 195);
+    /* ── Sidebar — Mais escuro que o background ── */
+    --sidebar: oklch(0.11 0.02 248);
+    --sidebar-foreground: oklch(0.85 0.01 250);
+    --sidebar-primary: oklch(0.68 0.1 210);
+    --sidebar-primary-foreground: oklch(0.99 0 0);
+    --sidebar-accent: oklch(0.2 0.02 248);
+    --sidebar-accent-foreground: oklch(0.95 0.005 250);
+    --sidebar-border: oklch(0.22 0.02 248);
+    --sidebar-ring: oklch(0.68 0.1 210);
+    --sidebar-muted: oklch(0.48 0.015 250);
   }
 
+  /* ── Reset & Base ── */
   * {
     @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family:
+      'Inter',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      'Roboto',
+      'Oxygen',
+      'Ubuntu',
+      'Cantarell',
+      sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 14px;
+    line-height: 1.5;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -207,15 +237,104 @@
   #root {
     min-height: 100vh;
   }
+
+  /* ── Transições de tema suaves ── */
+  html {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  /* ── Números tabulares para tabelas e valores ── */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
 }
+
+/* ═══════════════════════════════════════════════════
+   UTILITÁRIOS
+   ═══════════════════════════════════════════════════ */
 
 @utility container {
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 
-  @media (width >=1400px) {
+  @media (width >= 1400px) {
     max-width: 1400px;
+  }
+}
+
+/* ── Scrollbar Customizada ── */
+@layer base {
+  /* Webkit (Chrome, Edge, Safari) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.75 0.01 250);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.6 0.01 250);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: oklch(0.35 0.015 250);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.45 0.015 250);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.75 0.01 250) transparent;
+  }
+
+  .dark * {
+    scrollbar-color: oklch(0.35 0.015 250) transparent;
+  }
+}
+
+/* ── Animações ── */
+@layer base {
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.2s ease-out;
   }
 }

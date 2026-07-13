@@ -1,6 +1,6 @@
 /**
  * API Client Configuration
- * 
+ *
  * Este arquivo contém a configuração base para chamadas de API
  * e funções auxiliares para fazer requisições HTTP.
  */
@@ -10,12 +10,9 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000
 /**
  * Faz uma requisição HTTP usando fetch
  */
-export async function fetchAPI<T>(
-  endpoint: string,
-  options?: RequestInit
-): Promise<T> {
+export async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
-  
+
   const config: RequestInit = {
     ...options,
     headers: {

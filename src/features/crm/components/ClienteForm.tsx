@@ -20,10 +20,7 @@ interface ClienteFormProps {
 }
 
 // Componente Funcional
-export const ClienteForm: React.FC<ClienteFormProps> = ({
-  initialData,
-  mode = 'criar'
-}) => {
+export const ClienteForm: React.FC<ClienteFormProps> = ({ initialData, mode = 'criar' }) => {
   const navigate = useNavigate();
   const createMutation = useCreateCliente();
   const updateMutation = useUpdateCliente();
@@ -37,7 +34,7 @@ export const ClienteForm: React.FC<ClienteFormProps> = ({
       ativo: true,
       criadoEm: new Date(),
       atualizadoEm: new Date(),
-    }
+    },
   );
 
   // Funções de Manipulação de Eventos
@@ -53,7 +50,7 @@ export const ClienteForm: React.FC<ClienteFormProps> = ({
         await createMutation.mutateAsync(formData as any);
         navigate('/crm');
       } else {
-        await updateMutation.mutateAsync({ id: initialData?.id!, ...formData } as any);
+        await updateMutation.mutateAsync({ id: initialData!.id, ...formData } as any);
         navigate(`/crm/clientes/${initialData?.id}`);
       }
     } catch (error) {
@@ -72,9 +69,7 @@ export const ClienteForm: React.FC<ClienteFormProps> = ({
     <form onSubmit={handleSubmit}>
       <Card className="max-w-5xl mx-auto">
         <CardHeader>
-          <CardTitle>
-            {mode === 'criar' ? 'Novo Cliente' : 'Editar Cliente'}
-          </CardTitle>
+          <CardTitle>{mode === 'criar' ? 'Novo Cliente' : 'Editar Cliente'}</CardTitle>
           <CardDescription>
             Preencha os dados do cliente. Campos com * são obrigatórios.
           </CardDescription>
@@ -89,42 +84,25 @@ export const ClienteForm: React.FC<ClienteFormProps> = ({
             </TabsList>
 
             <TabsContent value="geral" className="space-y-4 mt-4">
-              <InformacoesGeraisTab
-                formData={formData}
-                onChange={handleFieldChange}
-              />
+              <InformacoesGeraisTab formData={formData} onChange={handleFieldChange} />
             </TabsContent>
 
             <TabsContent value="contatos" className="space-y-4 mt-4">
-              <ContatosTab
-                formData={formData}
-                onChange={handleFieldChange}
-              />
+              <ContatosTab formData={formData} onChange={handleFieldChange} />
             </TabsContent>
 
             <TabsContent value="enderecos" className="space-y-4 mt-4">
-              <EnderecosTab
-                formData={formData}
-                onChange={handleFieldChange}
-              />
+              <EnderecosTab formData={formData} onChange={handleFieldChange} />
             </TabsContent>
 
             <TabsContent value="comercial" className="space-y-4 mt-4">
-              <ComercialTab
-                formData={formData}
-                onChange={handleFieldChange}
-              />
+              <ComercialTab formData={formData} onChange={handleFieldChange} />
             </TabsContent>
           </Tabs>
 
           {/* Botões de Ação */}
           <div className="flex justify-end space-x-4 mt-6 pt-6 border-t">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-              disabled={isLoading}
-            >
+            <Button type="button" variant="outline" onClick={handleCancel} disabled={isLoading}>
               Cancelar
             </Button>
             <Button type="submit" disabled={isLoading}>

@@ -4,14 +4,14 @@ import { api } from '@/lib/api';
 
 /**
  * Hook genérico para fazer GET requests com React Query
- * 
+ *
  * @example
  * const { data, isLoading } = useApiQuery('/clientes', ['clientes']);
  */
 export function useApiQuery<T>(
   endpoint: string,
   queryKey: unknown[],
-  options?: Omit<UseQueryOptions<T>, 'queryKey' | 'queryFn'>
+  options?: Omit<UseQueryOptions<T>, 'queryKey' | 'queryFn'>,
 ) {
   return useQuery<T>({
     queryKey,
@@ -22,7 +22,7 @@ export function useApiQuery<T>(
 
 /**
  * Hook genérico para fazer POST/PUT/PATCH/DELETE requests com React Query
- * 
+ *
  * @example
  * const mutation = useApiMutation('/clientes', 'POST');
  * mutation.mutate({ nome: 'Cliente Teste' });
@@ -30,7 +30,7 @@ export function useApiQuery<T>(
 export function useApiMutation<TData = unknown, TVariables = unknown>(
   endpoint: string,
   method: 'POST' | 'PUT' | 'PATCH' | 'DELETE',
-  options?: UseMutationOptions<TData, Error, TVariables>
+  options?: UseMutationOptions<TData, Error, TVariables>,
 ) {
   return useMutation<TData, Error, TVariables>({
     mutationFn: (data: TVariables) => {

@@ -12,7 +12,7 @@ import {
   Edit,
   Eye,
   Trash2,
-  FileText
+  FileText,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -25,14 +25,14 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 import { produtosMock } from '@/lib/mockDataProdutos';
 
@@ -144,7 +144,9 @@ export const ProdutosPage: React.FC = () => {
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <CardTitle className="text-base">Catálogo de Produtos</CardTitle>
-              <CardDescription className="text-xs">Visualize e gerencie os detalhes técnicos e preços</CardDescription>
+              <CardDescription className="text-xs">
+                Visualize e gerencie os detalhes técnicos e preços
+              </CardDescription>
             </div>
             <div className="flex items-center gap-2">
               <div className="relative w-64">
@@ -176,7 +178,9 @@ export const ProdutosPage: React.FC = () => {
                     <TableCell>
                       <div className="flex flex-col">
                         <span className="text-[13px] font-bold leading-none mb-1">{prod.nome}</span>
-                        <span className="text-[11px] font-mono text-muted-foreground">{prod.sku}</span>
+                        <span className="text-[11px] font-mono text-muted-foreground">
+                          {prod.sku}
+                        </span>
                       </div>
                     </TableCell>
                     <TableCell>
@@ -188,14 +192,21 @@ export const ProdutosPage: React.FC = () => {
                       {formatCurrency(prod.precoVenda)}
                     </TableCell>
                     <TableCell className="text-center">
-                      <Badge variant={getEstoqueStatus(prod.estoque || 0) as any} className="h-5 text-[10px] uppercase font-bold">
+                      <Badge
+                        variant={getEstoqueStatus(prod.estoque || 0) as any}
+                        className="h-5 text-[10px] uppercase font-bold"
+                      >
                         {prod.estoque} {prod.unidade}
                       </Badge>
                     </TableCell>
                     <TableCell>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 opacity-0 group-hover:opacity-100"
+                          >
                             <MoreHorizontal size={14} />
                           </Button>
                         </DropdownMenuTrigger>

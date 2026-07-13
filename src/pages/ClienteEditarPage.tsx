@@ -44,18 +44,12 @@ export const ClienteEditarPage: React.FC = () => {
     <div className="space-y-6">
       {/* Cabeçalho */}
       <div className="flex items-center space-x-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => navigate(`/crm/clientes/${id}`)}
-        >
+        <Button variant="ghost" size="icon" onClick={() => navigate(`/crm/clientes/${id}`)}>
           <ArrowLeft className="h-5 w-5" />
         </Button>
         <div>
           <h1 className="text-3xl font-bold text-foreground">Editar Cliente</h1>
-          <p className="text-muted-foreground mt-1">
-            {cliente.razaoSocial}
-          </p>
+          <p className="text-muted-foreground mt-1">{cliente.razaoSocial}</p>
         </div>
       </div>
 

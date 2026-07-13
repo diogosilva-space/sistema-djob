@@ -46,10 +46,10 @@ export const ClienteDetalhesPage: React.FC = () => {
   }
 
   const enderecoEntrega = cliente.enderecos?.find(
-    (e) => e.tipo === 'Entrega' || e.tipo === 'Ambos'
+    (e) => e.tipo === 'Entrega' || e.tipo === 'Ambos',
   );
   const enderecoFaturamento = cliente.enderecos?.find(
-    (e) => e.tipo === 'Faturamento' || e.tipo === 'Ambos'
+    (e) => e.tipo === 'Faturamento' || e.tipo === 'Ambos',
   );
 
   return (
@@ -57,21 +57,13 @@ export const ClienteDetalhesPage: React.FC = () => {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate('/crm')}
-          >
+          <Button variant="ghost" size="icon" onClick={() => navigate('/crm')}>
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-foreground">
-              {cliente.razaoSocial}
-            </h1>
+            <h1 className="text-3xl font-bold text-foreground">{cliente.razaoSocial}</h1>
             {cliente.nomeFantasia && (
-              <p className="text-muted-foreground mt-1">
-                {cliente.nomeFantasia}
-              </p>
+              <p className="text-muted-foreground mt-1">{cliente.nomeFantasia}</p>
             )}
           </div>
           <Badge variant={cliente.ativo ? 'default' : 'secondary'}>
@@ -96,9 +88,7 @@ export const ClienteDetalhesPage: React.FC = () => {
           <CardContent>
             <div className="text-xl font-bold font-mono">{cliente.cpfCnpj}</div>
             {cliente.inscricaoEstadual && (
-              <p className="text-xs text-muted-foreground mt-1">
-                IE: {cliente.inscricaoEstadual}
-              </p>
+              <p className="text-xs text-muted-foreground mt-1">IE: {cliente.inscricaoEstadual}</p>
             )}
           </CardContent>
         </Card>
@@ -110,9 +100,7 @@ export const ClienteDetalhesPage: React.FC = () => {
           <CardContent>
             <div className="text-xl font-bold">{cliente.segmento}</div>
             {cliente.origem && (
-              <p className="text-xs text-muted-foreground mt-1">
-                Origem: {cliente.origem}
-              </p>
+              <p className="text-xs text-muted-foreground mt-1">Origem: {cliente.origem}</p>
             )}
           </CardContent>
         </Card>
@@ -152,7 +140,7 @@ export const ClienteDetalhesPage: React.FC = () => {
             <p className="text-xs text-muted-foreground mt-1">
               {Math.floor(
                 (new Date().getTime() - new Date(cliente.dataCadastro).getTime()) /
-                  (1000 * 60 * 60 * 24)
+                  (1000 * 60 * 60 * 24),
               )}{' '}
               dias
             </p>
@@ -174,9 +162,7 @@ export const ClienteDetalhesPage: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle>Dados Cadastrais</CardTitle>
-              <CardDescription>
-                Informações principais do cliente
-              </CardDescription>
+              <CardDescription>Informações principais do cliente</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2">
@@ -185,30 +171,22 @@ export const ClienteDetalhesPage: React.FC = () => {
                     Tipo de Pessoa
                   </label>
                   <p className="text-base">
-                    {cliente.tipoPessoa === 'juridica'
-                      ? 'Pessoa Jurídica'
-                      : 'Pessoa Física'}
+                    {cliente.tipoPessoa === 'juridica' ? 'Pessoa Jurídica' : 'Pessoa Física'}
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">
-                    Segmento
-                  </label>
+                  <label className="text-sm font-medium text-muted-foreground">Segmento</label>
                   <p className="text-base">{cliente.segmento}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">
-                    Origem
-                  </label>
+                  <label className="text-sm font-medium text-muted-foreground">Origem</label>
                   <p className="text-base">{cliente.origem || 'Não informado'}</p>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-muted-foreground">
                     Vendedor Responsável
                   </label>
-                  <p className="text-base">
-                    {cliente.vendedorResponsavel || 'Não definido'}
-                  </p>
+                  <p className="text-base">{cliente.vendedorResponsavel || 'Não definido'}</p>
                 </div>
               </div>
 
@@ -230,12 +208,8 @@ export const ClienteDetalhesPage: React.FC = () => {
 
               {cliente.observacoes && (
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">
-                    Observações
-                  </label>
-                  <p className="text-base mt-1 whitespace-pre-wrap">
-                    {cliente.observacoes}
-                  </p>
+                  <label className="text-sm font-medium text-muted-foreground">Observações</label>
+                  <p className="text-base mt-1 whitespace-pre-wrap">{cliente.observacoes}</p>
                 </div>
               )}
             </CardContent>
@@ -263,17 +237,13 @@ export const ClienteDetalhesPage: React.FC = () => {
                   <label className="text-sm font-medium text-muted-foreground">
                     Condição de Pagamento
                   </label>
-                  <p className="text-base">
-                    {cliente.condicaoPagamentoPadrao || 'Não definido'}
-                  </p>
+                  <p className="text-base">{cliente.condicaoPagamentoPadrao || 'Não definido'}</p>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-muted-foreground">
                     Tabela de Preço
                   </label>
-                  <p className="text-base">
-                    {cliente.tabelaPreco || 'Padrão'}
-                  </p>
+                  <p className="text-base">{cliente.tabelaPreco || 'Padrão'}</p>
                 </div>
               </div>
             </CardContent>
@@ -285,9 +255,7 @@ export const ClienteDetalhesPage: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle>Informações de Contato</CardTitle>
-              <CardDescription>
-                Telefones, e-mails e redes sociais
-              </CardDescription>
+              <CardDescription>Telefones, e-mails e redes sociais</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2">
@@ -298,9 +266,7 @@ export const ClienteDetalhesPage: React.FC = () => {
                       <label className="text-sm font-medium text-muted-foreground">
                         Telefone Principal
                       </label>
-                      <p className="text-base font-mono">
-                        {cliente.telefonePrincipal}
-                      </p>
+                      <p className="text-base font-mono">{cliente.telefonePrincipal}</p>
                     </div>
                   </div>
                 )}
@@ -309,9 +275,7 @@ export const ClienteDetalhesPage: React.FC = () => {
                   <div className="flex items-center space-x-3">
                     <Phone className="h-5 w-5 text-green-600" />
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">
-                        WhatsApp
-                      </label>
+                      <label className="text-sm font-medium text-muted-foreground">WhatsApp</label>
                       <p className="text-base font-mono">{cliente.whatsapp}</p>
                     </div>
                   </div>
@@ -321,9 +285,7 @@ export const ClienteDetalhesPage: React.FC = () => {
                   <div className="flex items-center space-x-3">
                     <Mail className="h-5 w-5 text-muted-foreground" />
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">
-                        E-mail
-                      </label>
+                      <label className="text-sm font-medium text-muted-foreground">E-mail</label>
                       <p className="text-base">{cliente.email}</p>
                     </div>
                   </div>
@@ -333,9 +295,7 @@ export const ClienteDetalhesPage: React.FC = () => {
                   <div className="flex items-center space-x-3">
                     <MapPin className="h-5 w-5 text-muted-foreground" />
                     <div>
-                      <label className="text-sm font-medium text-muted-foreground">
-                        Site
-                      </label>
+                      <label className="text-sm font-medium text-muted-foreground">Site</label>
                       <a
                         href={cliente.site}
                         target="_blank"
@@ -355,17 +315,13 @@ export const ClienteDetalhesPage: React.FC = () => {
                   <div className="grid gap-4 md:grid-cols-2">
                     {cliente.contatoPrincipal && (
                       <div>
-                        <label className="text-sm font-medium text-muted-foreground">
-                          Nome
-                        </label>
+                        <label className="text-sm font-medium text-muted-foreground">Nome</label>
                         <p className="text-base">{cliente.contatoPrincipal}</p>
                       </div>
                     )}
                     {cliente.cargoContato && (
                       <div>
-                        <label className="text-sm font-medium text-muted-foreground">
-                          Cargo
-                        </label>
+                        <label className="text-sm font-medium text-muted-foreground">Cargo</label>
                         <p className="text-base">{cliente.cargoContato}</p>
                       </div>
                     )}
@@ -389,16 +345,13 @@ export const ClienteDetalhesPage: React.FC = () => {
               <CardContent>
                 <p className="text-base">
                   {enderecoFaturamento.logradouro}, {enderecoFaturamento.numero}
-                  {enderecoFaturamento.complemento &&
-                    ` - ${enderecoFaturamento.complemento}`}
+                  {enderecoFaturamento.complemento && ` - ${enderecoFaturamento.complemento}`}
                 </p>
                 <p className="text-base">
                   {enderecoFaturamento.bairro} - {enderecoFaturamento.cidade}/
                   {enderecoFaturamento.estado}
                 </p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  CEP: {enderecoFaturamento.cep}
-                </p>
+                <p className="text-sm text-muted-foreground mt-2">CEP: {enderecoFaturamento.cep}</p>
               </CardContent>
             </Card>
           )}
@@ -414,26 +367,20 @@ export const ClienteDetalhesPage: React.FC = () => {
               <CardContent>
                 <p className="text-base">
                   {enderecoEntrega.logradouro}, {enderecoEntrega.numero}
-                  {enderecoEntrega.complemento &&
-                    ` - ${enderecoEntrega.complemento}`}
+                  {enderecoEntrega.complemento && ` - ${enderecoEntrega.complemento}`}
                 </p>
                 <p className="text-base">
-                  {enderecoEntrega.bairro} - {enderecoEntrega.cidade}/
-                  {enderecoEntrega.estado}
+                  {enderecoEntrega.bairro} - {enderecoEntrega.cidade}/{enderecoEntrega.estado}
                 </p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  CEP: {enderecoEntrega.cep}
-                </p>
+                <p className="text-sm text-muted-foreground mt-2">CEP: {enderecoEntrega.cep}</p>
               </CardContent>
             </Card>
           )}
 
-          {(!enderecoFaturamento && !enderecoEntrega) && (
+          {!enderecoFaturamento && !enderecoEntrega && (
             <Card>
               <CardContent className="flex items-center justify-center h-32">
-                <p className="text-muted-foreground">
-                  Nenhum endereço cadastrado
-                </p>
+                <p className="text-muted-foreground">Nenhum endereço cadastrado</p>
               </CardContent>
             </Card>
           )}
@@ -444,18 +391,14 @@ export const ClienteDetalhesPage: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle>Histórico de Interações</CardTitle>
-              <CardDescription>
-                Registros de contatos e atividades
-              </CardDescription>
+              <CardDescription>Registros de contatos e atividades</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-center h-64 border-2 border-dashed rounded-lg">
                 <div className="text-center text-muted-foreground">
                   <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
                   <p>Histórico de interações</p>
-                  <p className="text-sm mt-1">
-                    Funcionalidade em desenvolvimento
-                  </p>
+                  <p className="text-sm mt-1">Funcionalidade em desenvolvimento</p>
                 </div>
               </div>
             </CardContent>

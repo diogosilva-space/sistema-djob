@@ -20,7 +20,7 @@ export interface MateriaPrima {
 // Produto completo
 export interface Produto {
   id?: string;
-  
+
   // Informações Gerais
   sku: string;
   nome: string;
@@ -35,7 +35,7 @@ export interface Produto {
   status: StatusProduto;
   imagemPrincipal?: string;
   galeriaImagens?: string[];
-  
+
   // Estoque (para Brindes)
   estoqueAtual?: number;
   estoqueMinimo?: number;
@@ -44,13 +44,13 @@ export interface Produto {
   fornecedorPrincipalId?: string;
   fornecedorPrincipalNome?: string;
   tempoReposicaoDias?: number;
-  
+
   // Ficha Técnica / BOM (para Confecção)
   bom?: MateriaPrima[];
   tempoProducaoPadrao?: number; // em minutos
   tamanhosDisponiveis?: string[];
   coresDisponiveis?: string[];
-  
+
   // Custos e Preços
   custoCompraUltima?: number;
   custoMedio?: number;
@@ -58,7 +58,7 @@ export interface Produto {
   margemLucroPadrao: number; // porcentagem
   precoVendaSugerido?: number;
   precoVendaPraticado: number;
-  
+
   // Controle
   criadoEm: Date;
   atualizadoEm: Date;
@@ -74,20 +74,20 @@ export interface CreateProdutoDTO {
   subcategoriaId?: string;
   unidadeMedida: UnidadeMedida;
   status: StatusProduto;
-  
+
   // Estoque (Brindes)
   estoqueMinimo?: number;
   estoqueMaximo?: number;
   localizacao?: string;
   fornecedorPrincipalId?: string;
   tempoReposicaoDias?: number;
-  
+
   // Ficha Técnica (Confecção)
   bom?: Omit<MateriaPrima, 'id' | 'custoTotal'>[];
   tempoProducaoPadrao?: number;
   tamanhosDisponiveis?: string[];
   coresDisponiveis?: string[];
-  
+
   // Custos
   custoCompraUltima?: number;
   margemLucroPadrao: number;

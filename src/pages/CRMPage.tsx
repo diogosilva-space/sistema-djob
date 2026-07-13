@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Plus,
-  Users,
-  TrendingUp,
-  Target,
-  Search,
-  Filter,
-  LayoutGrid,
-  List
-} from 'lucide-react';
+import { Plus, Users, TrendingUp, Target, Search, Filter, LayoutGrid, List } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,14 +27,10 @@ export const CRMPage: React.FC = () => {
     }).length || 0;
 
   // Calcular KPIs do Pipeline
-  const oportunidadesAtivas = oportunidades.filter(
-    (o) => !o.status.includes('fechado')
-  );
+  const oportunidadesAtivas = oportunidades.filter((o) => !o.status.includes('fechado'));
   const valorPotencial = oportunidadesAtivas.reduce((acc, o) => acc + o.valor, 0);
   const taxaConversao = Math.round(
-    (oportunidades.filter((o) => o.status === 'fechado_ganho').length /
-      oportunidades.length) *
-    100
+    (oportunidades.filter((o) => o.status === 'fechado_ganho').length / oportunidades.length) * 100,
   );
 
   const formatCurrency = (valor: number) => {
@@ -52,9 +39,7 @@ export const CRMPage: React.FC = () => {
 
   // Handlers
   const handleMoveOportunidade = (id: string, novoStatus: StatusOportunidade) => {
-    setOportunidades((prev) =>
-      prev.map((o) => (o.id === id ? { ...o, status: novoStatus } : o))
-    );
+    setOportunidades((prev) => prev.map((o) => (o.id === id ? { ...o, status: novoStatus } : o)));
   };
 
   const handleClickOportunidade = (oportunidade: Oportunidade) => {

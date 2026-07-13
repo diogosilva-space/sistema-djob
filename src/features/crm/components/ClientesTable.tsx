@@ -76,9 +76,7 @@ export const ClientesTable: React.FC<ClientesTableProps> = ({ data: propData }) 
             <div>
               <div className="font-medium">{row.getValue('razaoSocial')}</div>
               {row.original.nomeFantasia && (
-                <div className="text-sm text-muted-foreground">
-                  {row.original.nomeFantasia}
-                </div>
+                <div className="text-sm text-muted-foreground">{row.original.nomeFantasia}</div>
               )}
             </div>
             <Badge variant="outline" className="text-xs">
@@ -106,18 +104,14 @@ export const ClientesTable: React.FC<ClientesTableProps> = ({ data: propData }) 
       accessorKey: 'email',
       header: 'E-mail',
       cell: ({ row }) => {
-        return (
-          <div className="text-sm text-muted-foreground">{row.getValue('email')}</div>
-        );
+        return <div className="text-sm text-muted-foreground">{row.getValue('email')}</div>;
       },
     },
     {
       accessorKey: 'telefonePrincipal',
       header: 'Telefone',
       cell: ({ row }) => {
-        return (
-          <div className="font-mono text-sm">{row.getValue('telefonePrincipal')}</div>
-        );
+        return <div className="font-mono text-sm">{row.getValue('telefonePrincipal')}</div>;
       },
     },
     {
@@ -258,9 +252,7 @@ export const ClientesTable: React.FC<ClientesTableProps> = ({ data: propData }) 
         <Input
           placeholder="Buscar por cliente..."
           value={(table.getColumn('razaoSocial')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('razaoSocial')?.setFilterValue(event.target.value)
-          }
+          onChange={(event) => table.getColumn('razaoSocial')?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
         <div className="text-sm text-muted-foreground">
@@ -279,10 +271,7 @@ export const ClientesTable: React.FC<ClientesTableProps> = ({ data: propData }) 
                     <TableHead key={header.id}>
                       {header.isPlaceholder
                         ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                        : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -292,10 +281,7 @@ export const ClientesTable: React.FC<ClientesTableProps> = ({ data: propData }) 
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -317,8 +303,7 @@ export const ClientesTable: React.FC<ClientesTableProps> = ({ data: propData }) 
       {/* Paginação */}
       <div className="flex items-center justify-between space-x-2">
         <div className="text-sm text-muted-foreground">
-          Página {table.getState().pagination.pageIndex + 1} de{' '}
-          {table.getPageCount()}
+          Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
         </div>
         <div className="flex items-center space-x-2">
           <Button
@@ -346,8 +331,7 @@ export const ClientesTable: React.FC<ClientesTableProps> = ({ data: propData }) 
           <DialogHeader>
             <DialogTitle>Confirmar Exclusão</DialogTitle>
             <DialogDescription>
-              Tem certeza que deseja excluir este cliente? Esta ação não pode ser
-              desfeita.
+              Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

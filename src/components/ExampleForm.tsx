@@ -4,13 +4,26 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from '@/components/ui/form';
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+} from '@/components/ui/form';
 
 /**
  * Exemplo de Formulário usando os componentes shadcn/ui
- * 
+ *
  * Este componente demonstra como usar os componentes de formulário
  * de forma integrada e reutilizável.
  */
@@ -36,9 +49,7 @@ export const ExampleForm: React.FC = () => {
     <Card className="max-w-2xl">
       <CardHeader>
         <CardTitle>Exemplo de Formulário</CardTitle>
-        <CardDescription>
-          Demonstração dos componentes de formulário com shadcn/ui
-        </CardDescription>
+        <CardDescription>Demonstração dos componentes de formulário com shadcn/ui</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -109,9 +120,7 @@ export const ExampleForm: React.FC = () => {
                   rows={4}
                 />
               </FormControl>
-              <FormDescription>
-                Máximo de 500 caracteres
-              </FormDescription>
+              <FormDescription>Máximo de 500 caracteres</FormDescription>
             </FormItem>
           </FormField>
 
@@ -120,9 +129,7 @@ export const ExampleForm: React.FC = () => {
             <Button type="button" variant="outline">
               Cancelar
             </Button>
-            <Button type="submit">
-              Salvar
-            </Button>
+            <Button type="submit">Salvar</Button>
           </div>
         </form>
       </CardContent>

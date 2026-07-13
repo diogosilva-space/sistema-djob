@@ -31,9 +31,7 @@ interface ProdutoFormProps {
   initialData?: Produto;
 }
 
-export const ProdutoForm: React.FC<ProdutoFormProps> = ({
-  initialData,
-}) => {
+export const ProdutoForm: React.FC<ProdutoFormProps> = ({ initialData }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<Partial<Produto>>(
@@ -46,7 +44,7 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
       precoVendaPraticado: 0,
       criadoEm: new Date(),
       atualizadoEm: new Date(),
-    }
+    },
   );
 
   const handleFieldChange = (field: string, value: any) => {
@@ -109,9 +107,7 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
 
   const toggleCor = (cor: string) => {
     const current = formData.coresDisponiveis || [];
-    const updated = current.includes(cor)
-      ? current.filter((c) => c !== cor)
-      : [...current, cor];
+    const updated = current.includes(cor) ? current.filter((c) => c !== cor) : [...current, cor];
     handleFieldChange('coresDisponiveis', updated);
   };
 
@@ -123,17 +119,24 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
         handleFieldChange('custoProducao', totalBom);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData.bom, formData.tipoProduto]);
 
   // Calcular preço sugerido
   useEffect(() => {
-    const custo = formData.tipoProduto === 'brinde'
-      ? formData.custoCompraUltima || 0
-      : formData.custoProducao || 0;
+    const custo =
+      formData.tipoProduto === 'brinde'
+        ? formData.custoCompraUltima || 0
+        : formData.custoProducao || 0;
 
     const sugerido = custo * (1 + (formData.margemLucroPadrao || 0) / 100);
     setFormData((prev) => ({ ...prev, precoVendaSugerido: sugerido }));
-  }, [formData.custoCompraUltima, formData.custoProducao, formData.margemLucroPadrao, formData.tipoProduto]);
+  }, [
+    formData.custoCompraUltima,
+    formData.custoProducao,
+    formData.margemLucroPadrao,
+    formData.tipoProduto,
+  ]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,9 +157,8 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
     description: f.cnpj,
   }));
 
-  const subcategorias = categoriasMock
-    .find((c) => c.id === formData.categoriaId)
-    ?.subcategorias || [];
+  const subcategorias =
+    categoriasMock.find((c) => c.id === formData.categoriaId)?.subcategorias || [];
 
   const materiaisOptions: ComboboxOption[] = materiaisMock.map((m) => ({
     value: m.id,
@@ -180,9 +182,7 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
       <Tabs defaultValue="geral" className="space-y-4">
         <TabsList>
           <TabsTrigger value="geral">Informações Gerais</TabsTrigger>
-          {formData.tipoProduto === 'brinde' && (
-            <TabsTrigger value="estoque">Estoque</TabsTrigger>
-          )}
+          {formData.tipoProduto === 'brinde' && <TabsTrigger value="estoque">Estoque</TabsTrigger>}
           {formData.tipoProduto === 'confeccao' && (
             <TabsTrigger value="ficha">Ficha Técnica</TabsTrigger>
           )}
@@ -375,9 +375,7 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
                       readOnly
                       className="bg-muted"
                     />
-                    <p className="text-xs text-muted-foreground">
-                      Atualizado por movimentações
-                    </p>
+                    <p className="text-xs text-muted-foreground">Atualizado por movimentações</p>
                   </div>
 
                   <div className="space-y-2">
@@ -423,9 +421,7 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
                     <Combobox
                       options={fornecedoresOptions}
                       value={formData.fornecedorPrincipalId || ''}
-                      onValueChange={(value) =>
-                        handleFieldChange('fornecedorPrincipalId', value)
-                      }
+                      onValueChange={(value) => handleFieldChange('fornecedorPrincipalId', value)}
                       placeholder="Selecione o fornecedor"
                       searchPlaceholder="Buscar fornecedor..."
                     />
@@ -466,7 +462,9 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
                       type="number"
                       min="0"
                       value={formData.tempoProducaoPadrao || ''}
-                      onChange={(e) => handleFieldChange('tempoProducaoPadrao', parseInt(e.target.value) || 0)}
+                      onChange={(e) =>
+                        handleFieldChange('tempoProducaoPadrao', parseInt(e.target.value) || 0)
+                      }
                       className="h-8"
                     />
                     <span className="text-xs text-muted-foreground whitespace-nowrap">minutos</span>
@@ -512,10 +510,11 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
                         type="button"
                         title={c.nome}
                         onClick={() => toggleCor(c.nome)}
-                        className={`h-6 w-6 rounded-full border border-border transition-all ${formData.coresDisponiveis?.includes(c.nome)
-                          ? 'ring-2 ring-primary ring-offset-1 scale-110'
-                          : 'opacity-70 hover:opacity-100'
-                          }`}
+                        className={`h-6 w-6 rounded-full border border-border transition-all ${
+                          formData.coresDisponiveis?.includes(c.nome)
+                            ? 'ring-2 ring-primary ring-offset-1 scale-110'
+                            : 'opacity-70 hover:opacity-100'
+                        }`}
                         style={{ backgroundColor: c.hex }}
                       />
                     ))}
@@ -562,7 +561,9 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
                               <Combobox
                                 options={materiaisOptions}
                                 value={item.materialId}
-                                onValueChange={(value) => updateBomItem(item.id, 'materialId', value)}
+                                onValueChange={(value) =>
+                                  updateBomItem(item.id, 'materialId', value)
+                                }
                                 placeholder="Selecionar material..."
                                 searchPlaceholder="Buscar..."
                                 className="h-8 text-xs border-transparent bg-transparent hover:border-input focus:bg-background"
@@ -574,7 +575,13 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
                                 step="0.001"
                                 min="0"
                                 value={item.quantidade}
-                                onChange={(e) => updateBomItem(item.id, 'quantidade', parseFloat(e.target.value) || 0)}
+                                onChange={(e) =>
+                                  updateBomItem(
+                                    item.id,
+                                    'quantidade',
+                                    parseFloat(e.target.value) || 0,
+                                  )
+                                }
                                 className="h-8 text-xs text-right"
                               />
                             </td>
@@ -603,9 +610,14 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
                     {(formData.bom || []).length > 0 && (
                       <tfoot className="bg-muted/30 font-medium">
                         <tr>
-                          <td colSpan={4} className="px-3 py-2 text-right">Custo Total da Composição:</td>
+                          <td colSpan={4} className="px-3 py-2 text-right">
+                            Custo Total da Composição:
+                          </td>
                           <td className="px-3 py-2 text-right text-primary font-bold">
-                            R$ {(formData.bom || []).reduce((acc, item) => acc + item.custoTotal, 0).toFixed(2)}
+                            R${' '}
+                            {(formData.bom || [])
+                              .reduce((acc, item) => acc + item.custoTotal, 0)
+                              .toFixed(2)}
                           </td>
                           <td></td>
                         </tr>
@@ -670,9 +682,7 @@ export const ProdutoForm: React.FC<ProdutoFormProps> = ({
                     readOnly
                     className="bg-muted"
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Calculado automaticamente
-                  </p>
+                  <p className="text-xs text-muted-foreground">Calculado automaticamente</p>
                 </div>
 
                 <div className="space-y-2">
