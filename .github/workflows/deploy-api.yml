@@ -39,6 +39,7 @@ jobs:
           host: ${{ secrets.ORACLE_HOST }}
           username: ${{ secrets.ORACLE_USER }}
           key: ${{ secrets.ORACLE_SSH_KEY }}
+          passphrase: ${{ secrets.ORACLE_SSH_PASSPHRASE }}
           source: /tmp/djob-api.tar.gz
           target: /home/${{ secrets.ORACLE_USER }}/djob/
 
@@ -48,6 +49,7 @@ jobs:
           host: ${{ secrets.ORACLE_HOST }}
           username: ${{ secrets.ORACLE_USER }}
           key: ${{ secrets.ORACLE_SSH_KEY }}
+          passphrase: ${{ secrets.ORACLE_SSH_PASSPHRASE }}
           script: |
             cd /home/${{ secrets.ORACLE_USER }}/djob
             docker load < djob-api.tar.gz
