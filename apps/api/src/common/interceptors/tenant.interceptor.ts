@@ -13,6 +13,10 @@ export class TenantInterceptor implements NestInterceptor {
       return next.handle();
     }
 
+    if (user.role === 'SUPER_ADMIN') {
+      return next.handle();
+    }
+
     // Injetamos um PrismaClient transacional que possui RLS configurado
     // O service deverá usar o request.prisma ao invés da instância global
     request.prisma = prisma.$extends({

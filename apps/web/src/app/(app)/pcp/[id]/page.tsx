@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { pcpService } from '@/features/pcp/api/pcp.service';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -16,11 +16,7 @@ export default function PcpOrderDetailsPage() {
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (id) loadOrder();
-  }, [id]);
-
-  const loadOrder = async () => {
+  const loadOrder = useCallback(async () => {
     try {
       setLoading(true);
       const data = await pcpService.getProductionOrderById(id);
@@ -30,7 +26,11 @@ export default function PcpOrderDetailsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    if (id) loadOrder();
+  }, [id, loadOrder]);
 
   const handleAction = async (stepId: string, action: 'START' | 'FINISH' | 'PAUSE' | 'DEFECT') => {
     try {

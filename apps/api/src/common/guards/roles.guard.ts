@@ -13,11 +13,19 @@ export class RolesGuard implements CanActivate {
       context.getClass(),
     ]);
 
+    const { user } = context.switchToHttp().getRequest();
+
+    if (user?.role === 'SUPER_ADMIN') {
+      if (requiredRoles?.includes('SUPER_ADMIN')) {
+        return true;
+      }
+
+      throw new ForbiddenException('Super Admin não tem acesso a rotas operacionais.');
+    }
+
     if (!requiredRoles) {
       return true;
     }
-
-    const { user } = context.switchToHttp().getRequest();
 
     if (!user || !user.role || !requiredRoles.includes(user.role)) {
       throw new ForbiddenException('Acesso negado. Perfil insuficiente.');

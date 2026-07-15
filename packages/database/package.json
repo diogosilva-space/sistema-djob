@@ -7,14 +7,17 @@
   "scripts": {
     "build": "tsc",
     "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
+    "db:migrate": "bash ../../infra/run-prisma-migration.sh deploy",
+    "db:migrate:create": "bash ../../infra/create-production-migration.sh",
+    "db:migrate:status": "bash ../../infra/run-prisma-migration.sh status",
     "db:migrate:deploy": "prisma migrate deploy",
-    "db:seed": "tsx prisma/seed.ts",
+    "db:seed": "bash ../../infra/run-prisma-seed.sh",
     "db:studio": "prisma studio",
     "db:reset": "prisma migrate reset"
   },
   "dependencies": {
-    "@prisma/client": "^6.9.0"
+    "@prisma/client": "^6.9.0",
+    "argon2": "^0.40.1"
   },
   "devDependencies": {
     "prisma": "^6.9.0",

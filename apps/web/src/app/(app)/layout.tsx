@@ -1,17 +1,27 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Sidebar } from '@/components/layout/sidebar';
 import { Header } from '@/components/layout/header';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const token = useAuth((s) => s.token);
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const toggleCollapsed = useCallback(() => setCollapsed((v) => !v), []);
   const toggleMobile = useCallback(() => setMobileOpen((v) => !v), []);
+
+  useEffect(() => {
+    if (!token) {
+      router.replace('/auth/login');
+    }
+  }, [token, router]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,6 +30,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  if (!token) return null;
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">

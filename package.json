@@ -8,13 +8,15 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo dev",
+    "dev": "bash ./infra/dev.sh",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "db:generate": "turbo db:generate",
-    "db:migrate": "turbo db:migrate",
+    "db:migrate": "npm run db:migrate --workspace=@djob/database",
+    "db:migrate:create": "npm run db:migrate:create --workspace=@djob/database",
+    "db:migrate:status": "npm run db:migrate:status --workspace=@djob/database",
     "db:seed": "turbo db:seed"
   },
   "devDependencies": {

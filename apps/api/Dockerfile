@@ -17,15 +17,9 @@ COPY packages/database/prisma ./packages/database/prisma
 RUN npx prisma generate --schema=packages/database/prisma/schema.prisma
 
 # ---- Build ----
-FROM base AS builder
-WORKDIR /app
+FROM deps AS builder
 
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/api/node_modules ./apps/api/node_modules 2>/dev/null || true
-COPY --from=deps /app/packages/database/node_modules ./packages/database/node_modules 2>/dev/null || true
-COPY --from=deps /app/packages/validators/node_modules ./packages/validators/node_modules 2>/dev/null || true
-
-COPY package.json turbo.json tsconfig.base.json ./
+COPY tsconfig.base.json ./
 COPY apps/api ./apps/api
 COPY packages ./packages
 

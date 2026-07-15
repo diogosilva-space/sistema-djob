@@ -19,6 +19,7 @@ import { OpportunitiesModule } from './opportunities/opportunities.module';
 import { ActivitiesModule } from './activities/activities.module';
 import { TasksModule } from './tasks/tasks.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ContactsModule } from './contacts/contacts.module';
       },
     ]),
     AuthModule,
+    AdminModule,
     TenantModule,
     CrmModule,
     PcpModule,

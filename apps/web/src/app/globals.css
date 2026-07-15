@@ -64,7 +64,7 @@
     --accent: 224 30% 16%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62% 30%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 224 25% 18%;
@@ -91,5 +91,97 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  .auth-glass-form label {
+    @apply text-white/70;
+  }
+
+  .auth-glass-form input {
+    @apply bg-white/10 border-white/20 text-white placeholder:text-white/30
+      focus:border-white/40 focus:ring-white/20;
+  }
+
+  .auth-glass-form input:-webkit-autofill,
+  .auth-glass-form input:-webkit-autofill:hover,
+  .auth-glass-form input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0 1000px rgba(255 255 255 / 0.08) inset;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: white;
+  }
+
+  .auth-glass-form p[role="status"] {
+    @apply text-amber-300;
+  }
+
+  .auth-glass-form a {
+    @apply text-white/70 hover:text-white;
+  }
+
+  .auth-glass-form .text-destructive {
+    @apply text-red-300;
+  }
+
+  .auth-glass-form [role="alert"] {
+    @apply bg-red-500/15 border-red-400/25;
+  }
+
+  .auth-glass-form [role="alert"] p {
+    @apply text-red-300;
+  }
+
+  .auth-glass-form [role="alert"] svg {
+    @apply text-red-300;
+  }
+
+  .auth-glass-form .text-muted-foreground {
+    @apply text-white/50;
+  }
+
+  .auth-glass-form button[type="button"] {
+    @apply text-white/40 hover:text-white/80 hover:bg-white/10;
+  }
+
+  .auth-glass-form .border-destructive\/20 {
+    border-color: rgba(252, 165, 165, 0.25);
+  }
+
+  .auth-glass-form .bg-destructive\/10 {
+    background-color: rgba(239, 68, 68, 0.15);
+  }
+
+  .prose-container h2 {
+    @apply text-lg font-semibold text-foreground mt-10 mb-4 scroll-mt-20;
+  }
+
+  .prose-container h3 {
+    @apply text-base font-semibold text-foreground mt-6 mb-3;
+  }
+
+  .prose-container p {
+    @apply text-sm leading-relaxed text-muted-foreground mb-4;
+  }
+
+  .prose-container ul {
+    @apply list-disc pl-5 mb-4 space-y-1.5;
+  }
+
+  .prose-container li {
+    @apply text-sm leading-relaxed text-muted-foreground;
+  }
+
+  .prose-container strong {
+    @apply font-semibold text-foreground;
+  }
+
+  .prose-container a {
+    @apply text-primary hover:underline;
+  }
+
+  .prose-container section + section {
+    @apply border-t border-border pt-8;
   }
 }

@@ -28,12 +28,12 @@ Usuário
 
 ### Recursos do Free Tier utilizados
 
-| Recurso | Especificação |
-|---------|---------------|
-| VM | Ampere A1 Flex — 4 OCPUs, 24 GB RAM (ARM) |
-| Disco | 200 GB boot volume |
-| Rede | 10 TB/mês outbound |
-| IP | 1 IP público reservado |
+| Recurso | Especificação                             |
+| ------- | ----------------------------------------- |
+| VM      | Ampere A1 Flex — 4 OCPUs, 24 GB RAM (ARM) |
+| Disco   | 200 GB boot volume                        |
+| Rede    | 10 TB/mês outbound                        |
+| IP      | 1 IP público reservado                    |
 
 ---
 
@@ -46,6 +46,7 @@ Usuário
 3. Configure a instância:
 
    **Name:**
+
    ```
    djob-server
    ```
@@ -91,22 +92,24 @@ A Oracle bloqueia tudo por padrão. Precisamos abrir HTTP e HTTPS.
 3. Clique em **"Add Ingress Rules"** e adicione:
 
    **Regra 1 — HTTP:**
-   | Campo | Valor |
-   |-------|-------|
-   | Source Type | CIDR |
-   | Source CIDR | `0.0.0.0/0` |
-   | IP Protocol | TCP |
-   | Destination Port Range | `80` |
-   | Description | HTTP |
+
+   | Campo                  | Valor       |
+   | ---------------------- | ----------- |
+   | Source Type            | CIDR        |
+   | Source CIDR            | `0.0.0.0/0` |
+   | IP Protocol            | TCP         |
+   | Destination Port Range | `80`        |
+   | Description            | HTTP        |
 
    **Regra 2 — HTTPS:**
-   | Campo | Valor |
-   |-------|-------|
-   | Source Type | CIDR |
-   | Source CIDR | `0.0.0.0/0` |
-   | IP Protocol | TCP |
-   | Destination Port Range | `443` |
-   | Description | HTTPS |
+
+   | Campo                  | Valor       |
+   | ---------------------- | ----------- |
+   | Source Type            | CIDR        |
+   | Source CIDR            | `0.0.0.0/0` |
+   | IP Protocol            | TCP         |
+   | Destination Port Range | `443`       |
+   | Description            | HTTPS       |
 
 4. Clique **"Add Ingress Rules"**
 
@@ -195,7 +198,7 @@ cd ~/djob
 cp .env.production.example .env
 
 # Gerar senhas seguras
-echo "POSTGRES_PASSWORD=$(openssl rand -base64 32)" 
+echo "POSTGRES_PASSWORD=$(openssl rand -base64 32)"
 echo "JWT_SECRET=$(openssl rand -base64 64)"
 
 # Editar o .env com as senhas geradas
@@ -275,9 +278,9 @@ Se retornar resposta JSON, a API está no ar!
 
 No seu provedor de DNS (Cloudflare, Registro.br, GoDaddy, etc.):
 
-| Tipo | Nome | Valor | TTL |
-|------|------|-------|-----|
-| A | `api.djob.com.br` | `SEU_IP_PUBLICO` | 300 |
+| Tipo | Nome              | Valor            | TTL |
+| ---- | ----------------- | ---------------- | --- |
+| A    | `api.djob.com.br` | `SEU_IP_PUBLICO` | 300 |
 
 Aguarde a propagação (5-30 minutos) e teste:
 
@@ -381,6 +384,75 @@ gunzip < ~/backups/djob_20260715.sql.gz | docker compose exec -T db psql -U djob
 
 ---
 
+## Desenvolvimento local com banco de produção
+
+O ambiente local usa o PostgreSQL da Oracle por meio de um túnel SSH. A porta
+do banco continua inacessível pela internet e a aplicação local lê e grava no
+mesmo banco utilizado pela API de produção.
+
+### Iniciar o ambiente
+
+Inicie a aplicação normalmente:
+
+```bash
+npm run dev
+```
+
+O comando abre automaticamente o túnel SSH, inicia os serviços de
+desenvolvimento e encerra o túnel ao finalizar com `Ctrl+C`. Caso já exista um
+túnel ativo em `localhost:5433`, ele é reutilizado e permanece aberto.
+
+O arquivo `.env` local deve apontar `DATABASE_URL` para `localhost:5433`. Não
+altere a porta exposta do PostgreSQL na Oracle e não versione o arquivo `.env`.
+
+### Criar e aplicar migrations
+
+O banco de produção foi reconciliado com as migrations já existentes. A partir
+de agora, use os comandos abaixo. Nunca execute `prisma migrate dev`, `prisma
+db push` ou `prisma migrate reset` com a `DATABASE_URL` de produção.
+
+```bash
+# 1. Altere packages/database/prisma/schema.prisma.
+
+# 2. Com o túnel ativo, gere o SQL da migration sem aplicá-la.
+npm run db:migrate:create -- add_nome_descritivo
+
+# 3. Revise o arquivo SQL criado em packages/database/prisma/migrations/.
+
+# 4. Aplique as migrations pendentes no banco de produção.
+npm run db:migrate
+
+# 5. Confirme o estado do histórico.
+npm run db:migrate:status
+```
+
+O comando `db:migrate:create` compara o schema Prisma com o banco de produção
+e cria somente o SQL necessário. Para alterações com dados existentes, revise
+o SQL cuidadosamente, faça backup e acrescente a transformação de dados à
+migration antes de aplicá-la.
+
+### Recuperação de senha por e-mail
+
+O fluxo de recuperação de senha exige um provedor de e-mail antes de ser
+ativado para usuários finais. A API possui tokens de uso único e as telas de
+recuperação, mas responde que o serviço está indisponível até haver um adaptador
+de entrega configurado.
+
+Ao escolher o provedor, configure estas variáveis no `.env` da Oracle e
+reinicie a API:
+
+```bash
+APP_WEB_URL=https://app.djob.com.br
+PASSWORD_RESET_TOKEN_TTL_MINUTES=60
+MAIL_PROVIDER=
+MAIL_FROM=
+```
+
+Não registre links ou tokens de recuperação em logs, commits ou ferramentas de
+observabilidade.
+
+---
+
 ## PARTE 2: Vercel (Frontend)
 
 ### PASSO 1: Preparar o repositório
@@ -397,18 +469,18 @@ Certifique-se de que o código está no GitHub (público ou privado).
 
 4. Configure:
 
-   | Campo | Valor |
-   |-------|-------|
-   | Framework Preset | **Next.js** |
-   | Root Directory | **`apps/web`** |
-   | Build Command | `cd ../.. && npx turbo run build --filter=web` |
-   | Output Directory | `.next` |
-   | Install Command | `cd ../.. && npm install` |
+   | Campo            | Valor                                          |
+   | ---------------- | ---------------------------------------------- |
+   | Framework Preset | **Next.js**                                    |
+   | Root Directory   | **`apps/web`**                                 |
+   | Build Command    | `cd ../.. && npx turbo run build --filter=web` |
+   | Output Directory | `.next`                                        |
+   | Install Command  | `cd ../.. && npm install`                      |
 
 5. Em **Environment Variables**, adicione:
 
-   | Variável | Valor |
-   |----------|-------|
+   | Variável              | Valor                     |
+   | --------------------- | ------------------------- |
    | `NEXT_PUBLIC_API_URL` | `https://api.djob.com.br` |
 
 6. Clique em **"Deploy"**
@@ -423,8 +495,8 @@ Certifique-se de que o código está no GitHub (público ou privado).
 
 3. A Vercel mostrará as configurações de DNS necessárias. No seu provedor:
 
-   | Tipo | Nome | Valor |
-   |------|------|-------|
+   | Tipo  | Nome  | Valor                  |
+   | ----- | ----- | ---------------------- |
    | CNAME | `app` | `cname.vercel-dns.com` |
 
 4. Aguarde propagação e a Vercel gera o SSL automaticamente
@@ -432,6 +504,7 @@ Certifique-se de que o código está no GitHub (público ou privado).
 ### PASSO 4: Deploy automático
 
 A partir de agora, cada `git push` para `main` faz deploy automático:
+
 - Push para `main` → deploy de produção
 - Pull Request → deploy de preview (URL temporária)
 
@@ -439,16 +512,17 @@ A partir de agora, cada `git push` para `main` faz deploy automático:
 
 ## Resumo dos domínios DNS
 
-| Tipo | Nome | Destino |
-|------|------|---------|
-| A | `api.djob.com.br` | IP público da VM Oracle |
-| CNAME | `app.djob.com.br` | `cname.vercel-dns.com` |
+| Tipo  | Nome              | Destino                 |
+| ----- | ----------------- | ----------------------- |
+| A     | `api.djob.com.br` | IP público da VM Oracle |
+| CNAME | `app.djob.com.br` | `cname.vercel-dns.com`  |
 
 ---
 
 ## Checklist de Primeiro Deploy
 
 ### Oracle Cloud
+
 - [ ] VM criada (Ampere A1, Ubuntu, 4 OCPU, 24 GB)
 - [ ] Portas 80 e 443 abertas na Security List
 - [ ] SSH funcionando
@@ -465,6 +539,7 @@ A partir de agora, cada `git push` para `main` faz deploy automático:
 - [ ] Backup automático configurado no cron
 
 ### Vercel
+
 - [ ] Repositório conectado na Vercel
 - [ ] `NEXT_PUBLIC_API_URL` configurado
 - [ ] Build passando com sucesso
@@ -472,6 +547,7 @@ A partir de agora, cada `git push` para `main` faz deploy automático:
 - [ ] Site acessível em `https://app.djob.com.br`
 
 ### GitHub (opcional, para deploy automático da API)
+
 - [ ] Secret `ORACLE_HOST` = IP da VM
 - [ ] Secret `ORACLE_USER` = `ubuntu`
 - [ ] Secret `ORACLE_SSH_KEY` = chave privada SSH

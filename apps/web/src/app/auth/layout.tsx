@@ -1,7 +1,12 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Acessar | D.job System',
+    template: '%s | D.job System',
+  },
+};
+
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen bg-muted flex items-center justify-center p-4">
-      <div className="w-full max-w-md">{children}</div>
-    </div>
-  );
+  return <>{children}</>;
 }

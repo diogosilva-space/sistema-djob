@@ -1,12 +1,48 @@
-import { PrismaClient } from '@prisma/client';
+import * as argon2 from 'argon2';
+import { PrismaClient, UserRole } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function main() {
-  console.log('Start seeding...');
+const platformTenant = {
+  name: 'D.job Platform',
+  slug: 'platform',
+};
 
-  // Create demo tenant
+const superAdmin = {
+  name: 'Administrador da Plataforma',
+  email: 'admin@djob.com.br',
+  password: 'Admin@2026!',
+};
+
+async function main() {
   const tenant = await prisma.tenant.upsert({
+    where: { slug: platformTenant.slug },
+    update: { name: platformTenant.name, isActive: true },
+    create: {
+      ...platformTenant,
+      isActive: true,
+    },
+  });
+
+  await prisma.user.upsert({
+    where: { email: superAdmin.email },
+    update: {
+      name: superAdmin.name,
+      role: UserRole.SUPER_ADMIN,
+      tenantId: tenant.id,
+      isActive: true,
+    },
+    create: {
+      name: superAdmin.name,
+      email: superAdmin.email,
+      passwordHash: await argon2.hash(superAdmin.password),
+      tenantId: tenant.id,
+      role: UserRole.SUPER_ADMIN,
+      isActive: true,
+    },
+  });
+
+  const demoTenant = await prisma.tenant.upsert({
     where: { slug: 'demo-confeccao' },
     update: {},
     create: {
@@ -16,33 +52,31 @@ async function main() {
     },
   });
 
-  // Create admin user
-  const admin = await prisma.user.upsert({
-    where: {
-      tenantId_email: {
-        tenantId: tenant.id,
-        email: 'admin@demo.com',
-      },
+  await prisma.user.upsert({
+    where: { email: 'admin@demo.com' },
+    update: {
+      tenantId: demoTenant.id,
+      name: 'Admin User',
+      role: UserRole.ADMIN,
+      isActive: true,
     },
-    update: {},
     create: {
-      tenantId: tenant.id,
+      tenantId: demoTenant.id,
       name: 'Admin User',
       email: 'admin@demo.com',
-      passwordHash: 'dummy_hash', // To be replaced with real hash in auth module
-      role: 'ADMIN',
+      passwordHash: await argon2.hash('Admin@2026!'),
+      role: UserRole.ADMIN,
     },
   });
-
-  console.log(`Created tenant: ${tenant.name}`);
-  console.log(`Created user: ${admin.email}`);
-  console.log('Seeding finished.');
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
+  .then(() => {
+    console.info(`Super Admin disponível em ${superAdmin.email}.`);
+  })
+  .catch((error: unknown) => {
+    console.error('Falha ao criar o Super Admin inicial.', error);
+    process.exitCode = 1;
   })
   .finally(async () => {
     await prisma.$disconnect();

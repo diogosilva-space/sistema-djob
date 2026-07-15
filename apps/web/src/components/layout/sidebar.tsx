@@ -16,20 +16,20 @@ import {
   UserCheck,
   Truck,
   DollarSign,
+  Building2,
 } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/use-auth';
 
 interface SidebarProps {
   collapsed: boolean;
 }
 
-const navSections = [
+const operationalSections = [
   {
     label: 'Principal',
-    items: [
-      { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    ],
+    items: [{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard }],
   },
   {
     label: 'Comercial',
@@ -62,6 +62,16 @@ const navSections = [
 
 export function Sidebar({ collapsed }: SidebarProps) {
   const pathname = usePathname();
+  const user = useAuth((state) => state.user);
+  const navSections =
+    user?.role === 'SUPER_ADMIN'
+      ? [
+          {
+            label: 'Administração',
+            items: [{ href: '/admin/tenants', label: 'Empresas', icon: Building2 }],
+          },
+        ]
+      : operationalSections;
 
   return (
     <aside
@@ -71,10 +81,12 @@ export function Sidebar({ collapsed }: SidebarProps) {
       )}
     >
       {/* Branding */}
-      <div className={cn(
-        'flex h-[50px] shrink-0 items-center border-b border-border',
-        collapsed ? 'justify-center px-2' : 'gap-2.5 px-4',
-      )}>
+      <div
+        className={cn(
+          'flex h-[50px] shrink-0 items-center border-b border-border',
+          collapsed ? 'justify-center px-2' : 'gap-2.5 px-4',
+        )}
+      >
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary">
           <span className="text-sm font-bold text-primary-foreground">D</span>
         </div>
@@ -97,8 +109,7 @@ export function Sidebar({ collapsed }: SidebarProps) {
               )}
               <div className="flex flex-col gap-0.5">
                 {section.items.map((item) => {
-                  const isActive =
-                    pathname === item.href || pathname.startsWith(item.href + '/');
+                  const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
                   const Icon = item.icon;
                   return (
                     <Link

@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import {
   Bell,
@@ -25,6 +25,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAuth } from '@/hooks/use-auth';
 
 interface HeaderProps {
   collapsed: boolean;
@@ -47,6 +48,11 @@ const routeLabels: Record<string, string> = {
   '/rh/novo': 'Novo Colaborador',
   '/logistica': 'Logística & Entregas',
   '/financeiro': 'Financeiro',
+  '/admin': 'Administração',
+  '/admin/tenants': 'Empresas',
+  '/admin/tenants/new': 'Nova empresa',
+  '/users': 'Usuários',
+  '/users/new': 'Novo usuário',
 };
 
 function Breadcrumb() {
@@ -71,9 +77,7 @@ function Breadcrumb() {
           {idx > 0 && <ChevronRight className="h-3 w-3 text-muted-foreground" />}
           <span
             className={
-              idx === crumbs.length - 1
-                ? 'font-medium text-foreground'
-                : 'text-muted-foreground'
+              idx === crumbs.length - 1 ? 'font-medium text-foreground' : 'text-muted-foreground'
             }
           >
             {crumb.label}
@@ -102,6 +106,19 @@ function ThemeToggle() {
 }
 
 export function Header({ collapsed, onToggleSidebar, onMobileMenuToggle }: HeaderProps) {
+  const router = useRouter();
+  const { user, logout } = useAuth();
+
+  function handleLogout() {
+    logout();
+    router.push('/auth/login');
+  }
+
+  const displayName = user?.name || 'Usuário';
+  const displayTenant = user?.tenant?.name || '';
+  const displayEmail = user?.email || '';
+  const initials = displayName.charAt(0).toUpperCase();
+
   return (
     <header className="sticky top-0 z-30 flex h-[50px] shrink-0 items-center justify-between border-b border-border bg-card px-4 md:px-5">
       {/* Left: toggle + breadcrumb */}
@@ -132,7 +149,12 @@ export function Header({ collapsed, onToggleSidebar, onMobileMenuToggle }: Heade
       <div className="flex items-center gap-1">
         <ThemeToggle />
 
-        <Button variant="ghost" size="icon" className="relative text-muted-foreground" aria-label="Notificações">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative text-muted-foreground"
+          aria-label="Notificações"
+        >
           <Bell className="h-4 w-4" />
           <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full bg-secondary" />
         </Button>
@@ -142,19 +164,19 @@ export function Header({ collapsed, onToggleSidebar, onMobileMenuToggle }: Heade
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="gap-2 pl-2 pr-2 ml-1">
               <div className="h-7 w-7 rounded-md bg-primary/10 flex items-center justify-center">
-                <span className="text-xs font-bold text-primary">A</span>
+                <span className="text-xs font-bold text-primary">{initials}</span>
               </div>
               <div className="hidden sm:block text-left">
-                <p className="text-xs font-medium leading-tight">Admin</p>
-                <p className="text-[10px] text-muted-foreground leading-tight">Demo Confecção A</p>
+                <p className="text-xs font-medium leading-tight">{displayName}</p>
+                <p className="text-[10px] text-muted-foreground leading-tight">{displayTenant}</p>
               </div>
               <ChevronsUpDown className="hidden h-3.5 w-3.5 text-muted-foreground sm:block" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
             <DropdownMenuLabel className="font-normal">
-              <p className="text-sm font-medium">Admin</p>
-              <p className="text-xs text-muted-foreground">admin@djob.com.br</p>
+              <p className="text-sm font-medium">{displayName}</p>
+              <p className="text-xs text-muted-foreground">{displayEmail}</p>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
@@ -166,7 +188,7 @@ export function Header({ collapsed, onToggleSidebar, onMobileMenuToggle }: Heade
               Configurações
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive">
+            <DropdownMenuItem className="text-destructive" onClick={handleLogout}>
               <LogOut className="mr-2 h-3.5 w-3.5" />
               Sair
             </DropdownMenuItem>
