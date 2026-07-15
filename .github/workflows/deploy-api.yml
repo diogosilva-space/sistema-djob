@@ -9,6 +9,7 @@ on:
       - 'packages/**'
       - 'docker-compose.yml'
       - 'apps/api/Dockerfile'
+      - '.github/workflows/deploy-api.yml'
 
 concurrency:
   group: deploy-api
@@ -31,7 +32,7 @@ jobs:
             .
 
       - name: Save Docker image
-        run: docker save djob-api:latest | gzip > /tmp/djob-api.tar.gz
+        run: docker save djob-api:latest | gzip > djob-api.tar.gz
 
       - name: Copy image to server
         uses: appleboy/scp-action@v0.1.7
@@ -40,7 +41,7 @@ jobs:
           username: ${{ secrets.ORACLE_USER }}
           key: ${{ secrets.ORACLE_SSH_KEY }}
           passphrase: ${{ secrets.ORACLE_SSH_PASSPHRASE }}
-          source: /tmp/djob-api.tar.gz
+          source: djob-api.tar.gz
           target: /home/${{ secrets.ORACLE_USER }}/djob/
 
       - name: Deploy on server
