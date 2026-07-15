@@ -38,7 +38,10 @@ export function DashboardAlerts({ alerts }: DashboardAlertsProps) {
                     <p className="truncate text-sm font-medium text-foreground">{alert.title}</p>
                     <p className="truncate text-xs text-muted-foreground">{alert.description}</p>
                   </div>
-                  <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.5} />
+                  <ChevronRight
+                    className="h-4 w-4 shrink-0 text-muted-foreground"
+                    strokeWidth={1.5}
+                  />
                 </Link>
               );
             })}

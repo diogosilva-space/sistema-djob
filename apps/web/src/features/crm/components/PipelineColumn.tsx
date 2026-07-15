@@ -44,7 +44,11 @@ export function PipelineColumn({ column, collapsed = false }: PipelineColumnProp
       <header className="flex items-start justify-between gap-2 px-1.5 py-1">
         <div>
           <h2 className="text-sm font-semibold text-foreground">{labels[column.status]}</h2>
-          {!collapsed && <p className="mt-0.5 text-xs tabular-nums text-muted-foreground">{currency.format(column.value)}</p>}
+          {!collapsed && (
+            <p className="mt-0.5 text-xs tabular-nums text-muted-foreground">
+              {currency.format(column.value)}
+            </p>
+          )}
         </div>
         <span className="rounded-full bg-card px-2 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
           {column.count}
@@ -56,7 +60,9 @@ export function PipelineColumn({ column, collapsed = false }: PipelineColumnProp
             <OpportunityCard key={opportunity.id} opportunity={opportunity} />
           ))}
           {column.opportunities.length === 0 && (
-            <p className="px-2 py-6 text-center text-xs text-muted-foreground">Nenhuma oportunidade</p>
+            <p className="px-2 py-6 text-center text-xs text-muted-foreground">
+              Nenhuma oportunidade
+            </p>
           )}
         </div>
       )}

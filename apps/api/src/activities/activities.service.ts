@@ -79,10 +79,7 @@ export class ActivitiesService {
     return {
       ...where,
       tenantId: user.tenantId,
-      OR: [
-        { userId: user.id },
-        { opportunity: { is: { sellerId: user.id } } },
-      ],
+      OR: [{ userId: user.id }, { opportunity: { is: { sellerId: user.id } } }],
     };
   }
 

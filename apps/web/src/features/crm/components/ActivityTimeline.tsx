@@ -18,7 +18,11 @@ const activityIcons = {
 
 export function ActivityTimeline({ activities }: ActivityTimelineProps) {
   if (activities.length === 0) {
-    return <p className="py-6 text-center text-sm text-muted-foreground">Nenhuma atividade registrada.</p>;
+    return (
+      <p className="py-6 text-center text-sm text-muted-foreground">
+        Nenhuma atividade registrada.
+      </p>
+    );
   }
 
   return (
@@ -34,10 +38,15 @@ export function ActivityTimeline({ activities }: ActivityTimelineProps) {
               <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                 <p className="text-sm font-semibold text-foreground">{activity.subject}</p>
                 <time className="text-xs text-muted-foreground">
-                  {new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(new Date(activity.occurredAt))}
+                  {new Intl.DateTimeFormat('pt-BR', {
+                    dateStyle: 'short',
+                    timeStyle: 'short',
+                  }).format(new Date(activity.occurredAt))}
                 </time>
               </div>
-              {activity.description && <p className="mt-1 text-sm text-muted-foreground">{activity.description}</p>}
+              {activity.description && (
+                <p className="mt-1 text-sm text-muted-foreground">{activity.description}</p>
+              )}
               <p className="mt-2 text-xs text-muted-foreground">{activity.user.name}</p>
             </div>
           </li>

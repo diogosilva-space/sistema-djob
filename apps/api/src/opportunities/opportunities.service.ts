@@ -164,7 +164,9 @@ export class OpportunitiesService {
     const to = query.to ? new Date(query.to) : undefined;
     const where = this.scope(user, {
       ...(query.sellerId && this.canViewTeam(user) ? { sellerId: query.sellerId } : {}),
-      ...(from || to ? { createdAt: { ...(from ? { gte: from } : {}), ...(to ? { lte: to } : {}) } } : {}),
+      ...(from || to
+        ? { createdAt: { ...(from ? { gte: from } : {}), ...(to ? { lte: to } : {}) } }
+        : {}),
     });
     const opportunities = await prisma.opportunity.findMany({
       where,

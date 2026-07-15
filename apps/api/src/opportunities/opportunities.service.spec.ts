@@ -13,10 +13,7 @@ describe('OpportunitiesService', () => {
     findMany.mockResolvedValue([]);
     const service = new OpportunitiesService();
 
-    await service.findAll(
-      { id: 'seller-1', tenantId: 'tenant-1', role: 'SELLER' },
-      {},
-    );
+    await service.findAll({ id: 'seller-1', tenantId: 'tenant-1', role: 'SELLER' }, {});
 
     expect(findMany).toHaveBeenCalledWith(
       expect.objectContaining({

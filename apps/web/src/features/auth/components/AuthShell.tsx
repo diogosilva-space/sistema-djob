@@ -35,29 +35,24 @@ function ThemeToggle() {
 function HeroBackgrounds() {
   return (
     <>
-      {/* Mobile Light */}
       <Image
         src="/images/login-hero-mobile-light.png"
         alt=""
         fill
         className="object-cover md:hidden dark:hidden"
         priority
-        quality={80}
-        sizes="100vw"
+        quality={85}
         role="presentation"
       />
-      {/* Mobile Dark */}
       <Image
         src="/images/login-hero-mobile-dark.png"
         alt=""
         fill
         className="object-cover md:hidden hidden dark:block"
         priority
-        quality={80}
-        sizes="100vw"
+        quality={85}
         role="presentation"
       />
-      {/* Desktop Light */}
       <Image
         src="/images/login-hero-desktop-light.png"
         alt=""
@@ -65,10 +60,8 @@ function HeroBackgrounds() {
         className="object-cover hidden md:block dark:md:hidden"
         priority
         quality={85}
-        sizes="100vw"
         role="presentation"
       />
-      {/* Desktop Dark */}
       <Image
         src="/images/login-hero-desktop-dark.png"
         alt=""
@@ -76,7 +69,6 @@ function HeroBackgrounds() {
         className="object-cover hidden dark:md:block"
         priority
         quality={85}
-        sizes="100vw"
         role="presentation"
       />
     </>
@@ -102,7 +94,9 @@ export function AuthShell({ title, description, children }: AuthShellProps) {
       </div>
 
       <div className="absolute top-5 right-5 z-20">
-        <ThemeToggle />
+        <div className="h-9 w-9 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20">
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="relative z-10 w-full max-w-[420px] mx-4">
@@ -110,14 +104,14 @@ export function AuthShell({ title, description, children }: AuthShellProps) {
           <div className="p-7 space-y-6">
             <div className="space-y-1.5 text-center">
               <h1 className="text-xl font-bold tracking-tight text-white">{title}</h1>
-              <p className="text-sm text-white/60">{description}</p>
+              <p className="text-sm dark:text-white/60 text-white">{description}</p>
             </div>
 
             <div className="auth-glass-form space-y-6">{children}</div>
           </div>
         </div>
 
-        <p className="mt-6 text-center text-xs text-white/40">
+        <p className="mt-6 text-center text-xs dark:text-white/60 text-white">
           &copy; {new Date().getFullYear()} D.job Sistemas — Todos os direitos reservados
         </p>
       </div>

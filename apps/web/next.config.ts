@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: false },
   poweredByHeader: false,
   reactStrictMode: true,
+  images: {
+    qualities: [75, 85],
+  },
 };
 
 export default nextConfig;

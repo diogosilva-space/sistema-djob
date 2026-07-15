@@ -21,16 +21,12 @@ const SECTIONS = [
 
 export default function PoliticaDePrivacidadePage() {
   return (
-    <LegalShell
-      title="Política de Privacidade"
-      lastUpdated="Julho de 2026"
-      sections={SECTIONS}
-    >
+    <LegalShell title="Política de Privacidade" lastUpdated="Julho de 2026" sections={SECTIONS}>
       <section id="dados-coletados">
         <h2>1. Dados Coletados</h2>
         <p>
-          A <strong>D.job Sistemas Ltda.</strong> (&quot;D.job&quot;, &quot;nós&quot;) coleta e trata
-          dados pessoais necessários para a prestação do serviço da plataforma{' '}
+          A <strong>D.job Sistemas Ltda.</strong> (&quot;D.job&quot;, &quot;nós&quot;) coleta e
+          trata dados pessoais necessários para a prestação do serviço da plataforma{' '}
           <strong>D.job System</strong>. Os dados coletados podem incluir:
         </p>
 
@@ -86,8 +82,8 @@ export default function PoliticaDePrivacidadePage() {
             determinação de autoridade competente (Art. 7º, II)
           </li>
           <li>
-            <strong>Consentimento:</strong> quando aplicável, para finalidades específicas como envio
-            de comunicações de marketing (Art. 7º, I)
+            <strong>Consentimento:</strong> quando aplicável, para finalidades específicas como
+            envio de comunicações de marketing (Art. 7º, I)
           </li>
         </ul>
       </section>
@@ -136,17 +132,15 @@ export default function PoliticaDePrivacidadePage() {
           <li>Monitoramento contínuo de acessos e anomalias</li>
         </ul>
         <p>
-          Os dados são retidos pelo período necessário ao cumprimento das finalidades descritas nesta
-          Política ou conforme exigido por legislação aplicável. Após o encerramento da conta, os
-          dados serão eliminados em até 90 (noventa) dias, salvo obrigação legal de retenção.
+          Os dados são retidos pelo período necessário ao cumprimento das finalidades descritas
+          nesta Política ou conforme exigido por legislação aplicável. Após o encerramento da conta,
+          os dados serão eliminados em até 90 (noventa) dias, salvo obrigação legal de retenção.
         </p>
       </section>
 
       <section id="direitos">
         <h2>6. Direitos do Titular</h2>
-        <p>
-          Em conformidade com a LGPD, você tem o direito de, a qualquer momento, solicitar:
-        </p>
+        <p>Em conformidade com a LGPD, você tem o direito de, a qualquer momento, solicitar:</p>
         <ul>
           <li>
             <strong>Confirmação e acesso:</strong> saber se tratamos seus dados e acessar uma cópia
@@ -184,9 +178,7 @@ export default function PoliticaDePrivacidadePage() {
 
       <section id="cookies">
         <h2>7. Cookies e Tecnologias</h2>
-        <p>
-          A Plataforma utiliza cookies e tecnologias similares para os seguintes fins:
-        </p>
+        <p>A Plataforma utiliza cookies e tecnologias similares para os seguintes fins:</p>
         <ul>
           <li>
             <strong>Cookies essenciais:</strong> necessários para o funcionamento da Plataforma

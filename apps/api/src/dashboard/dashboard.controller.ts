@@ -1,9 +1,6 @@
 import { Controller, Get, Query, SetMetadata, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
-import {
-  DashboardSummaryQuery,
-  dashboardSummaryQuerySchema,
-} from '@djob/validators';
+import { DashboardSummaryQuery, dashboardSummaryQuerySchema } from '@djob/validators';
 
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';

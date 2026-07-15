@@ -34,12 +34,13 @@ const currencyFormatter = new Intl.NumberFormat('pt-BR', {
   maximumFractionDigits: 0,
 });
 
-const chartColors = ['hsl(var(--primary))', 'hsl(var(--secondary))', 'hsl(var(--muted-foreground))'];
+const chartColors = [
+  'hsl(var(--primary))',
+  'hsl(var(--secondary))',
+  'hsl(var(--muted-foreground))',
+];
 
-export function DashboardRevenueChart({
-  revenueSeries,
-  className,
-}: DashboardRevenueChartProps) {
+export function DashboardRevenueChart({ revenueSeries, className }: DashboardRevenueChartProps) {
   return (
     <Card className={className}>
       <CardHeader className="p-4 pb-2">
@@ -98,54 +99,56 @@ export function DashboardSalesByTypeChart({
   className,
 }: DashboardSalesByTypeChartProps) {
   return (
-      <Card className={cn(className)}>
-        <CardHeader className="p-4 pb-2">
-          <CardTitle className="text-base font-semibold">Vendas por tipo</CardTitle>
-          <CardDescription>Participação no período selecionado</CardDescription>
-        </CardHeader>
-        <CardContent className="h-72 p-4 pt-2">
-          {salesByProductType.length === 0 ? (
-            <div className="flex h-full items-center justify-center text-center text-sm text-muted-foreground">
-              Nenhuma venda categorizada no período.
-            </div>
-          ) : (
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={salesByProductType}
-                  dataKey="amount"
-                  nameKey="name"
-                  cx="50%"
-                  cy="45%"
-                  innerRadius={52}
-                  outerRadius={78}
-                  paddingAngle={3}
-                >
-                  {salesByProductType.map((item, index) => (
-                    <Cell
-                      key={item.name}
-                      fill={chartColors[index % chartColors.length] ?? 'hsl(var(--primary))'}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip
-                  formatter={(value) => currencyFormatter.format(Number(value))}
-                  contentStyle={{
-                    background: 'hsl(var(--card))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: 'var(--radius)',
-                    color: 'hsl(var(--foreground))',
-                  }}
-                />
-                <Legend
-                  verticalAlign="bottom"
-                  iconType="circle"
-                  formatter={(value) => <span className="text-xs text-muted-foreground">{value}</span>}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-          )}
-        </CardContent>
-      </Card>
+    <Card className={cn(className)}>
+      <CardHeader className="p-4 pb-2">
+        <CardTitle className="text-base font-semibold">Vendas por tipo</CardTitle>
+        <CardDescription>Participação no período selecionado</CardDescription>
+      </CardHeader>
+      <CardContent className="h-72 p-4 pt-2">
+        {salesByProductType.length === 0 ? (
+          <div className="flex h-full items-center justify-center text-center text-sm text-muted-foreground">
+            Nenhuma venda categorizada no período.
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={salesByProductType}
+                dataKey="amount"
+                nameKey="name"
+                cx="50%"
+                cy="45%"
+                innerRadius={52}
+                outerRadius={78}
+                paddingAngle={3}
+              >
+                {salesByProductType.map((item, index) => (
+                  <Cell
+                    key={item.name}
+                    fill={chartColors[index % chartColors.length] ?? 'hsl(var(--primary))'}
+                  />
+                ))}
+              </Pie>
+              <Tooltip
+                formatter={(value) => currencyFormatter.format(Number(value))}
+                contentStyle={{
+                  background: 'hsl(var(--card))',
+                  border: '1px solid hsl(var(--border))',
+                  borderRadius: 'var(--radius)',
+                  color: 'hsl(var(--foreground))',
+                }}
+              />
+              <Legend
+                verticalAlign="bottom"
+                iconType="circle"
+                formatter={(value) => (
+                  <span className="text-xs text-muted-foreground">{value}</span>
+                )}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        )}
+      </CardContent>
+    </Card>
   );
 }

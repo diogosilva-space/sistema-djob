@@ -1,10 +1,5 @@
 import type { DashboardSummary } from '@djob/validators';
-import {
-  AlertTriangle,
-  ClipboardList,
-  Cpu,
-  DollarSign,
-} from 'lucide-react';
+import { AlertTriangle, ClipboardList, Cpu, DollarSign } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -54,7 +49,10 @@ export function DashboardKpis({ kpis }: DashboardKpisProps) {
   ];
 
   return (
-    <section aria-label="Indicadores principais" className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <section
+      aria-label="Indicadores principais"
+      className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+    >
       {items.map(({ title, value, description, icon: Icon, valueClassName, iconClassName }) => (
         <Card key={title}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4 pb-2">

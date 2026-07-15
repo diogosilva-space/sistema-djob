@@ -103,10 +103,10 @@ export default function LoginPage() {
           role="alert"
           aria-live="assertive"
           tabIndex={-1}
-          className="flex items-start gap-3 p-3 rounded-lg bg-destructive/10 border border-destructive/20 outline-none"
+          className="flex items-start gap-3 p-3 rounded-lg border border-destructive outline-none"
         >
-          <AlertCircle className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
-          <p className="text-sm text-destructive">{error}</p>
+          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+          <p className="text-sm">{error}</p>
         </div>
       )}
 
@@ -117,7 +117,9 @@ export default function LoginPage() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs text-muted-foreground">E-mail</FormLabel>
+                <FormLabel className="text-xs text-muted-foreground dark:text-white/60 text-white">
+                  E-mail
+                </FormLabel>
                 <div className="relative">
                   <FormControl>
                     <Input
@@ -150,10 +152,10 @@ export default function LoginPage() {
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center justify-between">
-                  <FormLabel className="text-xs text-muted-foreground">Senha</FormLabel>
+                  <FormLabel className="text-xs dark:text-white/60 text-white">Senha</FormLabel>
                   <Link
                     href="/auth/forgot-password"
-                    className="text-xs text-primary hover:text-primary/80 transition-colors font-medium"
+                    className="text-xs dark:text-primary/80 text-primary hover:text-primary/80 transition-colors font-medium"
                   >
                     Esqueceu a senha?
                   </Link>
@@ -212,17 +214,13 @@ export default function LoginPage() {
         </form>
       </Form>
 
-      <p className="text-center text-xs text-muted-foreground">
-        Ao entrar, você concorda com os{' '}
-        <Link href="/termos-de-uso" target="_blank" className="text-primary hover:underline">
+      <p className="text-center text-xs dark:text-white/60 text-white">
+        Ao entrar, você concorda com os <br />
+        <Link href="/termos-de-uso" target="_blank" className="text-primary underline">
           Termos de Uso
         </Link>{' '}
         e{' '}
-        <Link
-          href="/politica-de-privacidade"
-          target="_blank"
-          className="text-primary hover:underline"
-        >
+        <Link href="/politica-de-privacidade" target="_blank" className="text-primary underline">
           Política de Privacidade
         </Link>
       </p>

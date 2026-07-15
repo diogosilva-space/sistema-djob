@@ -15,19 +15,19 @@
 
 ## 2. Escala Tipográfica
 
-| Uso | Classe Tailwind | Tamanho | Peso |
-|---|---|---|---|
-| **Valor de KPI / métrica** | `text-2xl font-bold tabular-nums` | 24px | 700 |
-| **Título de página** (`PageActionHeader`) | `text-sm font-semibold tracking-tight` | 14px | 600 |
-| **Título de seção / card** | `text-base font-semibold` | 16px | 600 |
-| **Título de modal / dialog** | `text-base font-semibold` | 16px | 600 |
-| **Rótulo de KPI** (label do card de métrica) | `text-xs font-medium uppercase tracking-wide text-muted-foreground` | 12px | 500 |
-| **Cabeçalho de tabela** (`TableHead`) | `text-xs font-medium uppercase tracking-wide text-muted-foreground` | 12px | 500 |
-| **Corpo / célula de tabela** | `text-sm` | 14px | 400 |
-| **Descrição / subtítulo de card** (`CardDescription`) | `text-sm text-muted-foreground` | 14px | 400 |
-| **Empty state / loading / mensagem secundária** | `text-sm text-muted-foreground` | 14px | 400 |
-| **Meta / legenda pequena** | `text-xs text-muted-foreground` | 12px | 400/500 |
-| **Badge / pill de status** | `text-xs font-medium` | 12px | 500 |
+| Uso                                                   | Classe Tailwind                                                     | Tamanho | Peso    |
+| ----------------------------------------------------- | ------------------------------------------------------------------- | ------- | ------- |
+| **Valor de KPI / métrica**                            | `text-2xl font-bold tabular-nums`                                   | 24px    | 700     |
+| **Título de página** (`PageActionHeader`)             | `text-sm font-semibold tracking-tight`                              | 14px    | 600     |
+| **Título de seção / card**                            | `text-base font-semibold`                                           | 16px    | 600     |
+| **Título de modal / dialog**                          | `text-base font-semibold`                                           | 16px    | 600     |
+| **Rótulo de KPI** (label do card de métrica)          | `text-xs font-medium uppercase tracking-wide text-muted-foreground` | 12px    | 500     |
+| **Cabeçalho de tabela** (`TableHead`)                 | `text-xs font-medium uppercase tracking-wide text-muted-foreground` | 12px    | 500     |
+| **Corpo / célula de tabela**                          | `text-sm`                                                           | 14px    | 400     |
+| **Descrição / subtítulo de card** (`CardDescription`) | `text-sm text-muted-foreground`                                     | 14px    | 400     |
+| **Empty state / loading / mensagem secundária**       | `text-sm text-muted-foreground`                                     | 14px    | 400     |
+| **Meta / legenda pequena**                            | `text-xs text-muted-foreground`                                     | 12px    | 400/500 |
+| **Badge / pill de status**                            | `text-xs font-medium`                                               | 12px    | 500     |
 
 ### Regras de peso
 

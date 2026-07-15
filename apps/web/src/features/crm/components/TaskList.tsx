@@ -32,12 +32,25 @@ export function TaskList({ tasks, onComplete, isPending }: TaskListProps) {
               disabled={isDone || isPending}
               aria-label={isDone ? 'Tarefa concluída' : 'Concluir tarefa'}
             >
-              {isDone ? <CheckCircle2 className="h-4 w-4 text-primary" /> : <Circle className="h-4 w-4 text-muted-foreground" />}
+              {isDone ? (
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+              ) : (
+                <Circle className="h-4 w-4 text-muted-foreground" />
+              )}
             </Button>
             <div className="min-w-0 flex-1">
-              <p className={isDone ? 'text-sm text-muted-foreground line-through' : 'text-sm font-medium text-foreground'}>{task.title}</p>
+              <p
+                className={
+                  isDone
+                    ? 'text-sm text-muted-foreground line-through'
+                    : 'text-sm font-medium text-foreground'
+                }
+              >
+                {task.title}
+              </p>
               <p className="mt-1 text-xs text-muted-foreground">
-                {new Intl.DateTimeFormat('pt-BR').format(new Date(task.dueDate))} · {task.assignedTo.name}
+                {new Intl.DateTimeFormat('pt-BR').format(new Date(task.dueDate))} ·{' '}
+                {task.assignedTo.name}
               </p>
             </div>
           </li>

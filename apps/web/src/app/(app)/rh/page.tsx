@@ -11,7 +11,16 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Plus, RefreshCw, UserCheck, Briefcase, Users, FileText, ChevronRight, User } from 'lucide-react';
+import {
+  Plus,
+  RefreshCw,
+  UserCheck,
+  Briefcase,
+  Users,
+  FileText,
+  ChevronRight,
+  User,
+} from 'lucide-react';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { rhService } from '@/features/rh/api/rh.service';
 import Link from 'next/link';
@@ -119,12 +128,16 @@ export default function RhPage() {
 
       <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
         <CardHeader className="pb-3 border-b border-border">
-          <CardTitle className="text-base font-semibold text-foreground">Quadro de Funcionários</CardTitle>
+          <CardTitle className="text-base font-semibold text-foreground">
+            Quadro de Funcionários
+          </CardTitle>
           <CardDescription>Visualização completa dos contratos ativos e desligados</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-sm text-muted-foreground">Carregando quadro de colaboradores...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">
+              Carregando quadro de colaboradores...
+            </div>
           ) : employees.length === 0 ? (
             <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhum colaborador registrado. Clique em &quot;Admitir Colaborador&quot; para iniciar.
@@ -133,13 +146,27 @@ export default function RhPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/70">
-                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Nome Completo</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Cargo / Função</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Departamento</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Data Admissão</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Salário Base</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Situação</TableHead>
-                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Ações</TableHead>
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Nome Completo
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Cargo / Função
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Departamento
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Data Admissão
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Salário Base
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Situação
+                  </TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Ações
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -153,15 +180,22 @@ export default function RhPage() {
                         <span>{emp.name}</span>
                       </div>
                     </TableCell>
-                    <TableCell className="font-medium text-foreground">{emp.position || '—'}</TableCell>
-                    <TableCell className="text-muted-foreground font-semibold">{emp.department || '—'}</TableCell>
+                    <TableCell className="font-medium text-foreground">
+                      {emp.position || '—'}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground font-semibold">
+                      {emp.department || '—'}
+                    </TableCell>
                     <TableCell className="text-muted-foreground">
                       {emp.admissionDate
                         ? new Date(emp.admissionDate).toLocaleDateString('pt-BR')
                         : '—'}
                     </TableCell>
                     <TableCell className="tabular-nums font-bold text-foreground text-right text-base">
-                      R$ {Number(emp.salary || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${' '}
+                      {Number(emp.salary || 0).toLocaleString('pt-BR', {
+                        minimumFractionDigits: 2,
+                      })}
                     </TableCell>
                     <TableCell>{getStatusBadge(emp.status)}</TableCell>
                     <TableCell className="pr-6 text-right">

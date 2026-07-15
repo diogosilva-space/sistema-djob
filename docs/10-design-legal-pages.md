@@ -124,12 +124,12 @@ interface LegalShellProps {
 
 ## 8. Decision Log
 
-| # | Decisão | Alternativas | Justificativa |
-|---|---------|-------------|---------------|
-| 1 | Conteúdo estático no TSX | Markdown, API/CMS | Simplicidade, sem deps extras, 2 páginas |
-| 2 | Rotas raiz (`/termos-de-uso`) | `/auth/*`, `/legal/*` | URLs limpas, públicas, SEO-friendly |
-| 3 | Layout centrado com prosa | AuthShell, sidebar nav | Padrão de mercado para conteúdo legal |
-| 4 | ToC + tema + voltar | Mínimo | UX para textos longos, tema consistente |
-| 5 | LegalShell compartilhado | Independentes, MDX | Reutilização, extensibilidade, padrão do projeto |
-| 6 | Server Components + client shell | Tudo client | SEO em server, interatividade mínima no client |
-| 7 | Template genérico SaaS B2B | Placeholder | Entrega funcional imediata, customizável |
+| #   | Decisão                          | Alternativas           | Justificativa                                    |
+| --- | -------------------------------- | ---------------------- | ------------------------------------------------ |
+| 1   | Conteúdo estático no TSX         | Markdown, API/CMS      | Simplicidade, sem deps extras, 2 páginas         |
+| 2   | Rotas raiz (`/termos-de-uso`)    | `/auth/*`, `/legal/*`  | URLs limpas, públicas, SEO-friendly              |
+| 3   | Layout centrado com prosa        | AuthShell, sidebar nav | Padrão de mercado para conteúdo legal            |
+| 4   | ToC + tema + voltar              | Mínimo                 | UX para textos longos, tema consistente          |
+| 5   | LegalShell compartilhado         | Independentes, MDX     | Reutilização, extensibilidade, padrão do projeto |
+| 6   | Server Components + client shell | Tudo client            | SEO em server, interatividade mínima no client   |
+| 7   | Template genérico SaaS B2B       | Placeholder            | Entrega funcional imediata, customizável         |

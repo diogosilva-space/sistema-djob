@@ -1,8 +1,7 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
-const envPath = process.env.DOTENV_PATH
-  || path.resolve(__dirname, '../../../.env');
+const envPath = process.env.DOTENV_PATH || path.resolve(__dirname, '../../../.env');
 dotenv.config({ path: envPath });
 
 import { NestFactory } from '@nestjs/core';

@@ -21,8 +21,20 @@ export type Opportunity = {
   tags: string[];
   createdAt: string;
   updatedAt: string;
-  customer: { id: string; name: string; mobile?: string | null; phone?: string | null; email?: string | null } | null;
-  contact?: { id: string; name: string; mobile?: string | null; phone?: string | null; email?: string | null } | null;
+  customer: {
+    id: string;
+    name: string;
+    mobile?: string | null;
+    phone?: string | null;
+    email?: string | null;
+  } | null;
+  contact?: {
+    id: string;
+    name: string;
+    mobile?: string | null;
+    phone?: string | null;
+    email?: string | null;
+  } | null;
   seller: { id: string; name: string; email?: string } | null;
   _count?: { activities: number; tasks: number };
 };

@@ -12,7 +12,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { RefreshCw, Plus, TrendingUp, TrendingDown, Wallet, DollarSign, CheckCircle2, XCircle, ArrowUpRight, ArrowDownLeft, X, Calendar } from 'lucide-react';
+import {
+  RefreshCw,
+  Plus,
+  TrendingUp,
+  TrendingDown,
+  Wallet,
+  DollarSign,
+  CheckCircle2,
+  XCircle,
+  ArrowUpRight,
+  ArrowDownLeft,
+  X,
+  Calendar,
+} from 'lucide-react';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { financeiroService } from '@/features/financeiro/api/financeiro.service';
 
@@ -180,7 +193,9 @@ export default function FinanceiroPage() {
             <Wallet className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl tabular-nums font-bold ${netBalance >= 0 ? 'text-foreground' : 'text-destructive'}`}>
+            <div
+              className={`text-2xl tabular-nums font-bold ${netBalance >= 0 ? 'text-foreground' : 'text-destructive'}`}
+            >
               R$ {netBalance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </div>
           </CardContent>
@@ -189,12 +204,16 @@ export default function FinanceiroPage() {
 
       <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
         <CardHeader className="pb-3 border-b border-border">
-          <CardTitle className="text-base font-semibold text-foreground">Histórico de Lançamentos</CardTitle>
+          <CardTitle className="text-base font-semibold text-foreground">
+            Histórico de Lançamentos
+          </CardTitle>
           <CardDescription>Auditoria permanente de receitas, despesas e baixas</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-sm text-muted-foreground">Carregando lançamentos...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">
+              Carregando lançamentos...
+            </div>
           ) : transactions.length === 0 ? (
             <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhum lançamento financeiro registrado.
@@ -203,18 +222,32 @@ export default function FinanceiroPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/70">
-                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Descrição</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Tipo</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Vencimento</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Valor</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Status</TableHead>
-                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Ações</TableHead>
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Descrição
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Tipo
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Vencimento
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Valor
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Status
+                  </TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Ações
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {transactions.map((t) => (
                   <TableRow key={t.id} className="hover:bg-muted/50">
-                    <TableCell className="pl-6 font-semibold text-foreground">{t.description}</TableCell>
+                    <TableCell className="pl-6 font-semibold text-foreground">
+                      {t.description}
+                    </TableCell>
                     <TableCell>
                       {t.type === 'INCOME' ? (
                         <span className="inline-flex items-center gap-1.5 font-semibold text-xs text-green-700 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full">
@@ -265,8 +298,14 @@ export default function FinanceiroPage() {
           <Card className="w-full max-w-md bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <CardHeader className="pb-4 border-b border-border">
               <div className="flex justify-between items-center">
-                <CardTitle className="text-base font-semibold text-foreground">Novo Lançamento Financeiro</CardTitle>
-                <button type="button" onClick={() => setShowCreateModal(false)} className="text-muted-foreground hover:text-muted-foreground">
+                <CardTitle className="text-base font-semibold text-foreground">
+                  Novo Lançamento Financeiro
+                </CardTitle>
+                <button
+                  type="button"
+                  onClick={() => setShowCreateModal(false)}
+                  className="text-muted-foreground hover:text-muted-foreground"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -274,7 +313,9 @@ export default function FinanceiroPage() {
             <form onSubmit={handleCreateTransaction}>
               <CardContent className="space-y-5 p-6">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-foreground">Descrição / Título</label>
+                  <label className="text-sm font-semibold text-foreground">
+                    Descrição / Título
+                  </label>
                   <Input
                     type="text"
                     className="h-10 border-border focus-visible:ring-djob"
@@ -299,7 +340,9 @@ export default function FinanceiroPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-foreground">Valor Lançado (R$)</label>
+                    <label className="text-sm font-semibold text-foreground">
+                      Valor Lançado (R$)
+                    </label>
                     <Input
                       type="number"
                       step="0.01"
@@ -312,7 +355,9 @@ export default function FinanceiroPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-foreground">Data de Vencimento</label>
+                    <label className="text-sm font-semibold text-foreground">
+                      Data de Vencimento
+                    </label>
                     <Input
                       type="date"
                       className="h-10 border-border focus-visible:ring-djob"
@@ -324,7 +369,9 @@ export default function FinanceiroPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-foreground">Notas / Informações Extras</label>
+                  <label className="text-sm font-semibold text-foreground">
+                    Notas / Informações Extras
+                  </label>
                   <textarea
                     className="flex min-h-[80px] w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
                     value={notes}
@@ -342,10 +389,7 @@ export default function FinanceiroPage() {
                 >
                   Cancelar
                 </Button>
-                <Button
-                  type="submit"
-                  className="font-semibold"
-                >
+                <Button type="submit" className="font-semibold">
                   Efetivar Lançamento
                 </Button>
               </div>

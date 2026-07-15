@@ -11,7 +11,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { RefreshCw, ArrowUpRight, ArrowDownLeft, SlidersHorizontal, Scale, History } from 'lucide-react';
+import {
+  RefreshCw,
+  ArrowUpRight,
+  ArrowDownLeft,
+  SlidersHorizontal,
+  Scale,
+  History,
+} from 'lucide-react';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { estoqueService } from '@/features/estoque/api/estoque.service';
 
@@ -84,12 +91,18 @@ export default function MovimentacoesPage() {
 
       <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
         <CardHeader className="pb-3 border-b border-border">
-          <CardTitle className="text-base font-semibold text-foreground">Histórico de Transações</CardTitle>
-          <CardDescription>Auditoria permanente de toda movimentação física de insumos</CardDescription>
+          <CardTitle className="text-base font-semibold text-foreground">
+            Histórico de Transações
+          </CardTitle>
+          <CardDescription>
+            Auditoria permanente de toda movimentação física de insumos
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-sm text-muted-foreground">Carregando movimentações...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">
+              Carregando movimentações...
+            </div>
           ) : movements.length === 0 ? (
             <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhuma movimentação registrada no histórico.
@@ -98,12 +111,24 @@ export default function MovimentacoesPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/70">
-                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Data / Hora</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Insumo</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Operação</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Quantidade</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Referência</TableHead>
-                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Motivo / Notas</TableHead>
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Data / Hora
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Insumo
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Operação
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Quantidade
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Referência
+                  </TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Motivo / Notas
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -117,8 +142,12 @@ export default function MovimentacoesPage() {
                     <TableCell className="tabular-nums font-bold text-foreground text-right text-base">
                       {Number(mov.quantity).toLocaleString('pt-BR', { minimumFractionDigits: 3 })}
                     </TableCell>
-                    <TableCell className="tabular-nums text-xs text-muted-foreground">{mov.reference || '—'}</TableCell>
-                    <TableCell className="pr-6 text-foreground text-sm">{mov.notes || '—'}</TableCell>
+                    <TableCell className="tabular-nums text-xs text-muted-foreground">
+                      {mov.reference || '—'}
+                    </TableCell>
+                    <TableCell className="pr-6 text-foreground text-sm">
+                      {mov.notes || '—'}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

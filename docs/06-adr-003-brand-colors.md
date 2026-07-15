@@ -13,24 +13,24 @@ A ADR #001 e o Design System original definiam `#8BC34A` (verde) e `#FF4081` (ro
 
 ### 2.1 Cores de Marca (Light Theme)
 
-| Token       | Hex       | HSL (aprox.)         | Uso                                  |
-|-------------|-----------|----------------------|--------------------------------------|
-| `primary`   | `#548f98` | 187° 29% 46%        | Ações primárias, links, foco, brand  |
-| `secondary` | `#ec5466` | 353° 79% 63%        | Alertas, CTAs secundários, destaques |
-| `accent`    | `#6dadb7` | 187° 30% 57%        | Hover, variação suave do primário    |
-| `background`| `#f4f5f7` | 220° 16% 96%        | Fundo da aplicação                   |
-| `card`      | `#ffffff` | 0° 0% 100%          | Cards, popover, superfícies          |
+| Token        | Hex       | HSL (aprox.) | Uso                                  |
+| ------------ | --------- | ------------ | ------------------------------------ |
+| `primary`    | `#548f98` | 187° 29% 46% | Ações primárias, links, foco, brand  |
+| `secondary`  | `#ec5466` | 353° 79% 63% | Alertas, CTAs secundários, destaques |
+| `accent`     | `#6dadb7` | 187° 30% 57% | Hover, variação suave do primário    |
+| `background` | `#f4f5f7` | 220° 16% 96% | Fundo da aplicação                   |
+| `card`       | `#ffffff` | 0° 0% 100%   | Cards, popover, superfícies          |
 
 ### 2.2 Dark Theme
 
 As cores de marca são ajustadas para luminosidade invertida (fundo escuro, foreground claro), mantendo o matiz (hue) da identidade:
 
-| Token       | Descrição                                |
-|-------------|------------------------------------------|
-| `primary`   | HSL 187° 30% 57% (mais claro no escuro) |
-| `secondary` | HSL 353° 79% 53% (levemente atenuado)   |
-| `background`| HSL 224° 40% 6%                         |
-| `card`      | HSL 224° 35% 10%                        |
+| Token        | Descrição                               |
+| ------------ | --------------------------------------- |
+| `primary`    | HSL 187° 30% 57% (mais claro no escuro) |
+| `secondary`  | HSL 353° 79% 53% (levemente atenuado)   |
+| `background` | HSL 224° 40% 6%                         |
+| `card`       | HSL 224° 35% 10%                        |
 
 ### 2.3 Tokens Semânticos Adicionados
 

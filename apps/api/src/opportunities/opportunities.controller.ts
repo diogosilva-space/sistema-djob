@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Patch, Post, Query, SetMetadata, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  SetMetadata,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   ChangeOpportunityStageInput,
@@ -57,7 +67,10 @@ export class OpportunitiesController {
 
   @Get(':id')
   @SetMetadata(ROLES_KEY, ['ADMIN', 'MANAGER', 'SELLER'])
-  findOne(@CurrentUser() user: { id: string; tenantId: string; role: string }, @Param('id') id: string) {
+  findOne(
+    @CurrentUser() user: { id: string; tenantId: string; role: string },
+    @Param('id') id: string,
+  ) {
     return this.opportunitiesService.findOne(user, id);
   }
 

@@ -47,21 +47,10 @@ export const opportunityStatusEnum = z.enum([
   'FECHADO_PERDIDO',
 ]);
 
-export const activityTypeEnum = z.enum([
-  'CALL',
-  'EMAIL',
-  'MEETING',
-  'WHATSAPP',
-  'NOTE',
-]);
+export const activityTypeEnum = z.enum(['CALL', 'EMAIL', 'MEETING', 'WHATSAPP', 'NOTE']);
 
 export const taskPriorityEnum = z.enum(['LOW', 'MEDIUM', 'HIGH']);
-export const taskStatusEnum = z.enum([
-  'PENDING',
-  'IN_PROGRESS',
-  'COMPLETED',
-  'CANCELLED',
-]);
+export const taskStatusEnum = z.enum(['PENDING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED']);
 
 const optionalDateSchema = z.string().datetime().optional();
 const optionalUuidSchema = z.string().uuid().optional();
@@ -83,20 +72,22 @@ export const updateOpportunitySchema = createOpportunitySchema
   .omit({ sellerId: true, status: true })
   .partial();
 
-export const changeOpportunityStageSchema = z.object({
-  status: opportunityStatusEnum,
-  value: z.coerce.number().nonnegative().optional(),
-  closedAt: optionalDateSchema,
-  lostReason: z.string().min(2).max(100).optional(),
-}).superRefine((data, context) => {
-  if (data.status === 'FECHADO_PERDIDO' && !data.lostReason) {
-    context.addIssue({
-      code: z.ZodIssueCode.custom,
-      path: ['lostReason'],
-      message: 'Informe o motivo da perda.',
-    });
-  }
-});
+export const changeOpportunityStageSchema = z
+  .object({
+    status: opportunityStatusEnum,
+    value: z.coerce.number().nonnegative().optional(),
+    closedAt: optionalDateSchema,
+    lostReason: z.string().min(2).max(100).optional(),
+  })
+  .superRefine((data, context) => {
+    if (data.status === 'FECHADO_PERDIDO' && !data.lostReason) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['lostReason'],
+        message: 'Informe o motivo da perda.',
+      });
+    }
+  });
 
 export const opportunityListQuerySchema = z.object({
   status: opportunityStatusEnum.optional(),
@@ -112,17 +103,19 @@ export const opportunityMetricsQuerySchema = z.object({
   to: optionalDateSchema,
 });
 
-export const createActivitySchema = z.object({
-  opportunityId: optionalUuidSchema,
-  customerId: optionalUuidSchema,
-  contactId: optionalUuidSchema,
-  type: activityTypeEnum,
-  subject: z.string().min(2).max(255),
-  description: z.string().max(10000).optional(),
-  occurredAt: optionalDateSchema,
-}).refine((data) => data.opportunityId || data.customerId || data.contactId, {
-  message: 'Informe a oportunidade ou o contato relacionado.',
-});
+export const createActivitySchema = z
+  .object({
+    opportunityId: optionalUuidSchema,
+    customerId: optionalUuidSchema,
+    contactId: optionalUuidSchema,
+    type: activityTypeEnum,
+    subject: z.string().min(2).max(255),
+    description: z.string().max(10000).optional(),
+    occurredAt: optionalDateSchema,
+  })
+  .refine((data) => data.opportunityId || data.customerId || data.contactId, {
+    message: 'Informe a oportunidade ou o contato relacionado.',
+  });
 
 export const activityListQuerySchema = z.object({
   opportunityId: optionalUuidSchema,
@@ -141,9 +134,7 @@ export const createTaskSchema = z.object({
   priority: taskPriorityEnum.default('MEDIUM'),
 });
 
-export const updateTaskSchema = createTaskSchema
-  .omit({ assignedToId: true })
-  .partial();
+export const updateTaskSchema = createTaskSchema.omit({ assignedToId: true }).partial();
 
 export const taskListQuerySchema = z.object({
   opportunityId: optionalUuidSchema,

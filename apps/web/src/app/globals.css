@@ -89,7 +89,12 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-medium tracking-tight;
   }
 }
@@ -113,7 +118,7 @@
     caret-color: white;
   }
 
-  .auth-glass-form p[role="status"] {
+  .auth-glass-form p[role='status'] {
     @apply text-amber-300;
   }
 
@@ -122,26 +127,26 @@
   }
 
   .auth-glass-form .text-destructive {
-    @apply text-red-300;
+    @apply text-red-700;
   }
 
-  .auth-glass-form [role="alert"] {
-    @apply bg-red-500/15 border-red-400/25;
+  .auth-glass-form [role='alert'] {
+    @apply bg-red-700/15 border-red-700/25;
   }
 
-  .auth-glass-form [role="alert"] p {
-    @apply text-red-300;
+  .auth-glass-form [role='alert'] p {
+    @apply text-red-700;
   }
 
-  .auth-glass-form [role="alert"] svg {
-    @apply text-red-300;
+  .auth-glass-form [role='alert'] svg {
+    @apply text-red-700;
   }
 
   .auth-glass-form .text-muted-foreground {
     @apply text-white/50;
   }
 
-  .auth-glass-form button[type="button"] {
+  .auth-glass-form button[type='button'] {
     @apply text-white/40 hover:text-white/80 hover:bg-white/10;
   }
 

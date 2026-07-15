@@ -31,7 +31,9 @@ export function OpportunityCard({ opportunity, draggable = true }: OpportunityCa
     data: { status: opportunity.status },
     disabled: !draggable,
   });
-  const style = transform ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` } : undefined;
+  const style = transform
+    ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` }
+    : undefined;
   const rotting = isRotting(opportunity.lastInteractionAt);
 
   return (
@@ -67,7 +69,10 @@ export function OpportunityCard({ opportunity, draggable = true }: OpportunityCa
           </p>
         </div>
         {rotting && (
-          <AlertTriangle className="h-4 w-4 shrink-0 text-warning" aria-label="Sem interação há mais de 7 dias" />
+          <AlertTriangle
+            className="h-4 w-4 shrink-0 text-warning"
+            aria-label="Sem interação há mais de 7 dias"
+          />
         )}
       </div>
       <div className="mt-3 flex items-center justify-between gap-2">

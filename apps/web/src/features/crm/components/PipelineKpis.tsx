@@ -18,8 +18,16 @@ const currency = new Intl.NumberFormat('pt-BR', {
 
 export function PipelineKpis({ metrics }: PipelineKpisProps) {
   const items = [
-    { label: 'Pipeline total', value: currency.format(metrics.totalPipelineValue), icon: CircleDollarSign },
-    { label: 'Pipeline ponderado', value: currency.format(metrics.weightedPipelineValue), icon: TrendingUp },
+    {
+      label: 'Pipeline total',
+      value: currency.format(metrics.totalPipelineValue),
+      icon: CircleDollarSign,
+    },
+    {
+      label: 'Pipeline ponderado',
+      value: currency.format(metrics.weightedPipelineValue),
+      icon: TrendingUp,
+    },
     { label: 'Negociações paradas', value: String(metrics.rottingDeals), icon: Activity },
     { label: 'Taxa de ganho', value: `${Math.round(metrics.winRate * 100)}%`, icon: Target },
   ];
@@ -33,7 +41,9 @@ export function PipelineKpis({ metrics }: PipelineKpisProps) {
               <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                {label}
+              </p>
               <p className="mt-0.5 text-xl font-bold tabular-nums text-foreground">{value}</p>
             </div>
           </CardContent>

@@ -1,14 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { prisma } from '@djob/database';
-import {
-  DashboardSummary,
-  DashboardSummaryQuery,
-} from '@djob/validators';
-import {
-  ProductType,
-  ProductionOrderStatus,
-  SalesOrderStatus,
-} from '@prisma/client';
+import { DashboardSummary, DashboardSummaryQuery } from '@djob/validators';
+import { ProductType, ProductionOrderStatus, SalesOrderStatus } from '@prisma/client';
 
 const OPEN_ORDER_STATUSES = [
   SalesOrderStatus.PENDING,
@@ -26,10 +19,7 @@ const ACTIVE_PRODUCTION_STATUSES = [
 
 @Injectable()
 export class DashboardService {
-  async getSummary(
-    tenantId: string,
-    query: DashboardSummaryQuery,
-  ): Promise<DashboardSummary> {
+  async getSummary(tenantId: string, query: DashboardSummaryQuery): Promise<DashboardSummary> {
     const now = new Date();
     const to = query.to ? new Date(query.to) : now;
     const from = query.from
@@ -40,9 +30,7 @@ export class DashboardService {
       throw new BadRequestException('O período informado é inválido.');
     }
 
-    const seriesStart = new Date(
-      Date.UTC(to.getUTCFullYear(), to.getUTCMonth() - 5, 1),
-    );
+    const seriesStart = new Date(Date.UTC(to.getUTCFullYear(), to.getUTCMonth() - 5, 1));
 
     const [
       revenueAggregate,
@@ -157,10 +145,7 @@ export class DashboardService {
           tenantId,
           dueDate: { not: null, lt: now },
           status: {
-            notIn: [
-              ProductionOrderStatus.COMPLETED,
-              ProductionOrderStatus.CANCELLED,
-            ],
+            notIn: [ProductionOrderStatus.COMPLETED, ProductionOrderStatus.CANCELLED],
           },
         },
         select: {
@@ -179,39 +164,27 @@ export class DashboardService {
 
     const revenueByMonth = new Map<string, number>();
     const revenueSeries = Array.from({ length: 6 }, (_, index) => {
-      const date = new Date(
-        Date.UTC(to.getUTCFullYear(), to.getUTCMonth() - 5 + index, 1),
-      );
+      const date = new Date(Date.UTC(to.getUTCFullYear(), to.getUTCMonth() - 5 + index, 1));
       const key = this.getMonthKey(date);
       revenueByMonth.set(key, 0);
 
       return {
-        month: new Intl.DateTimeFormat('pt-BR', { month: 'short' })
-          .format(date)
-          .replace('.', ''),
+        month: new Intl.DateTimeFormat('pt-BR', { month: 'short' }).format(date).replace('.', ''),
         amount: 0,
       };
     });
 
     for (const order of seriesOrders) {
       const key = this.getMonthKey(order.createdAt);
-      revenueByMonth.set(
-        key,
-        (revenueByMonth.get(key) ?? 0) + Number(order.totalAmount),
-      );
+      revenueByMonth.set(key, (revenueByMonth.get(key) ?? 0) + Number(order.totalAmount));
     }
 
     revenueSeries.forEach((item, index) => {
-      const date = new Date(
-        Date.UTC(to.getUTCFullYear(), to.getUTCMonth() - 5 + index, 1),
-      );
+      const date = new Date(Date.UTC(to.getUTCFullYear(), to.getUTCMonth() - 5 + index, 1));
       item.amount = revenueByMonth.get(this.getMonthKey(date)) ?? 0;
     });
 
-    const salesByProductType = new Map<
-      'Brindes' | 'Confecção' | 'Outros',
-      number
-    >([
+    const salesByProductType = new Map<'Brindes' | 'Confecção' | 'Outros', number>([
       ['Brindes', 0],
       ['Confecção', 0],
       ['Outros', 0],
@@ -225,10 +198,7 @@ export class DashboardService {
             ? 'Confecção'
             : 'Outros';
 
-      salesByProductType.set(
-        type,
-        (salesByProductType.get(type) ?? 0) + Number(item.totalPrice),
-      );
+      salesByProductType.set(type, (salesByProductType.get(type) ?? 0) + Number(item.totalPrice));
     }
 
     const alerts: DashboardSummary['alerts'] = [

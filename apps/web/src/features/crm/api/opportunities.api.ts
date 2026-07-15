@@ -48,7 +48,6 @@ export const activitiesApi = {
 export const tasksApi = {
   create: (data: Record<string, unknown>) =>
     apiFetch<Task>('/tasks', { method: 'POST', body: JSON.stringify(data) }),
-  complete: (id: string) =>
-    apiFetch<Task>(`/tasks/${id}/complete`, { method: 'PATCH' }),
+  complete: (id: string) => apiFetch<Task>(`/tasks/${id}/complete`, { method: 'PATCH' }),
   remove: (id: string) => apiFetch<Task>(`/tasks/${id}`, { method: 'DELETE' }),
 };

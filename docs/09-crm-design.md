@@ -23,15 +23,15 @@ O módulo atende vendedores internos, vendedores externos e gestores comerciais.
 
 ## Decisões arquiteturais
 
-| Decisão | Alternativas | Motivo |
-| --- | --- | --- |
-| Separar contatos e CRM | Rota única, CRM centrado em contato | Cadastro é infraestrutura do ERP; pipeline é fluxo comercial. |
-| Unificar Customer e Supplier em Contact | Manter tabelas duplicadas | Permite um contato ser cliente, fornecedor ou ambos e reduz duplicação. |
-| Entregar pipeline antes da migração | Migração antes de tudo | P0-a entrega valor com `Customer` existente e reduz risco. |
-| Kanban como visão padrão | Lista como única visão | É o padrão operacional mais adequado para equipes comerciais pequenas. |
-| Atividade manual rápida no P0-a | Automação externa imediata | Evita dependências de WhatsApp/e-mail antes de validar o fluxo. |
-| `@dnd-kit` para arrastar oportunidades | Bibliotecas legadas de drag-and-drop | Biblioteca acessível e mantida para React. |
-| Indicador de negociação parada | Qualquer atividade reseta o alerta | Apenas CALL, EMAIL, MEETING e WHATSAPP atualizam interação relevante. |
+| Decisão                                 | Alternativas                         | Motivo                                                                  |
+| --------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------- |
+| Separar contatos e CRM                  | Rota única, CRM centrado em contato  | Cadastro é infraestrutura do ERP; pipeline é fluxo comercial.           |
+| Unificar Customer e Supplier em Contact | Manter tabelas duplicadas            | Permite um contato ser cliente, fornecedor ou ambos e reduz duplicação. |
+| Entregar pipeline antes da migração     | Migração antes de tudo               | P0-a entrega valor com `Customer` existente e reduz risco.              |
+| Kanban como visão padrão                | Lista como única visão               | É o padrão operacional mais adequado para equipes comerciais pequenas.  |
+| Atividade manual rápida no P0-a         | Automação externa imediata           | Evita dependências de WhatsApp/e-mail antes de validar o fluxo.         |
+| `@dnd-kit` para arrastar oportunidades  | Bibliotecas legadas de drag-and-drop | Biblioteca acessível e mantida para React.                              |
+| Indicador de negociação parada          | Qualquer atividade reseta o alerta   | Apenas CALL, EMAIL, MEETING e WHATSAPP atualizam interação relevante.   |
 
 ## Modelo de domínio
 

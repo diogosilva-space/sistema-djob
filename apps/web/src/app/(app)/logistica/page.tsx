@@ -12,7 +12,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { RefreshCw, Plus, Eye, Printer, Truck, CheckSquare, Package, X, Calendar, User, Navigation } from 'lucide-react';
+import {
+  RefreshCw,
+  Plus,
+  Eye,
+  Printer,
+  Truck,
+  CheckSquare,
+  Package,
+  X,
+  Calendar,
+  User,
+  Navigation,
+} from 'lucide-react';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { logisticaService } from '@/features/logistica/api/logistica.service';
 import { vendasService } from '@/features/vendas/api/vendas.service';
@@ -191,12 +203,16 @@ export default function LogisticaPage() {
 
       <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden print:hidden">
         <CardHeader className="pb-3 border-b border-border">
-          <CardTitle className="text-base font-semibold text-foreground">Remessas & Expedição</CardTitle>
+          <CardTitle className="text-base font-semibold text-foreground">
+            Remessas & Expedição
+          </CardTitle>
           <CardDescription>Acompanhe o status e a entrega dos pedidos finalizados</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-sm text-muted-foreground">Carregando expedição...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">
+              Carregando expedição...
+            </div>
           ) : shipments.length === 0 ? (
             <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhuma remessa em andamento no momento.
@@ -205,25 +221,45 @@ export default function LogisticaPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/70">
-                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Código</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Pedido</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Destinatário</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Cidade / UF</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Transportadora</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Status</TableHead>
-                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Ações</TableHead>
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Código
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Pedido
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Destinatário
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Cidade / UF
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Transportadora
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Status
+                  </TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Ações
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {shipments.map((ship) => (
                   <TableRow key={ship.id} className="hover:bg-muted/50">
                     <TableCell className="pl-6 font-bold text-foreground">{ship.code}</TableCell>
-                    <TableCell className="tabular-nums text-xs text-muted-foreground">{ship.salesOrder.code}</TableCell>
-                    <TableCell className="font-semibold text-foreground">{ship.recipientName}</TableCell>
+                    <TableCell className="tabular-nums text-xs text-muted-foreground">
+                      {ship.salesOrder.code}
+                    </TableCell>
+                    <TableCell className="font-semibold text-foreground">
+                      {ship.recipientName}
+                    </TableCell>
                     <TableCell className="text-muted-foreground">
                       {ship.city} / {ship.state}
                     </TableCell>
-                    <TableCell className="font-medium text-muted-foreground">{ship.carrier || '—'}</TableCell>
+                    <TableCell className="font-medium text-muted-foreground">
+                      {ship.carrier || '—'}
+                    </TableCell>
                     <TableCell>{getStatusBadge(ship.status)}</TableCell>
                     <TableCell className="pr-6 text-right">
                       <Button
@@ -254,8 +290,14 @@ export default function LogisticaPage() {
           <Card className="w-full max-w-2xl bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <CardHeader className="pb-4 border-b border-border">
               <div className="flex justify-between items-center">
-                <CardTitle className="text-base font-semibold text-foreground">Novo Protocolo de Expedição</CardTitle>
-                <button type="button" onClick={() => setShowCreateModal(false)} className="text-muted-foreground hover:text-muted-foreground">
+                <CardTitle className="text-base font-semibold text-foreground">
+                  Novo Protocolo de Expedição
+                </CardTitle>
+                <button
+                  type="button"
+                  onClick={() => setShowCreateModal(false)}
+                  className="text-muted-foreground hover:text-muted-foreground"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -263,7 +305,9 @@ export default function LogisticaPage() {
             <form onSubmit={handleCreateShipment}>
               <CardContent className="space-y-5 p-6 max-h-[60vh] overflow-y-auto">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-foreground">Selecione o Pedido de Venda Pronto</label>
+                  <label className="text-sm font-semibold text-foreground">
+                    Selecione o Pedido de Venda Pronto
+                  </label>
                   <select
                     className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     value={selectedOrderId}
@@ -281,7 +325,9 @@ export default function LogisticaPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-foreground">Nome da Transportadora</label>
+                    <label className="text-sm font-semibold text-foreground">
+                      Nome da Transportadora
+                    </label>
                     <Input
                       type="text"
                       className="h-10 border-border focus-visible:ring-djob"
@@ -292,7 +338,9 @@ export default function LogisticaPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-foreground">Código de Rastreamento</label>
+                    <label className="text-sm font-semibold text-foreground">
+                      Código de Rastreamento
+                    </label>
                     <Input
                       type="text"
                       className="h-10 border-border focus-visible:ring-djob"
@@ -304,9 +352,13 @@ export default function LogisticaPage() {
                 </div>
 
                 <div className="border-t border-border pt-4 space-y-4">
-                  <h4 className="text-sm font-bold text-foreground">Destinatário & Endereço de Entrega</h4>
+                  <h4 className="text-sm font-bold text-foreground">
+                    Destinatário & Endereço de Entrega
+                  </h4>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-foreground">Nome do Recebedor</label>
+                    <label className="text-sm font-semibold text-foreground">
+                      Nome do Recebedor
+                    </label>
                     <Input
                       type="text"
                       className="h-10 border-border focus-visible:ring-djob"
@@ -399,10 +451,18 @@ export default function LogisticaPage() {
             {/* Ocultar no print */}
             <CardHeader className="pb-4 border-b border-border print:hidden flex flex-row items-center justify-between">
               <div>
-                <CardTitle className="text-base font-semibold text-foreground">Protocolo Físico de Entrega</CardTitle>
-                <CardDescription>Visualize ou imprima o recibo para entrega presencial</CardDescription>
+                <CardTitle className="text-base font-semibold text-foreground">
+                  Protocolo Físico de Entrega
+                </CardTitle>
+                <CardDescription>
+                  Visualize ou imprima o recibo para entrega presencial
+                </CardDescription>
               </div>
-              <button type="button" onClick={() => setShowDetailModal(false)} className="text-muted-foreground hover:text-muted-foreground">
+              <button
+                type="button"
+                onClick={() => setShowDetailModal(false)}
+                className="text-muted-foreground hover:text-muted-foreground"
+              >
                 <X className="h-5 w-5" />
               </button>
             </CardHeader>
@@ -410,54 +470,90 @@ export default function LogisticaPage() {
               {/* Cabeçalho do Protocolo Físico */}
               <div className="flex justify-between items-start border-b-2 border-foreground pb-4">
                 <div>
-                  <h3 className="text-xl font-black tracking-tight text-foreground uppercase">D.job Brindes & Confecção</h3>
-                  <p className="text-xs text-muted-foreground mt-1">CNPJ: 00.000.000/0001-00 | Tel: (11) 99999-9999</p>
+                  <h3 className="text-xl font-black tracking-tight text-foreground uppercase">
+                    D.job Brindes & Confecção
+                  </h3>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    CNPJ: 00.000.000/0001-00 | Tel: (11) 99999-9999
+                  </p>
                 </div>
                 <div className="text-right">
-                  <span className="text-sm font-bold block text-muted-foreground uppercase tracking-widest">Protocolo</span>
-                  <span className="text-lg font-black text-foreground tabular-nums">{selectedShipment.code}</span>
+                  <span className="text-sm font-bold block text-muted-foreground uppercase tracking-widest">
+                    Protocolo
+                  </span>
+                  <span className="text-lg font-black text-foreground tabular-nums">
+                    {selectedShipment.code}
+                  </span>
                 </div>
               </div>
 
               {/* Informações da Entrega */}
               <div className="grid grid-cols-2 gap-6 text-sm">
                 <div className="space-y-1">
-                  <span className="text-muted-foreground font-bold block uppercase text-xs">Destinatário</span>
-                  <span className="font-semibold text-foreground text-base">{selectedShipment.recipientName}</span>
+                  <span className="text-muted-foreground font-bold block uppercase text-xs">
+                    Destinatário
+                  </span>
+                  <span className="font-semibold text-foreground text-base">
+                    {selectedShipment.recipientName}
+                  </span>
                 </div>
                 <div className="space-y-1">
-                  <span className="text-muted-foreground font-bold block uppercase text-xs">Pedido de Venda</span>
-                  <span className="tabular-nums font-semibold text-foreground text-base">{selectedShipment.salesOrder?.code}</span>
+                  <span className="text-muted-foreground font-bold block uppercase text-xs">
+                    Pedido de Venda
+                  </span>
+                  <span className="tabular-nums font-semibold text-foreground text-base">
+                    {selectedShipment.salesOrder?.code}
+                  </span>
                 </div>
                 <div className="space-y-1">
-                  <span className="text-muted-foreground font-bold block uppercase text-xs">Transportadora</span>
-                  <span className="font-semibold text-foreground">{selectedShipment.carrier || 'Entrega Direta / Própria'}</span>
+                  <span className="text-muted-foreground font-bold block uppercase text-xs">
+                    Transportadora
+                  </span>
+                  <span className="font-semibold text-foreground">
+                    {selectedShipment.carrier || 'Entrega Direta / Própria'}
+                  </span>
                 </div>
                 <div className="space-y-1">
-                  <span className="text-muted-foreground font-bold block uppercase text-xs">Rastreamento</span>
-                  <span className="tabular-nums text-foreground font-semibold">{selectedShipment.trackingCode || '—'}</span>
+                  <span className="text-muted-foreground font-bold block uppercase text-xs">
+                    Rastreamento
+                  </span>
+                  <span className="tabular-nums text-foreground font-semibold">
+                    {selectedShipment.trackingCode || '—'}
+                  </span>
                 </div>
               </div>
 
               <div className="space-y-1 border-t border-border pt-4">
-                <span className="text-muted-foreground font-bold block uppercase text-xs">Endereço de Entrega</span>
+                <span className="text-muted-foreground font-bold block uppercase text-xs">
+                  Endereço de Entrega
+                </span>
                 <span className="font-semibold text-foreground block text-sm">
-                  {selectedShipment.street}, {selectedShipment.number} {selectedShipment.complement && `(${selectedShipment.complement})`}
+                  {selectedShipment.street}, {selectedShipment.number}{' '}
+                  {selectedShipment.complement && `(${selectedShipment.complement})`}
                 </span>
                 <span className="text-muted-foreground text-xs font-semibold">
-                  {selectedShipment.neighborhood} — {selectedShipment.city} / {selectedShipment.state} | CEP: {selectedShipment.zipCode}
+                  {selectedShipment.neighborhood} — {selectedShipment.city} /{' '}
+                  {selectedShipment.state} | CEP: {selectedShipment.zipCode}
                 </span>
               </div>
 
               {/* Campos de Assinatura */}
               <div className="grid grid-cols-2 gap-8 pt-12 border-t border-border">
                 <div className="text-center pt-8 border-t border-border">
-                  <span className="text-xs text-muted-foreground block uppercase font-bold">Assinatura do Entregador</span>
-                  <span className="text-xs text-muted-foreground block mt-1">Data: ___/___/______</span>
+                  <span className="text-xs text-muted-foreground block uppercase font-bold">
+                    Assinatura do Entregador
+                  </span>
+                  <span className="text-xs text-muted-foreground block mt-1">
+                    Data: ___/___/______
+                  </span>
                 </div>
                 <div className="text-center pt-8 border-t border-border">
-                  <span className="text-xs text-muted-foreground block uppercase font-bold">Assinatura do Recebedor (Cliente)</span>
-                  <span className="text-xs text-muted-foreground block mt-1">Documento / RG: __________________</span>
+                  <span className="text-xs text-muted-foreground block uppercase font-bold">
+                    Assinatura do Recebedor (Cliente)
+                  </span>
+                  <span className="text-xs text-muted-foreground block mt-1">
+                    Documento / RG: __________________
+                  </span>
                 </div>
               </div>
             </CardContent>

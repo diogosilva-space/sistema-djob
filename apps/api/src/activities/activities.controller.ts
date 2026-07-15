@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, SetMetadata, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  SetMetadata,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   ActivityListQuery,
@@ -41,7 +51,10 @@ export class ActivitiesController {
 
   @Delete(':id')
   @SetMetadata(ROLES_KEY, ['ADMIN', 'MANAGER', 'SELLER'])
-  remove(@CurrentUser() user: { id: string; tenantId: string; role: string }, @Param('id') id: string) {
+  remove(
+    @CurrentUser() user: { id: string; tenantId: string; role: string },
+    @Param('id') id: string,
+  ) {
     return this.activitiesService.remove(user, id);
   }
 }

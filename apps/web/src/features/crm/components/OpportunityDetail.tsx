@@ -21,7 +21,10 @@ const currency = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: '
 
 export function OpportunityDetail({ id }: OpportunityDetailProps) {
   const queryClient = useQueryClient();
-  const detail = useQuery({ queryKey: ['opportunities', id], queryFn: () => opportunitiesApi.getOne(id) });
+  const detail = useQuery({
+    queryKey: ['opportunities', id],
+    queryFn: () => opportunitiesApi.getOne(id),
+  });
   const refresh = () => {
     void queryClient.invalidateQueries({ queryKey: ['opportunities', id] });
     void queryClient.invalidateQueries({ queryKey: ['opportunities'] });
@@ -30,8 +33,18 @@ export function OpportunityDetail({ id }: OpportunityDetailProps) {
   const taskMutation = useMutation({ mutationFn: tasksApi.create, onSuccess: refresh });
   const completeTaskMutation = useMutation({ mutationFn: tasksApi.complete, onSuccess: refresh });
 
-  if (detail.isLoading) return <div className="rounded-lg border border-border bg-card p-8 text-sm text-muted-foreground">Carregando oportunidade...</div>;
-  if (detail.isError || !detail.data) return <div className="rounded-lg border border-destructive/20 bg-card p-8 text-sm text-destructive">Não foi possível carregar a oportunidade.</div>;
+  if (detail.isLoading)
+    return (
+      <div className="rounded-lg border border-border bg-card p-8 text-sm text-muted-foreground">
+        Carregando oportunidade...
+      </div>
+    );
+  if (detail.isError || !detail.data)
+    return (
+      <div className="rounded-lg border border-destructive/20 bg-card p-8 text-sm text-destructive">
+        Não foi possível carregar a oportunidade.
+      </div>
+    );
   const opportunity = detail.data;
   const contact = opportunity.contact ?? opportunity.customer;
 
@@ -42,13 +55,20 @@ export function OpportunityDetail({ id }: OpportunityDetailProps) {
           <CardHeader className="p-4 pb-2">
             <CardTitle className="text-base font-semibold">{opportunity.name}</CardTitle>
             <CardDescription>
-              {currency.format(Number(opportunity.value))} · Probabilidade {opportunity.probability}% · {opportunity.status.replaceAll('_', ' ')}
+              {currency.format(Number(opportunity.value))} · Probabilidade {opportunity.probability}
+              % · {opportunity.status.replaceAll('_', ' ')}
             </CardDescription>
           </CardHeader>
           <CardContent className="p-4 pt-2">
             <ActivityForm
               isPending={activityMutation.isPending}
-              onSubmit={(data) => activityMutation.mutate({ ...data, opportunityId: opportunity.id, contactId: contact?.id })}
+              onSubmit={(data) =>
+                activityMutation.mutate({
+                  ...data,
+                  opportunityId: opportunity.id,
+                  contactId: contact?.id,
+                })
+              }
             />
           </CardContent>
         </Card>
@@ -70,15 +90,43 @@ export function OpportunityDetail({ id }: OpportunityDetailProps) {
           <CardContent className="space-y-2 p-4 pt-2 text-sm">
             {contact ? (
               <>
-                <Link href={`/contacts/${contact.id}`} className="flex items-center gap-2 font-medium text-foreground hover:text-primary">
+                <Link
+                  href={`/contacts/${contact.id}`}
+                  className="flex items-center gap-2 font-medium text-foreground hover:text-primary"
+                >
                   <UserRound className="h-4 w-4 text-primary" strokeWidth={1.5} />
                   {contact.name}
                 </Link>
-                {contact.mobile && <a href={`https://wa.me/${contact.mobile.replace(/\D/g, '')}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary"><MessageCircle className="h-4 w-4" strokeWidth={1.5} />WhatsApp</a>}
-                {contact.phone && <span className="flex items-center gap-2 text-muted-foreground"><Phone className="h-4 w-4" strokeWidth={1.5} />{contact.phone}</span>}
-                {contact.email && <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary"><Mail className="h-4 w-4" strokeWidth={1.5} />{contact.email}</a>}
+                {contact.mobile && (
+                  <a
+                    href={`https://wa.me/${contact.mobile.replace(/\D/g, '')}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-primary"
+                  >
+                    <MessageCircle className="h-4 w-4" strokeWidth={1.5} />
+                    WhatsApp
+                  </a>
+                )}
+                {contact.phone && (
+                  <span className="flex items-center gap-2 text-muted-foreground">
+                    <Phone className="h-4 w-4" strokeWidth={1.5} />
+                    {contact.phone}
+                  </span>
+                )}
+                {contact.email && (
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="flex items-center gap-2 text-muted-foreground hover:text-primary"
+                  >
+                    <Mail className="h-4 w-4" strokeWidth={1.5} />
+                    {contact.email}
+                  </a>
+                )}
               </>
-            ) : <p className="text-muted-foreground">Contato não associado.</p>}
+            ) : (
+              <p className="text-muted-foreground">Contato não associado.</p>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -87,10 +135,20 @@ export function OpportunityDetail({ id }: OpportunityDetailProps) {
             <CardDescription>Próximas ações desta oportunidade</CardDescription>
           </CardHeader>
           <CardContent className="p-4 pt-2">
-            <TaskList tasks={opportunity.tasks} onComplete={(taskId) => completeTaskMutation.mutate(taskId)} isPending={completeTaskMutation.isPending} />
+            <TaskList
+              tasks={opportunity.tasks}
+              onComplete={(taskId) => completeTaskMutation.mutate(taskId)}
+              isPending={completeTaskMutation.isPending}
+            />
             <TaskForm
               isPending={taskMutation.isPending}
-              onSubmit={(data) => taskMutation.mutate({ ...data, opportunityId: opportunity.id, contactId: contact?.id })}
+              onSubmit={(data) =>
+                taskMutation.mutate({
+                  ...data,
+                  opportunityId: opportunity.id,
+                  contactId: contact?.id,
+                })
+              }
             />
           </CardContent>
         </Card>

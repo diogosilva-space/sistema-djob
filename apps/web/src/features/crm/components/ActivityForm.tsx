@@ -37,8 +37,15 @@ export function ActivityForm({ onSubmit, isPending }: ActivityFormProps) {
           <option value="WHATSAPP">WhatsApp</option>
           <option value="NOTE">Nota</option>
         </select>
-        <Input value={subject} onChange={(event) => setSubject(event.target.value)} placeholder="O que aconteceu?" required />
-        <Button type="submit" disabled={isPending}>{isPending ? 'Salvando...' : 'Registrar'}</Button>
+        <Input
+          value={subject}
+          onChange={(event) => setSubject(event.target.value)}
+          placeholder="O que aconteceu?"
+          required
+        />
+        <Button type="submit" disabled={isPending}>
+          {isPending ? 'Salvando...' : 'Registrar'}
+        </Button>
       </div>
       <textarea
         value={description}

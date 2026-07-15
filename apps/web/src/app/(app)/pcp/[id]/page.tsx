@@ -4,7 +4,16 @@ import { useState, useEffect, useCallback } from 'react';
 import { pcpService } from '@/features/pcp/api/pcp.service';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Loader2, CheckCircle, Play, Pause, AlertTriangle, Cpu, Tag, AlertCircle } from 'lucide-react';
+import {
+  Loader2,
+  CheckCircle,
+  Play,
+  Pause,
+  AlertTriangle,
+  Cpu,
+  Tag,
+  AlertCircle,
+} from 'lucide-react';
 import Link from 'next/link';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { useParams } from 'next/navigation';
@@ -126,16 +135,22 @@ export default function PcpOrderDetailsPage() {
         {/* Informações Gerais */}
         <Card className="bg-card rounded-lg border border-border shadow-sm md:col-span-1 h-fit">
           <CardHeader className="pb-4">
-            <CardTitle className="text-base font-semibold text-foreground">Detalhes da OP</CardTitle>
+            <CardTitle className="text-base font-semibold text-foreground">
+              Detalhes da OP
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 text-sm border-t border-border pt-4">
             <div className="space-y-1">
               <span className="text-muted-foreground block font-semibold">Cliente</span>
-              <span className="font-bold text-foreground text-base">{order.salesOrder?.customer?.name || 'Venda Avulsa'}</span>
+              <span className="font-bold text-foreground text-base">
+                {order.salesOrder?.customer?.name || 'Venda Avulsa'}
+              </span>
             </div>
             <div className="space-y-1">
               <span className="text-muted-foreground block font-semibold">Pedido Relacionado</span>
-              <span className="tabular-nums font-bold text-foreground">{order.salesOrder?.code || '—'}</span>
+              <span className="tabular-nums font-bold text-foreground">
+                {order.salesOrder?.code || '—'}
+              </span>
             </div>
             <div className="space-y-1">
               <span className="text-muted-foreground block font-semibold">Status de Produção</span>
@@ -153,8 +168,12 @@ export default function PcpOrderDetailsPage() {
         {/* Linha do tempo das Etapas */}
         <Card className="bg-card rounded-lg border border-border shadow-sm md:col-span-2">
           <CardHeader className="pb-4">
-            <CardTitle className="text-base font-semibold text-foreground">Roteiro de Confecção</CardTitle>
-            <CardDescription>Gerencie e registre o progresso em tempo real das etapas</CardDescription>
+            <CardTitle className="text-base font-semibold text-foreground">
+              Roteiro de Confecção
+            </CardTitle>
+            <CardDescription>
+              Gerencie e registre o progresso em tempo real das etapas
+            </CardDescription>
           </CardHeader>
           <CardContent className="border-t border-border pt-6">
             <div className="relative pl-8 space-y-8 before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-muted">

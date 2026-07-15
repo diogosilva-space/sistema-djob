@@ -4,7 +4,16 @@ import { useState, useEffect } from 'react';
 import { vendasService } from '@/features/vendas/api/vendas.service';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Loader2, Plus, ArrowRight, FileText, CheckCircle, Clock, AlertTriangle, Repeat } from 'lucide-react';
+import {
+  Loader2,
+  Plus,
+  ArrowRight,
+  FileText,
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+  Repeat,
+} from 'lucide-react';
 import Link from 'next/link';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 
@@ -119,7 +128,9 @@ export default function QuotesPage() {
               <CardHeader className="pb-3">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-base font-semibold text-foreground">{quote.code}</CardTitle>
+                    <CardTitle className="text-base font-semibold text-foreground">
+                      {quote.code}
+                    </CardTitle>
                     <div className="text-lg tabular-nums font-bold text-foreground mt-1">
                       {new Intl.NumberFormat('pt-BR', {
                         style: 'currency',

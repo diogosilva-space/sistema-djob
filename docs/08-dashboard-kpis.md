@@ -24,25 +24,25 @@ Implementada em `apps/api/src/dashboard/` e `apps/web/src/features/dashboard/`.
 
 ### Cards de KPI
 
-| KPI | Fonte | Cálculo |
-|---|---|---|
-| Faturamento do mês | `SalesOrder.totalAmount`, `createdAt` | Soma do período selecionado |
-| Pedidos em aberto | `SalesOrder.status` | Status `PENDING`, `CONFIRMED`, `IN_PRODUCTION`, `READY` ou `SHIPPED` |
-| OPs em andamento | `ProductionOrder.status` | Status `PLANNED`, `IN_PROGRESS` ou `PAUSED` |
-| Estoque crítico | `StockItem.quantity`, `Product.minStock` | Itens com saldo menor ou igual ao mínimo |
+| KPI                | Fonte                                    | Cálculo                                                              |
+| ------------------ | ---------------------------------------- | -------------------------------------------------------------------- |
+| Faturamento do mês | `SalesOrder.totalAmount`, `createdAt`    | Soma do período selecionado                                          |
+| Pedidos em aberto  | `SalesOrder.status`                      | Status `PENDING`, `CONFIRMED`, `IN_PRODUCTION`, `READY` ou `SHIPPED` |
+| OPs em andamento   | `ProductionOrder.status`                 | Status `PLANNED`, `IN_PROGRESS` ou `PAUSED`                          |
+| Estoque crítico    | `StockItem.quantity`, `Product.minStock` | Itens com saldo menor ou igual ao mínimo                             |
 
 ### Gráficos
 
-| Gráfico | Tipo | Fonte |
-|---|---|---|
-| Evolução do faturamento | Linha/área; últimos 6 meses | Pedidos agrupados por `createdAt` |
-| Vendas por categoria/tipo | Donut | Itens de pedidos agrupados por produto/categoria |
+| Gráfico                   | Tipo                        | Fonte                                            |
+| ------------------------- | --------------------------- | ------------------------------------------------ |
+| Evolução do faturamento   | Linha/área; últimos 6 meses | Pedidos agrupados por `createdAt`                |
+| Vendas por categoria/tipo | Donut                       | Itens de pedidos agrupados por produto/categoria |
 
 ### Listas operacionais
 
-| Lista | Conteúdo |
-|---|---|
-| Últimos pedidos | Pedidos mais recentes, cliente, status e valor |
+| Lista              | Conteúdo                                                  |
+| ------------------ | --------------------------------------------------------- |
+| Últimos pedidos    | Pedidos mais recentes, cliente, status e valor            |
 | Alertas do sistema | Estoque crítico, pedidos vencidos e OPs com prazo vencido |
 
 ## 3. Fase P1 — Comercial e CRM
@@ -86,14 +86,14 @@ Comparativos com o período anterior serão incluídos nesse endpoint na P1, nã
 
 ## 6. Lacunas conhecidas
 
-| Necessidade | Lacuna atual |
-|---|---|
-| Pipeline CRM | `Opportunity` existe no Prisma, mas não possui API |
-| Vendas por vendedor | `Quote` e `SalesOrder` não têm `sellerId` |
-| Minhas tarefas | Não há model de tarefa/atividade CRM |
-| Margem por pedido | Não há snapshot consolidado de custo na venda |
-| Saldo bancário real | Não há model de conta bancária/saldo inicial |
-| Movimentação por produto | `StockMovement` não possui `productId` |
+| Necessidade              | Lacuna atual                                       |
+| ------------------------ | -------------------------------------------------- |
+| Pipeline CRM             | `Opportunity` existe no Prisma, mas não possui API |
+| Vendas por vendedor      | `Quote` e `SalesOrder` não têm `sellerId`          |
+| Minhas tarefas           | Não há model de tarefa/atividade CRM               |
+| Margem por pedido        | Não há snapshot consolidado de custo na venda      |
+| Saldo bancário real      | Não há model de conta bancária/saldo inicial       |
+| Movimentação por produto | `StockMovement` não possui `productId`             |
 
 ## 7. Referências
 

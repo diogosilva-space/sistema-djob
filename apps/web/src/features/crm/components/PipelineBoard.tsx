@@ -48,8 +48,13 @@ export function PipelineBoard() {
     },
   });
   const stageMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Parameters<typeof opportunitiesApi.changeStage>[1] }) =>
-      opportunitiesApi.changeStage(id, data),
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: Parameters<typeof opportunitiesApi.changeStage>[1];
+    }) => opportunitiesApi.changeStage(id, data),
     onSuccess: () => {
       setPendingStage(null);
       refresh();
@@ -77,11 +82,19 @@ export function PipelineBoard() {
   }
 
   if (pipeline.isLoading || metrics.isLoading) {
-    return <div className="rounded-lg border border-border bg-card p-8 text-sm text-muted-foreground">Carregando pipeline...</div>;
+    return (
+      <div className="rounded-lg border border-border bg-card p-8 text-sm text-muted-foreground">
+        Carregando pipeline...
+      </div>
+    );
   }
 
   if (pipeline.isError || metrics.isError || !metrics.data) {
-    return <div className="rounded-lg border border-destructive/20 bg-card p-8 text-sm text-destructive">Não foi possível carregar o pipeline comercial.</div>;
+    return (
+      <div className="rounded-lg border border-destructive/20 bg-card p-8 text-sm text-destructive">
+        Não foi possível carregar o pipeline comercial.
+      </div>
+    );
   }
 
   return (
@@ -90,8 +103,16 @@ export function PipelineBoard() {
       <section className="rounded-lg border border-border bg-card p-4 shadow-sm">
         <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="relative w-full lg:max-w-sm">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" strokeWidth={1.5} />
-            <Input className="pl-9" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Buscar oportunidade ou cliente" />
+            <Search
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+              strokeWidth={1.5}
+            />
+            <Input
+              className="pl-9"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Buscar oportunidade ou cliente"
+            />
           </div>
           <Button onClick={() => setIsCreateOpen(true)}>
             <Plus className="h-4 w-4" strokeWidth={1.5} />
@@ -100,18 +121,31 @@ export function PipelineBoard() {
         </div>
         <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
           <div className="hidden gap-3 overflow-x-auto pb-2 md:flex">
-            {activeColumns.map((column) => <PipelineColumn key={column.status} column={column} />)}
-            {closedColumns.map((column) => <PipelineColumn key={column.status} column={column} collapsed />)}
+            {activeColumns.map((column) => (
+              <PipelineColumn key={column.status} column={column} />
+            ))}
+            {closedColumns.map((column) => (
+              <PipelineColumn key={column.status} column={column} collapsed />
+            ))}
           </div>
           <div className="space-y-3 md:hidden">
             {[...activeColumns, ...closedColumns].map((column) => (
-              <details key={column.status} className="rounded-lg border border-border bg-card p-3" open={column.count > 0}>
+              <details
+                key={column.status}
+                className="rounded-lg border border-border bg-card p-3"
+                open={column.count > 0}
+              >
                 <summary className="cursor-pointer text-sm font-semibold text-foreground">
-                  {column.status.replaceAll('_', ' ')} <span className="ml-1 text-muted-foreground">({column.count})</span>
+                  {column.status.replaceAll('_', ' ')}{' '}
+                  <span className="ml-1 text-muted-foreground">({column.count})</span>
                 </summary>
                 <div className="mt-3 space-y-2">
                   {column.opportunities.map((opportunity) => (
-                    <OpportunityCard key={opportunity.id} opportunity={opportunity} draggable={false} />
+                    <OpportunityCard
+                      key={opportunity.id}
+                      opportunity={opportunity}
+                      draggable={false}
+                    />
                   ))}
                   {column.opportunities.length === 0 && (
                     <p className="py-2 text-xs text-muted-foreground">Nenhuma oportunidade</p>
@@ -135,7 +169,12 @@ export function PipelineBoard() {
           status={pendingStage.status}
           isPending={stageMutation.isPending}
           onCancel={() => setPendingStage(null)}
-          onConfirm={(data) => stageMutation.mutate({ id: pendingStage.opportunity.id, data: { status: pendingStage.status, ...data } })}
+          onConfirm={(data) =>
+            stageMutation.mutate({
+              id: pendingStage.opportunity.id,
+              data: { status: pendingStage.status, ...data },
+            })
+          }
         />
       )}
     </>

@@ -1,10 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { prisma } from '@djob/database';
-import {
-  CreateTaskInput,
-  TaskListQuery,
-  UpdateTaskInput,
-} from '@djob/validators';
+import { CreateTaskInput, TaskListQuery, UpdateTaskInput } from '@djob/validators';
 import { Prisma, TaskStatus } from '@prisma/client';
 
 interface AuthUser {

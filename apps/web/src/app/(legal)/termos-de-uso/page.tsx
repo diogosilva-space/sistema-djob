@@ -4,8 +4,7 @@ import { LegalShell } from '@/components/legal/LegalShell';
 
 export const metadata: Metadata = {
   title: 'Termos de Uso',
-  description:
-    'Termos de Uso da plataforma D.job System — ERP/CRM industrial multitenant.',
+  description: 'Termos de Uso da plataforma D.job System — ERP/CRM industrial multitenant.',
 };
 
 const SECTIONS = [
@@ -25,15 +24,15 @@ export default function TermosDeUsoPage() {
       <section id="aceitacao">
         <h2>1. Aceitação dos Termos</h2>
         <p>
-          Ao acessar ou utilizar a plataforma <strong>D.job System</strong> (&quot;Plataforma&quot;),
-          operada por <strong>D.job Sistemas Ltda.</strong> (&quot;D.job&quot;, &quot;nós&quot; ou
-          &quot;nosso&quot;), você declara que leu, compreendeu e concorda integralmente com estes
-          Termos de Uso (&quot;Termos&quot;).
+          Ao acessar ou utilizar a plataforma <strong>D.job System</strong>{' '}
+          (&quot;Plataforma&quot;), operada por <strong>D.job Sistemas Ltda.</strong>{' '}
+          (&quot;D.job&quot;, &quot;nós&quot; ou &quot;nosso&quot;), você declara que leu,
+          compreendeu e concorda integralmente com estes Termos de Uso (&quot;Termos&quot;).
         </p>
         <p>
           Caso não concorde com qualquer disposição destes Termos, você deverá interromper
-          imediatamente o uso da Plataforma. O uso continuado constitui aceitação tácita de eventuais
-          atualizações.
+          imediatamente o uso da Plataforma. O uso continuado constitui aceitação tácita de
+          eventuais atualizações.
         </p>
       </section>
 
@@ -114,9 +113,7 @@ export default function TermosDeUsoPage() {
         </p>
         <ul>
           <li>Funcionamento ininterrupto ou livre de erros</li>
-          <li>
-            Que os resultados obtidos serão precisos ou confiáveis para todas as finalidades
-          </li>
+          <li>Que os resultados obtidos serão precisos ou confiáveis para todas as finalidades</li>
           <li>Compatibilidade com todos os dispositivos ou navegadores</li>
         </ul>
         <p>

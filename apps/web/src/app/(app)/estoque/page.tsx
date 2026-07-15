@@ -12,7 +12,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { AlertCircle, Plus, RefreshCw, Database, AlertTriangle, CheckCircle, Tag } from 'lucide-react';
+import {
+  AlertCircle,
+  Plus,
+  RefreshCw,
+  Database,
+  AlertTriangle,
+  CheckCircle,
+  Tag,
+} from 'lucide-react';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { estoqueService } from '@/features/estoque/api/estoque.service';
 import { productsService } from '@/features/products/api/products.service';
@@ -128,7 +136,10 @@ export default function EstoquePage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl tabular-nums font-bold text-destructive">
-              {items.filter((item) => Number(item.quantity) <= Number(item.product.minStock || 0)).length}
+              {
+                items.filter((item) => Number(item.quantity) <= Number(item.product.minStock || 0))
+                  .length
+              }
             </div>
           </CardContent>
         </Card>
@@ -136,12 +147,16 @@ export default function EstoquePage() {
 
       <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
         <CardHeader className="pb-3 border-b border-border">
-          <CardTitle className="text-base font-semibold text-foreground">Saldo de Insumos</CardTitle>
+          <CardTitle className="text-base font-semibold text-foreground">
+            Saldo de Insumos
+          </CardTitle>
           <CardDescription>Visualização completa dos estoques por matéria-prima</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-sm text-muted-foreground">Carregando saldo de insumos...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">
+              Carregando saldo de insumos...
+            </div>
           ) : items.length === 0 ? (
             <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhum saldo registrado no momento.
@@ -150,24 +165,42 @@ export default function EstoquePage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/70">
-                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Insumo / Matéria Prima</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">SKU</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Localização</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Quantidade</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Unidade</TableHead>
-                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Status</TableHead>
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Insumo / Matéria Prima
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    SKU
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Localização
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Quantidade
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Unidade
+                  </TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Status
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {items.map((item) => (
                   <TableRow key={item.id} className="hover:bg-muted/50">
-                    <TableCell className="pl-6 font-semibold text-foreground">{item.product.name}</TableCell>
-                    <TableCell className="tabular-nums text-xs text-muted-foreground">{item.product.sku}</TableCell>
+                    <TableCell className="pl-6 font-semibold text-foreground">
+                      {item.product.name}
+                    </TableCell>
+                    <TableCell className="tabular-nums text-xs text-muted-foreground">
+                      {item.product.sku}
+                    </TableCell>
                     <TableCell className="text-muted-foreground">{item.location}</TableCell>
                     <TableCell className="tabular-nums font-bold text-foreground text-right text-base">
                       {Number(item.quantity).toLocaleString('pt-BR', { minimumFractionDigits: 3 })}
                     </TableCell>
-                    <TableCell className="text-muted-foreground text-sm font-semibold">{item.product.unit}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm font-semibold">
+                      {item.product.unit}
+                    </TableCell>
                     <TableCell className="pr-6 text-right">{getStockStatus(item)}</TableCell>
                   </TableRow>
                 ))}
@@ -182,8 +215,12 @@ export default function EstoquePage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm">
           <Card className="w-full max-w-md bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <CardHeader className="pb-4 border-b border-border">
-              <CardTitle className="text-base font-semibold text-foreground">Ajustar Saldo de Estoque</CardTitle>
-              <CardDescription>Adicione ou retire saldo manualmente das localizações</CardDescription>
+              <CardTitle className="text-base font-semibold text-foreground">
+                Ajustar Saldo de Estoque
+              </CardTitle>
+              <CardDescription>
+                Adicione ou retire saldo manualmente das localizações
+              </CardDescription>
             </CardHeader>
             <form onSubmit={handleAdjust}>
               <CardContent className="space-y-5 p-6">
@@ -231,7 +268,9 @@ export default function EstoquePage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-foreground">Documento de Referência</label>
+                  <label className="text-sm font-semibold text-foreground">
+                    Documento de Referência
+                  </label>
                   <Input
                     type="text"
                     className="h-10 border-border focus-visible:ring-djob"
@@ -242,7 +281,9 @@ export default function EstoquePage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-foreground">Observações / Motivo</label>
+                  <label className="text-sm font-semibold text-foreground">
+                    Observações / Motivo
+                  </label>
                   <textarea
                     className="flex min-h-[80px] w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
                     value={notes}

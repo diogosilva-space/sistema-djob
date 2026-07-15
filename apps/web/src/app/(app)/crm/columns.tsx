@@ -16,7 +16,11 @@ export type Customer = {
 export const columns: ColumnDef<Customer>[] = [
   {
     accessorKey: 'name',
-    header: () => <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Razão Social / Nome</span>,
+    header: () => (
+      <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        Razão Social / Nome
+      </span>
+    ),
     cell: ({ row }) => {
       const name = row.getValue('name') as string;
       const type = row.getValue('type') as string;
@@ -38,7 +42,11 @@ export const columns: ColumnDef<Customer>[] = [
   },
   {
     accessorKey: 'type',
-    header: () => <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Tipo de Conta</span>,
+    header: () => (
+      <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        Tipo de Conta
+      </span>
+    ),
     cell: ({ row }) => {
       const type = row.getValue('type') as string;
       return (
@@ -56,7 +64,11 @@ export const columns: ColumnDef<Customer>[] = [
   },
   {
     accessorKey: 'email',
-    header: () => <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">E-mail</span>,
+    header: () => (
+      <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        E-mail
+      </span>
+    ),
     cell: ({ row }) => {
       const email = row.getValue('email') as string;
       if (!email) return <span className="text-muted-foreground text-sm">—</span>;
@@ -70,7 +82,11 @@ export const columns: ColumnDef<Customer>[] = [
   },
   {
     accessorKey: 'phone',
-    header: () => <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Contato</span>,
+    header: () => (
+      <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        Contato
+      </span>
+    ),
     cell: ({ row }) => {
       const phone = row.getValue('phone') as string;
       if (!phone) return <span className="text-muted-foreground text-sm">—</span>;

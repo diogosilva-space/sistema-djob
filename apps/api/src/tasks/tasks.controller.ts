@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, SetMetadata, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  SetMetadata,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
   CreateTaskInput,
@@ -53,13 +64,19 @@ export class TasksController {
 
   @Patch(':id/complete')
   @SetMetadata(ROLES_KEY, ['ADMIN', 'MANAGER', 'SELLER'])
-  complete(@CurrentUser() user: { id: string; tenantId: string; role: string }, @Param('id') id: string) {
+  complete(
+    @CurrentUser() user: { id: string; tenantId: string; role: string },
+    @Param('id') id: string,
+  ) {
     return this.tasksService.complete(user, id);
   }
 
   @Delete(':id')
   @SetMetadata(ROLES_KEY, ['ADMIN', 'MANAGER', 'SELLER'])
-  remove(@CurrentUser() user: { id: string; tenantId: string; role: string }, @Param('id') id: string) {
+  remove(
+    @CurrentUser() user: { id: string; tenantId: string; role: string },
+    @Param('id') id: string,
+  ) {
     return this.tasksService.remove(user, id);
   }
 }

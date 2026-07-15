@@ -41,13 +41,7 @@ function ThemeToggle() {
   );
 }
 
-function TableOfContents({
-  sections,
-  className,
-}: {
-  sections: Section[];
-  className?: string;
-}) {
+function TableOfContents({ sections, className }: { sections: Section[]; className?: string }) {
   return (
     <nav aria-label="Índice" className={className}>
       <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
@@ -144,9 +138,7 @@ export function LegalShell({ title, lastUpdated, sections, children }: LegalShel
       <div className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6 sm:py-12">
         <div className="mb-8">
           <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">{title}</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Última atualização: {lastUpdated}
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">Última atualização: {lastUpdated}</p>
         </div>
 
         <MobileTableOfContents sections={sections} />

@@ -4,7 +4,16 @@ import { useState, useEffect } from 'react';
 import { pcpService } from '@/features/pcp/api/pcp.service';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Plus, ArrowRight, Cpu, Play, CheckCircle, Clock, AlertTriangle } from 'lucide-react';
+import {
+  Loader2,
+  Plus,
+  ArrowRight,
+  Cpu,
+  Play,
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+} from 'lucide-react';
 import Link from 'next/link';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 
@@ -112,7 +121,9 @@ export default function PcpPage() {
               <CardHeader className="pb-3">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-base font-semibold text-foreground">{order.code}</CardTitle>
+                    <CardTitle className="text-base font-semibold text-foreground">
+                      {order.code}
+                    </CardTitle>
                     <CardDescription className="font-semibold text-muted-foreground mt-1">
                       {order.salesOrder ? `Pedido: ${order.salesOrder.code}` : 'OP Avulsa'}
                     </CardDescription>

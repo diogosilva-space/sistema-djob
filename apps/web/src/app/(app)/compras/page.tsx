@@ -12,7 +12,20 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Plus, RefreshCw, Eye, CheckCircle2, ChevronRight, XCircle, ShoppingBag, Truck, Calendar, Tag, Trash2, X } from 'lucide-react';
+import {
+  Plus,
+  RefreshCw,
+  Eye,
+  CheckCircle2,
+  ChevronRight,
+  XCircle,
+  ShoppingBag,
+  Truck,
+  Calendar,
+  Tag,
+  Trash2,
+  X,
+} from 'lucide-react';
 import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { comprasService } from '@/features/compras/api/compras.service';
 import { suppliersService } from '@/features/crm/api/suppliers.service';
@@ -60,7 +73,7 @@ export default function ComprasPage() {
         supplierId: selectedSupplierId,
         expectedDate: expectedDate ? new Date(expectedDate).toISOString() : undefined,
         notes,
-        items: items.map(item => ({
+        items: items.map((item) => ({
           productName: item.productName,
           quantity: Number(item.quantity),
           unitPrice: Number(item.unitPrice),
@@ -77,7 +90,10 @@ export default function ComprasPage() {
     }
   };
 
-  const handleUpdateStatus = async (id: string, status: 'SENT' | 'CONFIRMED' | 'RECEIVED' | 'CANCELLED') => {
+  const handleUpdateStatus = async (
+    id: string,
+    status: 'SENT' | 'CONFIRMED' | 'RECEIVED' | 'CANCELLED',
+  ) => {
     try {
       await comprasService.updatePurchaseOrder(id, { status });
       loadData();
@@ -204,12 +220,16 @@ export default function ComprasPage() {
 
       <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
         <CardHeader className="pb-3 border-b border-border">
-          <CardTitle className="text-base font-semibold text-foreground">Histórico de Compras</CardTitle>
+          <CardTitle className="text-base font-semibold text-foreground">
+            Histórico de Compras
+          </CardTitle>
           <CardDescription>Acompanhe o pipeline de insumos solicitados e recebidos</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-sm text-muted-foreground">Carregando pedidos de compra...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">
+              Carregando pedidos de compra...
+            </div>
           ) : orders.length === 0 ? (
             <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhum pedido de compra registrado.
@@ -218,26 +238,43 @@ export default function ComprasPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/70">
-                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Código</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Fornecedor</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Previsão de Entrega</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Valor Total</TableHead>
-                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Status</TableHead>
-                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Ações</TableHead>
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Código
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Fornecedor
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Previsão de Entrega
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Valor Total
+                  </TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Status
+                  </TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">
+                    Ações
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {orders.map((order) => (
                   <TableRow key={order.id} className="hover:bg-muted/50">
                     <TableCell className="pl-6 font-bold text-foreground">{order.code}</TableCell>
-                    <TableCell className="font-semibold text-foreground">{order.supplier.name}</TableCell>
+                    <TableCell className="font-semibold text-foreground">
+                      {order.supplier.name}
+                    </TableCell>
                     <TableCell className="text-muted-foreground font-medium">
                       {order.expectedDate
                         ? new Date(order.expectedDate).toLocaleDateString('pt-BR')
                         : '—'}
                     </TableCell>
                     <TableCell className="tabular-nums font-bold text-foreground text-right text-base">
-                      R$ {Number(order.totalAmount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${' '}
+                      {Number(order.totalAmount).toLocaleString('pt-BR', {
+                        minimumFractionDigits: 2,
+                      })}
                     </TableCell>
                     <TableCell>{getStatusBadge(order.status)}</TableCell>
                     <TableCell className="pr-6 text-right flex justify-end gap-1.5 items-center">
@@ -300,8 +337,14 @@ export default function ComprasPage() {
           <Card className="w-full max-w-2xl bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <CardHeader className="pb-4 border-b border-border">
               <div className="flex justify-between items-center">
-                <CardTitle className="text-base font-semibold text-foreground">Novo Pedido de Compra</CardTitle>
-                <button type="button" onClick={() => setShowCreateModal(false)} className="text-muted-foreground hover:text-muted-foreground">
+                <CardTitle className="text-base font-semibold text-foreground">
+                  Novo Pedido de Compra
+                </CardTitle>
+                <button
+                  type="button"
+                  onClick={() => setShowCreateModal(false)}
+                  className="text-muted-foreground hover:text-muted-foreground"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -327,7 +370,9 @@ export default function ComprasPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-foreground">Data de Entrega Estimada</label>
+                    <label className="text-sm font-semibold text-foreground">
+                      Data de Entrega Estimada
+                    </label>
                     <Input
                       type="date"
                       className="h-10 border-border focus-visible:ring-djob"
@@ -338,7 +383,9 @@ export default function ComprasPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-foreground">Observações gerais</label>
+                  <label className="text-sm font-semibold text-foreground">
+                    Observações gerais
+                  </label>
                   <textarea
                     className="flex min-h-[60px] w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
                     value={notes}
@@ -363,9 +410,14 @@ export default function ComprasPage() {
                   </div>
 
                   {items.map((item, index) => (
-                    <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end border-b pb-4 last:border-0 last:pb-0">
+                    <div
+                      key={index}
+                      className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end border-b pb-4 last:border-0 last:pb-0"
+                    >
                       <div className="md:col-span-2 flex flex-col gap-1.5">
-                        <label className="text-xs font-semibold text-muted-foreground">Nome do Insumo</label>
+                        <label className="text-xs font-semibold text-muted-foreground">
+                          Nome do Insumo
+                        </label>
                         <Input
                           type="text"
                           className="h-9 border-border focus-visible:ring-djob"
@@ -388,14 +440,18 @@ export default function ComprasPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-1.5 relative">
-                        <label className="text-xs font-semibold text-muted-foreground">Preço Unitário (R$)</label>
+                        <label className="text-xs font-semibold text-muted-foreground">
+                          Preço Unitário (R$)
+                        </label>
                         <div className="flex gap-2">
                           <Input
                             type="number"
                             step="0.01"
                             className="h-9 border-border focus-visible:ring-djob"
                             value={item.unitPrice}
-                            onChange={(e) => updateItemRow(index, 'unitPrice', Number(e.target.value))}
+                            onChange={(e) =>
+                              updateItemRow(index, 'unitPrice', Number(e.target.value))
+                            }
                             min="0"
                             required
                           />
@@ -444,10 +500,16 @@ export default function ComprasPage() {
             <CardHeader className="pb-4 border-b border-border">
               <div className="flex justify-between items-center">
                 <div>
-                  <CardTitle className="text-base font-semibold text-foreground">Detalhes do Pedido {selectedOrder.code}</CardTitle>
+                  <CardTitle className="text-base font-semibold text-foreground">
+                    Detalhes do Pedido {selectedOrder.code}
+                  </CardTitle>
                   <CardDescription>Acompanhamento de entregas e insumos inclusos</CardDescription>
                 </div>
-                <button type="button" onClick={() => setShowDetailModal(false)} className="text-muted-foreground hover:text-muted-foreground">
+                <button
+                  type="button"
+                  onClick={() => setShowDetailModal(false)}
+                  className="text-muted-foreground hover:text-muted-foreground"
+                >
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -467,13 +529,18 @@ export default function ComprasPage() {
                   </span>
                 </div>
                 <div>
-                  <span className="text-muted-foreground block font-semibold">Status do Pedido</span>
+                  <span className="text-muted-foreground block font-semibold">
+                    Status do Pedido
+                  </span>
                   <span>{getStatusBadge(selectedOrder.status)}</span>
                 </div>
                 <div>
                   <span className="text-muted-foreground block font-semibold">Valor Total</span>
                   <span className="tabular-nums font-bold text-foreground text-base">
-                    R$ {Number(selectedOrder.totalAmount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                    R${' '}
+                    {Number(selectedOrder.totalAmount).toLocaleString('pt-BR', {
+                      minimumFractionDigits: 2,
+                    })}
                   </span>
                 </div>
               </div>
@@ -487,23 +554,39 @@ export default function ComprasPage() {
 
               {/* Itens do Pedido */}
               <div className="space-y-3">
-                <h4 className="text-sm font-bold text-foreground uppercase tracking-wider">Itens e Matérias-Primas Inclusos</h4>
+                <h4 className="text-sm font-bold text-foreground uppercase tracking-wider">
+                  Itens e Matérias-Primas Inclusos
+                </h4>
                 <div className="border border-border rounded-lg overflow-hidden">
                   <Table>
                     <TableHeader className="bg-muted">
                       <TableRow>
-                        <TableHead className="pl-4 text-xs font-semibold text-muted-foreground">Item / Insumo</TableHead>
-                        <TableHead className="text-xs font-semibold text-muted-foreground text-right">Qtd</TableHead>
-                        <TableHead className="text-xs font-semibold text-muted-foreground text-right">Preço Unit.</TableHead>
-                        <TableHead className="pr-4 text-xs font-semibold text-muted-foreground text-right">Total</TableHead>
+                        <TableHead className="pl-4 text-xs font-semibold text-muted-foreground">
+                          Item / Insumo
+                        </TableHead>
+                        <TableHead className="text-xs font-semibold text-muted-foreground text-right">
+                          Qtd
+                        </TableHead>
+                        <TableHead className="text-xs font-semibold text-muted-foreground text-right">
+                          Preço Unit.
+                        </TableHead>
+                        <TableHead className="pr-4 text-xs font-semibold text-muted-foreground text-right">
+                          Total
+                        </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {selectedOrder.items?.map((item: any) => (
                         <TableRow key={item.id}>
-                          <TableCell className="pl-4 font-semibold text-foreground">{item.productName}</TableCell>
-                          <TableCell className="tabular-nums text-right">{Number(item.quantity)}</TableCell>
-                          <TableCell className="tabular-nums text-right">R$ {Number(item.unitPrice).toFixed(2)}</TableCell>
+                          <TableCell className="pl-4 font-semibold text-foreground">
+                            {item.productName}
+                          </TableCell>
+                          <TableCell className="tabular-nums text-right">
+                            {Number(item.quantity)}
+                          </TableCell>
+                          <TableCell className="tabular-nums text-right">
+                            R$ {Number(item.unitPrice).toFixed(2)}
+                          </TableCell>
                           <TableCell className="pr-4 tabular-nums font-bold text-foreground text-right">
                             R$ {Number(item.totalPrice).toFixed(2)}
                           </TableCell>

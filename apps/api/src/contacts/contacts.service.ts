@@ -1,10 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { prisma } from '@djob/database';
-import {
-  ContactListQuery,
-  CreateContactInput,
-  UpdateContactInput,
-} from '@djob/validators';
+import { ContactListQuery, CreateContactInput, UpdateContactInput } from '@djob/validators';
 
 @Injectable()
 export class ContactsService {

@@ -109,7 +109,11 @@ function CustomerFormContent() {
   };
 
   if (loading) {
-    return <div className="text-center py-12 text-muted-foreground font-medium">Carregando dados do cliente...</div>;
+    return (
+      <div className="text-center py-12 text-muted-foreground font-medium">
+        Carregando dados do cliente...
+      </div>
+    );
   }
 
   return (
@@ -121,7 +125,9 @@ function CustomerFormContent() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-foreground font-semibold text-sm">Razão Social / Nome Completo</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">
+                  Razão Social / Nome Completo
+                </FormLabel>
                 <FormControl>
                   <Input
                     className="h-10 border-border focus-visible:ring-ring"
@@ -139,7 +145,9 @@ function CustomerFormContent() {
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-foreground font-semibold text-sm">Regime Fiscal</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">
+                  Regime Fiscal
+                </FormLabel>
                 <FormControl>
                   <select
                     className="flex h-10 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
@@ -177,7 +185,9 @@ function CustomerFormContent() {
             name="stateReg"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-foreground font-semibold text-sm">Inscrição Estadual</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">
+                  Inscrição Estadual
+                </FormLabel>
                 <FormControl>
                   <Input
                     className="h-10 border-border focus-visible:ring-ring"
@@ -195,7 +205,9 @@ function CustomerFormContent() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-foreground font-semibold text-sm">E-mail Corporativo</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">
+                  E-mail Corporativo
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="email"
@@ -214,7 +226,9 @@ function CustomerFormContent() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-foreground font-semibold text-sm">Telefone / WhatsApp</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">
+                  Telefone / WhatsApp
+                </FormLabel>
                 <FormControl>
                   <Input
                     className="h-10 border-border focus-visible:ring-ring"
@@ -236,7 +250,9 @@ function CustomerFormContent() {
               name="zipCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-foreground font-semibold text-sm">CEP (Auto-completar)</FormLabel>
+                  <FormLabel className="text-foreground font-semibold text-sm">
+                    CEP (Auto-completar)
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="h-10 border-border focus-visible:ring-ring"
@@ -276,7 +292,9 @@ function CustomerFormContent() {
               name="state"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-foreground font-semibold text-sm">Estado (UF)</FormLabel>
+                  <FormLabel className="text-foreground font-semibold text-sm">
+                    Estado (UF)
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="h-10 border-border focus-visible:ring-ring"
@@ -298,7 +316,9 @@ function CustomerFormContent() {
                 name="street"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-foreground font-semibold text-sm">Logradouro / Avenida</FormLabel>
+                    <FormLabel className="text-foreground font-semibold text-sm">
+                      Logradouro / Avenida
+                    </FormLabel>
                     <FormControl>
                       <Input
                         className="h-10 border-border focus-visible:ring-ring"
@@ -347,7 +367,11 @@ function CustomerFormContent() {
             disabled={mutation.isPending}
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold active:scale-[0.98] transition-transform"
           >
-            {mutation.isPending ? 'Salvando...' : customerId ? 'Atualizar Cadastro' : 'Cadastrar Cliente'}
+            {mutation.isPending
+              ? 'Salvando...'
+              : customerId
+                ? 'Atualizar Cadastro'
+                : 'Cadastrar Cliente'}
           </Button>
         </div>
       </form>
@@ -357,7 +381,13 @@ function CustomerFormContent() {
 
 export function CustomerForm() {
   return (
-    <Suspense fallback={<div className="text-center py-12 text-muted-foreground font-medium">Carregando formulário...</div>}>
+    <Suspense
+      fallback={
+        <div className="text-center py-12 text-muted-foreground font-medium">
+          Carregando formulário...
+        </div>
+      }
+    >
       <CustomerFormContent />
     </Suspense>
   );
