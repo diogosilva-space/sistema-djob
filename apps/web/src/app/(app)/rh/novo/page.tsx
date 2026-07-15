@@ -154,8 +154,8 @@ function FormEmployee() {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 text-sm font-semibold whitespace-nowrap border-b-2 transition-all ${
               activeTab === tab.id
-                ? 'border-slate-900 text-slate-900'
-                : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-200'
+                ? 'border-primary text-foreground'
+                : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
             }`}
           >
             {tab.label}
@@ -164,7 +164,7 @@ function FormEmployee() {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             {/* ABA: DADOS PESSOAIS */}
             {activeTab === 'pessoais' && (
@@ -173,7 +173,7 @@ function FormEmployee() {
                   <label className="text-sm font-semibold">Nome Completo</label>
                   <input
                     type="text"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Nome completo do colaborador"
@@ -185,7 +185,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">E-mail</label>
                     <input
                       type="email"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="exemplo@djob.com"
@@ -195,7 +195,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Telefone / Celular</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="(11) 99999-9999"
@@ -213,7 +213,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">CEP (Auto-busca)</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={zipCode}
                       onBlur={handleZipCodeBlur}
                       onChange={(e) => setZipCode(e.target.value)}
@@ -224,7 +224,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Logradouro / Rua</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={street}
                       onChange={(e) => setStreet(e.target.value)}
                       placeholder="Rua, Avenida, etc."
@@ -236,7 +236,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Número</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={number}
                       onChange={(e) => setNumber(e.target.value)}
                       placeholder="Nº"
@@ -246,7 +246,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Complemento</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={complement}
                       onChange={(e) => setComplement(e.target.value)}
                       placeholder="Apto, Bloco, etc."
@@ -258,7 +258,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Bairro</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={neighborhood}
                       onChange={(e) => setNeighborhood(e.target.value)}
                     />
@@ -267,7 +267,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Cidade</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                     />
@@ -276,7 +276,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">UF</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
                       maxLength={2}
@@ -293,7 +293,7 @@ function FormEmployee() {
                   <label className="text-sm font-semibold">CPF</label>
                   <input
                     type="text"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                     value={document}
                     onChange={(e) => setDocument(e.target.value)}
                     placeholder="000.000.000-00"
@@ -310,7 +310,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Cargo / Função</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={position}
                       onChange={(e) => setPosition(e.target.value)}
                       placeholder="Ex: Costureira"
@@ -320,7 +320,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Departamento</label>
                     <input
                       type="text"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={department}
                       onChange={(e) => setDepartment(e.target.value)}
                       placeholder="Ex: Produção"
@@ -330,7 +330,7 @@ function FormEmployee() {
                     <label className="text-sm font-semibold">Data de Admissão</label>
                     <input
                       type="date"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={admissionDate}
                       onChange={(e) => setAdmissionDate(e.target.value)}
                     />
@@ -343,7 +343,7 @@ function FormEmployee() {
                     <input
                       type="number"
                       step="0.01"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={salary}
                       onChange={(e) => setSalary(Number(e.target.value))}
                     />
@@ -351,7 +351,7 @@ function FormEmployee() {
                   <div className="flex flex-col gap-1.5">
                     <label className="text-sm font-semibold">Situação do Contrato</label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm"
                       value={status}
                       onChange={(e) => setStatus(e.target.value)}
                     >
@@ -365,7 +365,7 @@ function FormEmployee() {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm font-semibold">Observações Contratuais</label>
                   <textarea
-                    className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    className="flex min-h-[80px] w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Benefícios, acordos, termos aditivos..."
@@ -380,7 +380,7 @@ function FormEmployee() {
                 <p className="text-sm text-muted-foreground">
                   Insira as informações de conta bancária para pagamento de folha / salários.
                 </p>
-                <div className="bg-slate-50 border p-4 rounded-md text-sm text-slate-600">
+                <div className="bg-muted border p-4 rounded-lg text-sm text-muted-foreground">
                   Dados bancários serão criptografados em conformidade com as diretrizes do banco de
                   dados (recurso de segurança ativo).
                 </div>

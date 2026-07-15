@@ -67,11 +67,11 @@ export default function LoginPage() {
     <div className="bg-white p-8 rounded-lg shadow-sm border">
       <div className="mb-6 text-center">
         <h1 className="text-2xl font-bold tracking-tight">D.job System</h1>
-        <p className="text-sm text-slate-500 mt-1">Acesse sua conta para continuar</p>
+        <p className="text-sm text-muted-foreground mt-1">Acesse sua conta para continuar</p>
       </div>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-md border border-red-200">
+        <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-200">
           {error}
         </div>
       )}

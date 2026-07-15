@@ -7,6 +7,7 @@ import {
   Users,
   Package,
   FileText,
+  Target,
   ShoppingCart,
   Cpu,
   Database,
@@ -17,48 +18,110 @@ import {
   DollarSign,
 } from 'lucide-react';
 
-export function Sidebar() {
+import { cn } from '@/lib/utils';
+
+interface SidebarProps {
+  collapsed: boolean;
+}
+
+const navSections = [
+  {
+    label: 'Principal',
+    items: [
+      { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    ],
+  },
+  {
+    label: 'Comercial',
+    items: [
+      { href: '/contacts', label: 'Contatos', icon: Users },
+      { href: '/crm', label: 'Pipeline', icon: Target },
+      { href: '/vendas/orcamentos', label: 'Orçamentos', icon: FileText },
+      { href: '/vendas/pedidos', label: 'Pedidos de Venda', icon: ShoppingCart },
+    ],
+  },
+  {
+    label: 'Produção & Estoque',
+    items: [
+      { href: '/products', label: 'Produtos', icon: Package },
+      { href: '/pcp', label: 'Produção (PCP)', icon: Cpu },
+      { href: '/estoque', label: 'Estoque (Saldo)', icon: Database },
+      { href: '/estoque/movimentacoes', label: 'Movimentações', icon: History },
+    ],
+  },
+  {
+    label: 'Administrativo',
+    items: [
+      { href: '/compras', label: 'Compras', icon: ShoppingBag },
+      { href: '/rh', label: 'Recursos Humanos', icon: UserCheck },
+      { href: '/logistica', label: 'Logística', icon: Truck },
+      { href: '/financeiro', label: 'Financeiro', icon: DollarSign },
+    ],
+  },
+];
+
+export function Sidebar({ collapsed }: SidebarProps) {
   const pathname = usePathname();
 
-  const menuItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/crm', label: 'CRM (Clientes)', icon: Users },
-    { href: '/products', label: 'Produtos', icon: Package },
-    { href: '/vendas/orcamentos', label: 'Orçamentos', icon: FileText },
-    { href: '/vendas/pedidos', label: 'Pedidos de Venda', icon: ShoppingCart },
-    { href: '/pcp', label: 'Produção (PCP)', icon: Cpu },
-    { href: '/estoque', label: 'Estoque (Saldo)', icon: Database },
-    { href: '/estoque/movimentacoes', label: 'Movimentações', icon: History },
-    { href: '/compras', label: 'Pedidos de Compra', icon: ShoppingBag },
-    { href: '/rh', label: 'Recursos Humanos', icon: UserCheck },
-    { href: '/logistica', label: 'Logística & Entregas', icon: Truck },
-    { href: '/financeiro', label: 'Financeiro', icon: DollarSign },
-  ];
-
   return (
-    <aside className="w-64 border-r border-slate-200 bg-slate-50/50 flex flex-col min-h-screen">
-      <div className="h-14 border-b border-slate-200 flex items-center px-6 font-bold text-slate-900 tracking-tight text-lg">
-        D.job System
+    <aside
+      className={cn(
+        'flex h-screen flex-col border-r border-border bg-card transition-[width] duration-200 ease-in-out',
+        collapsed ? 'w-[3.25rem]' : 'w-60',
+      )}
+    >
+      {/* Branding */}
+      <div className={cn(
+        'flex h-[50px] shrink-0 items-center border-b border-border',
+        collapsed ? 'justify-center px-2' : 'gap-2.5 px-4',
+      )}>
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary">
+          <span className="text-sm font-bold text-primary-foreground">D</span>
+        </div>
+        {!collapsed && (
+          <span className="text-[14px] font-semibold tracking-tight text-foreground">
+            Djob<span className="text-primary">System</span>
+          </span>
+        )}
       </div>
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-        {menuItems.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                isActive
-                  ? 'bg-slate-900 text-white shadow-sm'
-                  : 'text-slate-650 hover:bg-slate-100 hover:text-slate-900'
-              }`}
-            >
-              <Icon className={`h-4 w-4 ${isActive ? 'text-white' : 'text-slate-500'}`} />
-              {item.label}
-            </Link>
-          );
-        })}
+
+      {/* Navigation */}
+      <nav className="flex-1 overflow-y-auto py-2 px-2">
+        <div className="flex flex-col gap-3">
+          {navSections.map((section) => (
+            <div key={section.label}>
+              {!collapsed && (
+                <p className="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/75">
+                  {section.label}
+                </p>
+              )}
+              <div className="flex flex-col gap-0.5">
+                {section.items.map((item) => {
+                  const isActive =
+                    pathname === item.href || pathname.startsWith(item.href + '/');
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      title={collapsed ? item.label : undefined}
+                      className={cn(
+                        'flex items-center gap-2.5 overflow-hidden rounded-lg text-xs font-normal transition-colors duration-150',
+                        collapsed ? 'justify-center px-2 py-2' : 'px-3 py-2',
+                        isActive
+                          ? 'bg-primary/10 font-semibold text-primary'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                      )}
+                    >
+                      <Icon className="h-[18px] w-[18px] shrink-0" strokeWidth={1.5} />
+                      {!collapsed && <span className="truncate">{item.label}</span>}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
       </nav>
     </aside>
   );

@@ -27,43 +27,48 @@ model Tenant {
   updatedAt DateTime @updatedAt
 
   // Relations
-  users              User[]
-  customers          Customer[]
-  suppliers          Supplier[]
-  products           Product[]
-  productCategories  ProductCategory[]
-  quotes             Quote[]
-  salesOrders        SalesOrder[]
-  purchaseOrders     PurchaseOrder[]
-  stockItems         StockItem[]
-  stockMovements     StockMovement[]
-  productionOrders   ProductionOrder[]
-  financialCategories FinancialCategory[]
+  users                 User[]
+  customers             Customer[]
+  suppliers             Supplier[]
+  contacts              Contact[]
+  products              Product[]
+  productCategories     ProductCategory[]
+  quotes                Quote[]
+  salesOrders           SalesOrder[]
+  purchaseOrders        PurchaseOrder[]
+  stockItems            StockItem[]
+  stockMovements        StockMovement[]
+  productionOrders      ProductionOrder[]
+  financialCategories   FinancialCategory[]
   financialTransactions FinancialTransaction[]
-  shipmentOrders     ShipmentOrder[]
-  employees          Employee[]
-  opportunities      Opportunity[]
-  auditLogs          AuditLog[]
+  shipmentOrders        ShipmentOrder[]
+  employees             Employee[]
+  opportunities         Opportunity[]
+  activities            Activity[]
+  tasks                 Task[]
+  auditLogs             AuditLog[]
 
   @@map("tenants")
 }
 
 model User {
-  id             String   @id @default(uuid()) @db.Uuid
-  tenantId       String   @db.Uuid
-  name           String   @db.VarChar(255)
-  email          String   @db.VarChar(255)
-  passwordHash   String   @db.Text
-  role           UserRole @default(OPERATOR)
-  isActive       Boolean  @default(true)
+  id             String    @id @default(uuid()) @db.Uuid
+  tenantId       String    @db.Uuid
+  name           String    @db.VarChar(255)
+  email          String    @db.VarChar(255)
+  passwordHash   String    @db.Text
+  role           UserRole  @default(OPERATOR)
+  isActive       Boolean   @default(true)
   lastLoginAt    DateTime?
-  failedAttempts Int      @default(0)
+  failedAttempts Int       @default(0)
   lockedUntil    DateTime?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tenant        Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   opportunities Opportunity[]
+  activities    Activity[]
+  assignedTasks Task[]        @relation("TaskAssignee")
   auditLogs     AuditLog[]
 
   @@unique([tenantId, email])
@@ -84,65 +89,120 @@ enum UserRole {
 // ============================================
 
 model Customer {
-  id           String       @id @default(uuid()) @db.Uuid
-  tenantId     String       @db.Uuid
-  type         PersonType   @default(JURIDICA)
-  name         String       @db.VarChar(255)
-  tradeName    String?      @db.VarChar(255) // Nome fantasia
-  document     String?      @db.VarChar(20)  // CPF ou CNPJ
-  stateReg     String?      @db.VarChar(20)  // Inscrição Estadual
-  email        String?      @db.VarChar(255)
-  phone        String?      @db.VarChar(20)
-  mobile       String?      @db.VarChar(20)
-  website      String?      @db.VarChar(255)
+  id           String     @id @default(uuid()) @db.Uuid
+  tenantId     String     @db.Uuid
+  type         PersonType @default(JURIDICA)
+  name         String     @db.VarChar(255)
+  tradeName    String?    @db.VarChar(255) // Nome fantasia
+  document     String?    @db.VarChar(20) // CPF ou CNPJ
+  stateReg     String?    @db.VarChar(20) // Inscrição Estadual
+  email        String?    @db.VarChar(255)
+  phone        String?    @db.VarChar(20)
+  mobile       String?    @db.VarChar(20)
+  website      String?    @db.VarChar(255)
   // Address
-  zipCode      String?      @db.VarChar(10)
-  street       String?      @db.VarChar(255)
-  number       String?      @db.VarChar(20)
-  complement   String?      @db.VarChar(100)
-  neighborhood String?      @db.VarChar(100)
-  city         String?      @db.VarChar(100)
-  state        String?      @db.VarChar(2)
+  zipCode      String?    @db.VarChar(10)
+  street       String?    @db.VarChar(255)
+  number       String?    @db.VarChar(20)
+  complement   String?    @db.VarChar(100)
+  neighborhood String?    @db.VarChar(100)
+  city         String?    @db.VarChar(100)
+  state        String?    @db.VarChar(2)
   // Meta
-  notes        String?      @db.Text
-  isActive     Boolean      @default(true)
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  notes        String?    @db.Text
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 
   // Relations
-  tenant      Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  quotes      Quote[]
-  salesOrders SalesOrder[]
+  tenant        Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  quotes        Quote[]
+  salesOrders   SalesOrder[]
   opportunities Opportunity[]
+  activities    Activity[]
+  tasks         Task[]
 
   @@index([tenantId])
   @@index([tenantId, document])
   @@map("customers")
 }
 
+enum ContactRole {
+  CLIENT
+  SUPPLIER
+  BOTH
+}
+
+model Contact {
+  id           String      @id @default(uuid()) @db.Uuid
+  tenantId     String      @db.Uuid
+  role         ContactRole @default(CLIENT)
+  type         PersonType  @default(JURIDICA)
+  name         String      @db.VarChar(255)
+  tradeName    String?     @db.VarChar(255)
+  document     String?     @db.VarChar(20)
+  stateReg     String?     @db.VarChar(20)
+  email        String?     @db.VarChar(255)
+  phone        String?     @db.VarChar(20)
+  mobile       String?     @db.VarChar(20)
+  website      String?     @db.VarChar(255)
+  zipCode      String?     @db.VarChar(10)
+  street       String?     @db.VarChar(255)
+  number       String?     @db.VarChar(20)
+  complement   String?     @db.VarChar(100)
+  neighborhood String?     @db.VarChar(100)
+  city         String?     @db.VarChar(100)
+  state        String?     @db.VarChar(2)
+  segment      String?     @db.VarChar(100)
+  notes        String?     @db.Text
+  isActive     Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  tenant         Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  opportunities  Opportunity[]
+  activities     Activity[]
+  tasks          Task[]
+  quotes         Quote[]
+  salesOrders    SalesOrder[]
+  purchaseOrders PurchaseOrder[]
+
+  @@index([tenantId])
+  @@index([tenantId, role])
+  @@index([tenantId, document])
+  @@map("contacts")
+}
+
 model Opportunity {
   id                String            @id @default(uuid()) @db.Uuid
   tenantId          String            @db.Uuid
   customerId        String?           @db.Uuid
+  contactId         String?           @db.Uuid
   sellerId          String            @db.Uuid // Vendedor responsável
   name              String            @db.VarChar(255)
   value             Decimal           @default(0) @db.Decimal(12, 2)
   probability       Int               @default(50) // 0-100
   status            OpportunityStatus @default(CONTATO_INICIAL)
   lastInteractionAt DateTime          @default(now())
+  expectedCloseAt   DateTime?
   closedAt          DateTime?
+  lostReason        String?           @db.VarChar(100)
   notes             String?           @db.Text
   tags              String[]          @default([])
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
 
   // Relations
-  tenant   Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  customer Customer? @relation(fields: [customerId], references: [id])
-  seller   User      @relation(fields: [sellerId], references: [id])
+  tenant     Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  customer   Customer?  @relation(fields: [customerId], references: [id])
+  contact    Contact?   @relation(fields: [contactId], references: [id])
+  seller     User       @relation(fields: [sellerId], references: [id])
+  activities Activity[]
+  tasks      Task[]
 
   @@index([tenantId])
   @@index([tenantId, sellerId])
+  @@index([tenantId, contactId])
   @@map("opportunities")
 }
 
@@ -154,6 +214,82 @@ enum OpportunityStatus {
   NEGOCIACAO
   FECHADO_GANHO
   FECHADO_PERDIDO
+}
+
+enum ActivityType {
+  CALL
+  EMAIL
+  MEETING
+  WHATSAPP
+  NOTE
+}
+
+model Activity {
+  id            String       @id @default(uuid()) @db.Uuid
+  tenantId      String       @db.Uuid
+  opportunityId String?      @db.Uuid
+  customerId    String?      @db.Uuid
+  contactId     String?      @db.Uuid
+  userId        String       @db.Uuid
+  type          ActivityType
+  subject       String       @db.VarChar(255)
+  description   String?      @db.Text
+  occurredAt    DateTime     @default(now())
+  createdAt     DateTime     @default(now())
+
+  tenant      Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  opportunity Opportunity? @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  customer    Customer?    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  contact     Contact?     @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user        User         @relation(fields: [userId], references: [id])
+
+  @@index([tenantId, opportunityId])
+  @@index([tenantId, customerId])
+  @@index([tenantId, contactId])
+  @@index([tenantId, occurredAt])
+  @@map("activities")
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model Task {
+  id            String       @id @default(uuid()) @db.Uuid
+  tenantId      String       @db.Uuid
+  opportunityId String?      @db.Uuid
+  customerId    String?      @db.Uuid
+  contactId     String?      @db.Uuid
+  assignedToId  String       @db.Uuid
+  title         String       @db.VarChar(255)
+  description   String?      @db.Text
+  dueDate       DateTime
+  completedAt   DateTime?
+  priority      TaskPriority @default(MEDIUM)
+  status        TaskStatus   @default(PENDING)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  tenant      Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  opportunity Opportunity? @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  customer    Customer?    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  contact     Contact?     @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  assignedTo  User         @relation("TaskAssignee", fields: [assignedToId], references: [id])
+
+  @@index([tenantId, opportunityId])
+  @@index([tenantId, customerId])
+  @@index([tenantId, contactId])
+  @@index([tenantId, assignedToId, status])
+  @@map("tasks")
 }
 
 model Supplier {
@@ -209,8 +345,8 @@ model ProductCategory {
   updatedAt DateTime @updatedAt
 
   // Relations
-  tenant   Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  parent   ProductCategory? @relation("CategoryTree", fields: [parentId], references: [id])
+  tenant   Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  parent   ProductCategory?  @relation("CategoryTree", fields: [parentId], references: [id])
   children ProductCategory[] @relation("CategoryTree")
   products Product[]
 
@@ -219,36 +355,36 @@ model ProductCategory {
 }
 
 model Product {
-  id           String          @id @default(uuid()) @db.Uuid
-  tenantId     String          @db.Uuid
-  categoryId   String?         @db.Uuid
-  sku          String          @db.VarChar(50)
-  name         String          @db.VarChar(255)
-  description  String?         @db.Text
-  type         ProductType     @default(SIMPLE)
-  unit         String          @default("UN") @db.VarChar(10) // UN, M, KG, etc.
-  costPrice    Decimal         @default(0) @db.Decimal(12, 2)
-  salePrice    Decimal         @default(0) @db.Decimal(12, 2)
-  minStock     Decimal         @default(0) @db.Decimal(12, 3)
-  maxStock     Decimal?        @db.Decimal(12, 3)
-  weight       Decimal?        @db.Decimal(10, 3)
+  id             String      @id @default(uuid()) @db.Uuid
+  tenantId       String      @db.Uuid
+  categoryId     String?     @db.Uuid
+  sku            String      @db.VarChar(50)
+  name           String      @db.VarChar(255)
+  description    String?     @db.Text
+  type           ProductType @default(SIMPLE)
+  unit           String      @default("UN") @db.VarChar(10) // UN, M, KG, etc.
+  costPrice      Decimal     @default(0) @db.Decimal(12, 2)
+  salePrice      Decimal     @default(0) @db.Decimal(12, 2)
+  minStock       Decimal     @default(0) @db.Decimal(12, 3)
+  maxStock       Decimal?    @db.Decimal(12, 3)
+  weight         Decimal?    @db.Decimal(10, 3)
   // Configurator (CTO)
-  isConfigurable Boolean       @default(false)
-  configOptions  Json?         @db.JsonB // Opções de configuração (tecido, cor, gola, etc.)
-  bomTemplate    Json?         @db.JsonB // Bill of Materials template
+  isConfigurable Boolean     @default(false)
+  configOptions  Json?       @db.JsonB // Opções de configuração (tecido, cor, gola, etc.)
+  bomTemplate    Json?       @db.JsonB // Bill of Materials template
   // Meta
-  images       String[]        @default([])
-  isActive     Boolean         @default(true)
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
+  images         String[]    @default([])
+  isActive       Boolean     @default(true)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
   // Relations
-  tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  category   ProductCategory? @relation(fields: [categoryId], references: [id])
-  variants   ProductVariant[]
-  quoteItems QuoteItem[]
+  tenant          Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category        ProductCategory? @relation(fields: [categoryId], references: [id])
+  variants        ProductVariant[]
+  quoteItems      QuoteItem[]
   salesOrderItems SalesOrderItem[]
-  stockItems StockItem[]
+  stockItems      StockItem[]
 
   @@unique([tenantId, sku])
   @@index([tenantId])
@@ -276,10 +412,10 @@ model ProductVariant {
 }
 
 enum ProductType {
-  SIMPLE      // Produto simples (brinde)
+  SIMPLE // Produto simples (brinde)
   CONFIGURABLE // Produto configurável (CTO - confecção)
   RAW_MATERIAL // Matéria-prima
-  SERVICE      // Serviço (personalização, bordado)
+  SERVICE // Serviço (personalização, bordado)
 }
 
 // ============================================
@@ -290,6 +426,7 @@ model Quote {
   id           String      @id @default(uuid()) @db.Uuid
   tenantId     String      @db.Uuid
   customerId   String      @db.Uuid
+  contactId    String?     @db.Uuid
   code         String      @db.VarChar(20) // ORC-2026-0001
   status       QuoteStatus @default(DRAFT)
   validUntil   DateTime?
@@ -305,26 +442,28 @@ model Quote {
   // Relations
   tenant     Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   customer   Customer    @relation(fields: [customerId], references: [id])
+  contact    Contact?    @relation(fields: [contactId], references: [id])
   items      QuoteItem[]
   salesOrder SalesOrder?
 
   @@unique([tenantId, code])
   @@index([tenantId])
   @@index([tenantId, customerId])
+  @@index([tenantId, contactId])
   @@map("quotes")
 }
 
 model QuoteItem {
-  id            String  @id @default(uuid()) @db.Uuid
-  quoteId       String  @db.Uuid
-  productId     String  @db.Uuid
-  description   String  @db.VarChar(255)
-  quantity      Decimal @db.Decimal(12, 3)
-  unitPrice     Decimal @db.Decimal(12, 2)
-  discount      Decimal @default(0) @db.Decimal(12, 2)
-  totalPrice    Decimal @db.Decimal(12, 2)
+  id            String   @id @default(uuid()) @db.Uuid
+  quoteId       String   @db.Uuid
+  productId     String   @db.Uuid
+  description   String   @db.VarChar(255)
+  quantity      Decimal  @db.Decimal(12, 3)
+  unitPrice     Decimal  @db.Decimal(12, 2)
+  discount      Decimal  @default(0) @db.Decimal(12, 2)
+  totalPrice    Decimal  @db.Decimal(12, 2)
   // Configurator data (CTO)
-  configuration Json?   @db.JsonB // Configurações escolhidas pelo vendedor
+  configuration Json?    @db.JsonB // Configurações escolhidas pelo vendedor
   bomCost       Decimal? @db.Decimal(12, 2) // Custo BOM calculado
   laborCost     Decimal? @db.Decimal(12, 2) // Custo mão de obra
 
@@ -346,24 +485,26 @@ enum QuoteStatus {
 }
 
 model SalesOrder {
-  id             String           @id @default(uuid()) @db.Uuid
-  tenantId       String           @db.Uuid
-  customerId     String           @db.Uuid
-  quoteId        String?          @unique @db.Uuid
-  code           String           @db.VarChar(20) // PED-2026-0001
-  status         SalesOrderStatus @default(PENDING)
-  totalAmount    Decimal          @default(0) @db.Decimal(12, 2)
-  paymentMethod  String?          @db.VarChar(50)
-  paymentTerms   String?          @db.VarChar(100)
-  deliveryDate   DateTime?
-  notes          String?          @db.Text
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  id            String           @id @default(uuid()) @db.Uuid
+  tenantId      String           @db.Uuid
+  customerId    String           @db.Uuid
+  contactId     String?          @db.Uuid
+  quoteId       String?          @unique @db.Uuid
+  code          String           @db.VarChar(20) // PED-2026-0001
+  status        SalesOrderStatus @default(PENDING)
+  totalAmount   Decimal          @default(0) @db.Decimal(12, 2)
+  paymentMethod String?          @db.VarChar(50)
+  paymentTerms  String?          @db.VarChar(100)
+  deliveryDate  DateTime?
+  notes         String?          @db.Text
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 
   // Relations
-  tenant           Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  customer         Customer            @relation(fields: [customerId], references: [id])
-  quote            Quote?              @relation(fields: [quoteId], references: [id])
+  tenant           Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  customer         Customer          @relation(fields: [customerId], references: [id])
+  contact          Contact?          @relation(fields: [contactId], references: [id])
+  quote            Quote?            @relation(fields: [quoteId], references: [id])
   items            SalesOrderItem[]
   productionOrders ProductionOrder[]
   shipmentOrders   ShipmentOrder[]
@@ -371,18 +512,19 @@ model SalesOrder {
   @@unique([tenantId, code])
   @@index([tenantId])
   @@index([tenantId, customerId])
+  @@index([tenantId, contactId])
   @@map("sales_orders")
 }
 
 model SalesOrderItem {
-  id          String  @id @default(uuid()) @db.Uuid
-  orderId     String  @db.Uuid
-  productId   String  @db.Uuid
-  description String  @db.VarChar(255)
-  quantity    Decimal @db.Decimal(12, 3)
-  unitPrice   Decimal @db.Decimal(12, 2)
-  totalPrice  Decimal @db.Decimal(12, 2)
-  configuration Json? @db.JsonB
+  id            String  @id @default(uuid()) @db.Uuid
+  orderId       String  @db.Uuid
+  productId     String  @db.Uuid
+  description   String  @db.VarChar(255)
+  quantity      Decimal @db.Decimal(12, 3)
+  unitPrice     Decimal @db.Decimal(12, 2)
+  totalPrice    Decimal @db.Decimal(12, 2)
+  configuration Json?   @db.JsonB
 
   // Relations
   order   SalesOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
@@ -410,6 +552,7 @@ model PurchaseOrder {
   id           String              @id @default(uuid()) @db.Uuid
   tenantId     String              @db.Uuid
   supplierId   String              @db.Uuid
+  contactId    String?             @db.Uuid
   code         String              @db.VarChar(20) // COM-2026-0001
   status       PurchaseOrderStatus @default(DRAFT)
   totalAmount  Decimal             @default(0) @db.Decimal(12, 2)
@@ -419,22 +562,24 @@ model PurchaseOrder {
   updatedAt    DateTime            @updatedAt
 
   // Relations
-  tenant   Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  supplier Supplier              @relation(fields: [supplierId], references: [id])
+  tenant   Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  supplier Supplier            @relation(fields: [supplierId], references: [id])
+  contact  Contact?            @relation(fields: [contactId], references: [id])
   items    PurchaseOrderItem[]
 
   @@unique([tenantId, code])
   @@index([tenantId])
+  @@index([tenantId, contactId])
   @@map("purchase_orders")
 }
 
 model PurchaseOrderItem {
-  id         String  @id @default(uuid()) @db.Uuid
-  orderId    String  @db.Uuid
-  productName String @db.VarChar(255)
-  quantity   Decimal @db.Decimal(12, 3)
-  unitPrice  Decimal @db.Decimal(12, 2)
-  totalPrice Decimal @db.Decimal(12, 2)
+  id          String  @id @default(uuid()) @db.Uuid
+  orderId     String  @db.Uuid
+  productName String  @db.VarChar(255)
+  quantity    Decimal @db.Decimal(12, 3)
+  unitPrice   Decimal @db.Decimal(12, 2)
+  totalPrice  Decimal @db.Decimal(12, 2)
 
   // Relations
   order PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
@@ -493,11 +638,11 @@ model StockMovement {
 }
 
 enum StockMovementType {
-  ENTRY     // Entrada
-  EXIT      // Saída
-  TRANSFER  // Transferência
-  ADJUST    // Ajuste de inventário
-  RETURN    // Devolução
+  ENTRY // Entrada
+  EXIT // Saída
+  TRANSFER // Transferência
+  ADJUST // Ajuste de inventário
+  RETURN // Devolução
 }
 
 // ============================================
@@ -505,18 +650,18 @@ enum StockMovementType {
 // ============================================
 
 model ProductionOrder {
-  id            String                @id @default(uuid()) @db.Uuid
-  tenantId      String                @db.Uuid
-  salesOrderId  String?               @db.Uuid
-  code          String                @db.VarChar(20) // OP-2026-0001
-  status        ProductionOrderStatus @default(PLANNED)
-  priority      Int                   @default(3) // 1=Urgente, 5=Baixa
-  startDate     DateTime?
-  dueDate       DateTime?
-  completedAt   DateTime?
-  notes         String?               @db.Text
-  createdAt     DateTime              @default(now())
-  updatedAt     DateTime              @updatedAt
+  id           String                @id @default(uuid()) @db.Uuid
+  tenantId     String                @db.Uuid
+  salesOrderId String?               @db.Uuid
+  code         String                @db.VarChar(20) // OP-2026-0001
+  status       ProductionOrderStatus @default(PLANNED)
+  priority     Int                   @default(3) // 1=Urgente, 5=Baixa
+  startDate    DateTime?
+  dueDate      DateTime?
+  completedAt  DateTime?
+  notes        String?               @db.Text
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
 
   // Relations
   tenant     Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
@@ -550,15 +695,15 @@ model ProductionStep {
 }
 
 model ProductionLog {
-  id               String               @id @default(uuid()) @db.Uuid
-  stepId           String               @db.Uuid
-  type             ProductionLogType
-  loggedAt         DateTime             @default(now())
-  processedQty     Decimal?             @db.Decimal(12, 3)
-  defectQty        Decimal?             @db.Decimal(12, 3)
-  defectType       String?              @db.VarChar(100)
-  responsibleName  String               @db.VarChar(255)
-  notes            String?              @db.Text
+  id              String            @id @default(uuid()) @db.Uuid
+  stepId          String            @db.Uuid
+  type            ProductionLogType
+  loggedAt        DateTime          @default(now())
+  processedQty    Decimal?          @db.Decimal(12, 3)
+  defectQty       Decimal?          @db.Decimal(12, 3)
+  defectType      String?           @db.VarChar(100)
+  responsibleName String            @db.VarChar(255)
+  notes           String?           @db.Text
 
   // Relations
   step ProductionStep @relation(fields: [stepId], references: [id], onDelete: Cascade)
@@ -595,12 +740,12 @@ enum ProductionStepStatus {
 // ============================================
 
 model FinancialCategory {
-  id        String              @id @default(uuid()) @db.Uuid
-  tenantId  String              @db.Uuid
-  name      String              @db.VarChar(255)
+  id        String        @id @default(uuid()) @db.Uuid
+  tenantId  String        @db.Uuid
+  name      String        @db.VarChar(255)
   type      FinancialType
-  createdAt DateTime            @default(now())
-  updatedAt DateTime            @updatedAt
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 
   // Relations
   tenant       Tenant                 @relation(fields: [tenantId], references: [id], onDelete: Cascade)
@@ -636,8 +781,8 @@ model FinancialTransaction {
 }
 
 enum FinancialType {
-  INCOME   // Receita (contas a receber)
-  EXPENSE  // Despesa (contas a pagar)
+  INCOME // Receita (contas a receber)
+  EXPENSE // Despesa (contas a pagar)
 }
 
 enum TransactionStatus {
@@ -697,28 +842,28 @@ enum ShipmentStatus {
 // ============================================
 
 model Employee {
-  id           String         @id @default(uuid()) @db.Uuid
-  tenantId     String         @db.Uuid
-  name         String         @db.VarChar(255)
-  document     String?        @db.VarChar(14) // CPF
-  email        String?        @db.VarChar(255)
-  phone        String?        @db.VarChar(20)
-  position     String?        @db.VarChar(100)
-  department   String?        @db.VarChar(100)
+  id            String         @id @default(uuid()) @db.Uuid
+  tenantId      String         @db.Uuid
+  name          String         @db.VarChar(255)
+  document      String?        @db.VarChar(14) // CPF
+  email         String?        @db.VarChar(255)
+  phone         String?        @db.VarChar(20)
+  position      String?        @db.VarChar(100)
+  department    String?        @db.VarChar(100)
   admissionDate DateTime?
-  salary       Decimal?       @db.Decimal(12, 2)
-  status       EmployeeStatus @default(ACTIVE)
+  salary        Decimal?       @db.Decimal(12, 2)
+  status        EmployeeStatus @default(ACTIVE)
   // Address
-  zipCode      String?        @db.VarChar(10)
-  street       String?        @db.VarChar(255)
-  number       String?        @db.VarChar(20)
-  complement   String?        @db.VarChar(100)
-  neighborhood String?        @db.VarChar(100)
-  city         String?        @db.VarChar(100)
-  state        String?        @db.VarChar(2)
-  notes        String?        @db.Text
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  zipCode       String?        @db.VarChar(10)
+  street        String?        @db.VarChar(255)
+  number        String?        @db.VarChar(20)
+  complement    String?        @db.VarChar(100)
+  neighborhood  String?        @db.VarChar(100)
+  city          String?        @db.VarChar(100)
+  state         String?        @db.VarChar(2)
+  notes         String?        @db.Text
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
   // Relations
   tenant   Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
@@ -729,18 +874,18 @@ model Employee {
 }
 
 model Payroll {
-  id          String   @id @default(uuid()) @db.Uuid
-  employeeId  String   @db.Uuid
-  month       Int      // 1-12
-  year        Int
-  baseSalary  Decimal  @db.Decimal(12, 2)
-  overtime    Decimal  @default(0) @db.Decimal(12, 2)
-  deductions  Decimal  @default(0) @db.Decimal(12, 2)
-  netSalary   Decimal  @db.Decimal(12, 2)
-  paidAt      DateTime?
-  notes       String?  @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String    @id @default(uuid()) @db.Uuid
+  employeeId String    @db.Uuid
+  month      Int // 1-12
+  year       Int
+  baseSalary Decimal   @db.Decimal(12, 2)
+  overtime   Decimal   @default(0) @db.Decimal(12, 2)
+  deductions Decimal   @default(0) @db.Decimal(12, 2)
+  netSalary  Decimal   @db.Decimal(12, 2)
+  paidAt     DateTime?
+  notes      String?   @db.Text
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   // Relations
   employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)

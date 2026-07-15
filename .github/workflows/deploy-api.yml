@@ -1,0 +1,68 @@
+name: Deploy API → Oracle Cloud
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/api/**'
+      - 'packages/**'
+      - 'docker-compose.yml'
+      - 'apps/api/Dockerfile'
+
+concurrency:
+  group: deploy-api
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Oracle Cloud
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -f apps/api/Dockerfile \
+            -t djob-api:${{ github.sha }} \
+            -t djob-api:latest \
+            .
+
+      - name: Save Docker image
+        run: docker save djob-api:latest | gzip > /tmp/djob-api.tar.gz
+
+      - name: Copy image to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USER }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          source: /tmp/djob-api.tar.gz
+          target: /home/${{ secrets.ORACLE_USER }}/djob/
+
+      - name: Deploy on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USER }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.ORACLE_USER }}/djob
+            docker load < djob-api.tar.gz
+            rm djob-api.tar.gz
+
+            # Run migrations
+            docker compose --profile migrate run --rm migrate
+
+            # Restart API
+            docker compose up -d api nginx
+
+            # Cleanup old images
+            docker image prune -f
+
+            # Verify health
+            sleep 10
+            curl -sf http://localhost:3001/api || exit 1
+            echo "Deploy successful!"

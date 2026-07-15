@@ -15,7 +15,7 @@ A DJOB opera com **Mixed-Mode Manufacturing** (MTS - Make to Stock para brindes,
 - **Framework:** Next.js 15+ (App Router) com React 19.
 - **Linguagem:** TypeScript (Strict Mode = true).
 - **Estilização:** Tailwind CSS v4.
-- **UI Components:** Shadcn/ui (Estilo 'New York', sem animações excessivas ou glassmorphism). Font-family exclusiva: `Inter`.
+- **UI Components:** Shadcn/ui (estilo minimalista, sem animações excessivas ou glassmorphism). **[NOTA — a [ADR #002](./05-adr-002-typography-roboto.md) migrou a fonte para `Roboto`, mas foi REVERTIDA em 14/07/2026: a `font-family` oficial permanece `Inter` (família única, hierarquia por peso).]** **[SUPERSEDED — ver [ADR #003](./06-adr-003-brand-colors.md): paleta de cores atualizada para a identidade DJOB 2026.]**
 - **State & Data Fetching:** TanStack Query v5 (Cache global) e Zustand (Estado local leve).
 - **Data Tables:** TanStack Table v8.
 - **Formulários:** React Hook Form + Zod (Validação em tempo real no cliente).

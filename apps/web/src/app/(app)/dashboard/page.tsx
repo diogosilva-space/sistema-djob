@@ -1,202 +1,185 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import {
-  TrendingUp,
-  Users,
-  Package,
-  Cpu,
-  ArrowUpRight,
-  TrendingDown,
-  DollarSign,
-  AlertTriangle,
-  History,
-} from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import type { DashboardSummary } from '@djob/validators';
+import { ArrowUpRight, Cpu, LayoutDashboard, Package } from 'lucide-react';
 import Link from 'next/link';
-import { vendasService } from '@/features/vendas/api/vendas.service';
-import { pcpService } from '@/features/pcp/api/pcp.service';
-import { estoqueService } from '@/features/estoque/api/estoque.service';
+
+import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+
+import { dashboardApi } from '@/features/dashboard/api/dashboard.api';
+import { DashboardAlerts } from '@/features/dashboard/components/DashboardAlerts';
+import {
+  DashboardRevenueChart,
+  DashboardSalesByTypeChart,
+} from '@/features/dashboard/components/DashboardCharts';
+import { DashboardKpis } from '@/features/dashboard/components/DashboardKpis';
+
+const statusLabels: Record<string, string> = {
+  PENDING: 'Pendente',
+  CONFIRMED: 'Confirmado',
+  IN_PRODUCTION: 'Em produção',
+  READY: 'Pronto',
+  SHIPPED: 'Enviado',
+  DELIVERED: 'Entregue',
+  CANCELLED: 'Cancelado',
+};
+
+const currencyFormatter = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL',
+});
+
+const dateFormatter = new Intl.DateTimeFormat('pt-BR');
 
 export default function DashboardPage() {
-  const [loading, setLoading] = useState(true);
-  const [metrics, setMetrics] = useState({
-    salesTotal: 0,
-    salesCount: 0,
-    opsActive: 0,
-    criticalStock: 0,
-    recentSales: [] as any[],
+  const {
+    data: summary,
+    isPending,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['dashboard', 'summary'],
+    queryFn: () => dashboardApi.getSummary(),
   });
-
-  useEffect(() => {
-    const loadDashboardData = async () => {
-      setLoading(true);
-      
-      let sales: any[] = [];
-      try {
-        sales = await vendasService.getSalesOrders();
-      } catch (err) {
-        console.error('Erro ao carregar vendas no dashboard:', err);
-      }
-
-      let ops: any[] = [];
-      try {
-        ops = await pcpService.getProductionOrders();
-      } catch (err) {
-        console.error('Erro ao carregar ordens de produção no dashboard:', err);
-      }
-
-      let stock: any[] = [];
-      try {
-        stock = await estoqueService.getStockItems();
-      } catch (err) {
-        console.error('Erro ao carregar itens de estoque no dashboard:', err);
-      }
-
-      const salesTotal = sales ? sales.reduce((acc, s) => acc + Number(s.totalAmount || 0), 0) : 0;
-      const activeOps = ops ? ops.filter(o => o.status !== 'COMPLETED').length : 0;
-      const critStock = stock ? stock.filter(item => Number(item.quantity || 0) <= Number(item.product?.minStock || 0)).length : 0;
-
-      setMetrics({
-        salesTotal,
-        salesCount: sales ? sales.length : 0,
-        opsActive: activeOps,
-        criticalStock: critStock,
-        recentSales: sales ? sales.slice(0, 5) : [],
-      });
-      setLoading(false);
-    };
-    loadDashboardData();
-  }, []);
-
-  if (loading) {
-    return <div className="text-center py-12">Carregando painel analítico...</div>;
-  }
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Painel Geral</h1>
-          <p className="text-sm text-slate-500">
-            Métricas operacionais de vendas, estoque e produção em tempo real
-          </p>
-        </div>
-      </div>
+      <PageActionHeader
+        className="static px-0 mt-0 md:mx-0 md:mt-0 md:px-0 mb-0"
+        icon={LayoutDashboard}
+        title="Painel Geral"
+        subtitle="Métricas operacionais de vendas, estoque e produção em tempo real"
+      />
 
-      {/* Bento Grid layout */}
-      <div className="grid gap-4 md:grid-cols-4">
-        {/* Card 1: Faturamento */}
-        <Card className="md:col-span-2 bg-slate-900 text-white border-none shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold tracking-wide text-slate-400 uppercase">
-              Faturamento Total
-            </CardTitle>
-            <DollarSign className="h-5 w-5 text-djob" />
-          </CardHeader>
-          <CardContent className="pt-2">
-            <div className="text-4xl font-mono font-extrabold">
-              R$ {metrics.salesTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-            </div>
-            <div className="flex items-center gap-1.5 mt-2 text-sm text-slate-400">
-              <TrendingUp className="h-4 w-4 text-djob" />
-              <span>Baseado em {metrics.salesCount} pedidos convertidos</span>
-            </div>
+      {isPending && <DashboardLoading />}
+
+      {isError && (
+        <Card>
+          <CardContent className="p-6">
+            <p className="text-sm font-medium text-foreground">
+              Não foi possível carregar o painel analítico.
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {error instanceof Error ? error.message : 'Tente novamente em instantes.'}
+            </p>
           </CardContent>
         </Card>
+      )}
 
-        {/* Card 2: PCP Ativo */}
-        <Card className="bg-white border border-slate-200">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold text-slate-500 uppercase tracking-wide">
-              OPs em Andamento
-            </CardTitle>
-            <Cpu className="h-5 w-5 text-blue-500" />
-          </CardHeader>
-          <CardContent className="pt-2">
-            <div className="text-4xl font-mono font-extrabold text-slate-900">
-              {metrics.opsActive}
-            </div>
-            <p className="text-xs text-slate-400 mt-2">Ordens ativas no chão de fábrica</p>
-          </CardContent>
-        </Card>
+      {summary && (
+        <>
+          <DashboardKpis kpis={summary.kpis} />
 
-        {/* Card 3: Estoque Crítico */}
-        <Card className="bg-white border border-slate-200">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-semibold text-slate-500 uppercase tracking-wide">
-              Estoque Crítico
-            </CardTitle>
-            <AlertTriangle className="h-5 w-5 text-red-500" />
-          </CardHeader>
-          <CardContent className="pt-2">
-            <div className="text-4xl font-mono font-extrabold text-red-600">
-              {metrics.criticalStock}
-            </div>
-            <p className="text-xs text-slate-400 mt-2">Matérias-primas abaixo do mínimo</p>
-          </CardContent>
-        </Card>
-      </div>
+          <section className="grid gap-4 lg:grid-cols-3">
+            <Card>
+              <CardHeader className="p-4 pb-2">
+                <CardTitle className="text-base font-semibold">Ações rápidas</CardTitle>
+                <CardDescription>Principais controles do ERP</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 p-4 pt-2">
+                <Link href="/vendas/orcamentos" className="block">
+                  <Button className="flex h-8 w-full justify-between">
+                    Criar orçamento
+                    <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
+                  </Button>
+                </Link>
+                <Link href="/pcp" className="block">
+                  <Button variant="outline" className="flex h-8 w-full justify-between">
+                    Monitorar produção
+                    <Cpu className="h-4 w-4" strokeWidth={1.5} />
+                  </Button>
+                </Link>
+                <Link href="/estoque" className="block">
+                  <Button variant="outline" className="flex h-8 w-full justify-between">
+                    Ajustar estoque
+                    <Package className="h-4 w-4" strokeWidth={1.5} />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {/* Pedidos Recentes */}
-        <Card className="md:col-span-2 bg-white border border-slate-200">
-          <CardHeader>
-            <CardTitle className="text-lg font-bold text-slate-900">Últimos Pedidos</CardTitle>
-            <CardDescription>Fluxo de vendas integrado em tempo real</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {metrics.recentSales.length === 0 ? (
-              <p className="text-sm text-slate-500 py-4">Nenhum pedido de venda registrado.</p>
-            ) : (
-              <div className="space-y-4">
-                {metrics.recentSales.map((sale) => (
-                  <div key={sale.id} className="flex justify-between items-center border-b pb-3 last:border-0 last:pb-0">
-                    <div>
-                      <p className="font-semibold text-slate-900">{sale.code}</p>
-                      <p className="text-xs text-slate-400">{sale.customer.name}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-mono font-bold text-slate-900">
-                        R$ {Number(sale.totalAmount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                      </p>
-                      <span className="text-[10px] uppercase font-bold text-slate-400">
-                        {sale.status}
-                      </span>
-                    </div>
+            <DashboardAlerts alerts={summary.alerts} />
+            <DashboardSalesByTypeChart salesByProductType={summary.salesByProductType} />
+          </section>
+
+          <section className="grid gap-4 lg:grid-cols-3">
+            <Card>
+              <CardHeader className="p-4 pb-2">
+                <CardTitle className="text-base font-semibold">Últimos pedidos</CardTitle>
+                <CardDescription>Fluxo de vendas mais recente</CardDescription>
+              </CardHeader>
+              <CardContent className="p-4 pt-2">
+                {summary.recentOrders.length === 0 ? (
+                  <p className="py-6 text-sm text-muted-foreground">
+                    Nenhum pedido de venda registrado.
+                  </p>
+                ) : (
+                  <div className="divide-y divide-border">
+                    {summary.recentOrders.map((order: DashboardSummary['recentOrders'][number]) => (
+                      <Link
+                        key={order.id}
+                        href="/vendas/pedidos"
+                        className="flex items-center justify-between gap-4 py-3 first:pt-1 last:pb-1"
+                      >
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium text-foreground">{order.code}</p>
+                          <p className="truncate text-xs text-muted-foreground">
+                            {order.customerName} · {dateFormatter.format(new Date(order.createdAt))}
+                          </p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <p className="text-sm font-semibold tabular-nums text-foreground">
+                            {currencyFormatter.format(order.totalAmount)}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {statusLabels[order.status] ?? order.status}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
+                )}
+              </CardContent>
+            </Card>
+
+            <DashboardRevenueChart
+              className="lg:col-span-2"
+              revenueSeries={summary.revenueSeries}
+            />
+          </section>
+        </>
+      )}
+    </div>
+  );
+}
+
+function DashboardLoading() {
+  return (
+    <div className="space-y-4" aria-label="Carregando painel analítico">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {Array.from({ length: 4 }, (_, index) => (
+          <Card key={index}>
+            <CardContent className="space-y-3 p-4">
+              <Skeleton className="h-3 w-24" />
+              <Skeleton className="h-8 w-32" />
+              <Skeleton className="h-3 w-40" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      <div className="grid gap-4 lg:grid-cols-3">
+        <Card className="lg:col-span-2">
+          <CardContent className="p-4">
+            <Skeleton className="h-72 w-full" />
           </CardContent>
         </Card>
-
-        {/* Atalhos Operacionais */}
-        <Card className="bg-white border border-slate-200">
-          <CardHeader>
-            <CardTitle className="text-lg font-bold text-slate-900">Ações Rápidas</CardTitle>
-            <CardDescription>Principais painéis de controle do ERP</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <Link href="/vendas/orcamentos" className="block">
-              <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white flex justify-between px-4 py-2 h-10">
-                <span>Criar Orçamento</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/pcp" className="block">
-              <Button variant="outline" className="w-full border-slate-200 text-slate-800 flex justify-between px-4 py-2 h-10">
-                <span>Monitorar Produção</span>
-                <Cpu className="h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/estoque" className="block">
-              <Button variant="outline" className="w-full border-slate-200 text-slate-800 flex justify-between px-4 py-2 h-10">
-                <span>Ajustar Estoque</span>
-                <Package className="h-4 w-4" />
-              </Button>
-            </Link>
+        <Card>
+          <CardContent className="p-4">
+            <Skeleton className="h-72 w-full" />
           </CardContent>
         </Card>
       </div>

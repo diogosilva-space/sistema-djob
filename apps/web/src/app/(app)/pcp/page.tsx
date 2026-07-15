@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Plus, ArrowRight, Cpu, Play, CheckCircle, Clock, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
+import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 
 export default function PcpPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -31,42 +32,42 @@ export default function PcpPage() {
     switch (status) {
       case 'PLANNED':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
             <Clock className="h-3 w-3" />
             <span>Planejado</span>
           </span>
         );
       case 'IN_PROGRESS':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100">
-            <Play className="h-3 w-3 animate-pulse text-blue-600" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
+            <Play className="h-3 w-3 text-blue-600" />
             <span>Em Produção</span>
           </span>
         );
       case 'PAUSED':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-705 border border-amber-200">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
             <AlertTriangle className="h-3 w-3" />
             <span>Pausado</span>
           </span>
         );
       case 'COMPLETED':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-705 border border-emerald-200">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
             <CheckCircle className="h-3 w-3" />
             <span>Concluído</span>
           </span>
         );
       case 'CANCELLED':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-100">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-100">
             <AlertTriangle className="h-3 w-3" />
             <span>Cancelado</span>
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
             <span>{status}</span>
           </span>
         );
@@ -76,49 +77,43 @@ export default function PcpPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-[50vh]">
-        <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12 bg-slate-900 text-white rounded-xl flex items-center justify-center">
-            <Cpu className="h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Planejamento e Controle de Produção (PCP)</h1>
-            <p className="text-sm text-slate-500">Gestão e apontamento do chão de fábrica da confecção</p>
-          </div>
-        </div>
-        <Button className="bg-slate-900 hover:bg-slate-800 text-white font-semibold flex items-center gap-1.5 active:scale-[0.98] transition-transform">
+      <PageActionHeader
+        icon={Cpu}
+        title="Produção (PCP)"
+        subtitle="Gestão e apontamento do chão de fábrica da confecção"
+      >
+        <Button className="gap-1.5">
           <Plus className="h-4 w-4" />
-          <span>Nova Ordem de Produção</span>
+          Nova Ordem
         </Button>
-      </div>
+      </PageActionHeader>
 
       {orders.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-16 text-center border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50">
-          <Cpu className="h-12 w-12 text-slate-350 mb-4" />
-          <p className="text-slate-500 font-medium mb-4">Nenhuma ordem de produção em andamento.</p>
-          <Button variant="outline" className="border-slate-200 hover:bg-slate-100">
-            Criar Primeira OP
-          </Button>
+        <div className="flex flex-col items-center justify-center p-16 text-center border border-border rounded-lg bg-card">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-muted">
+            <Cpu className="h-5 w-5 text-muted-foreground" strokeWidth={1.5} />
+          </div>
+          <p className="text-sm text-muted-foreground">Nenhuma ordem de produção em andamento.</p>
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {orders.map((order) => (
             <Card
               key={order.id}
-              className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all flex flex-col justify-between"
+              className="bg-card rounded-lg border border-border shadow-sm hover:shadow-sm transition-all flex flex-col justify-between"
             >
               <CardHeader className="pb-3">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-xl font-extrabold text-slate-900">{order.code}</CardTitle>
-                    <CardDescription className="font-semibold text-slate-500 mt-1">
+                    <CardTitle className="text-base font-semibold text-foreground">{order.code}</CardTitle>
+                    <CardDescription className="font-semibold text-muted-foreground mt-1">
                       {order.salesOrder ? `Pedido: ${order.salesOrder.code}` : 'OP Avulsa'}
                     </CardDescription>
                   </div>
@@ -126,16 +121,16 @@ export default function PcpPage() {
                 </div>
               </CardHeader>
               <CardContent className="pt-2">
-                <div className="text-sm space-y-2 border-t border-slate-100 pt-3">
+                <div className="text-sm space-y-2 border-t border-border pt-3">
                   <div className="flex justify-between">
-                    <span className="text-slate-455">Cliente:</span>
-                    <span className="font-semibold text-slate-900 truncate max-w-[170px]">
+                    <span className="text-muted-foreground">Cliente:</span>
+                    <span className="font-semibold text-foreground truncate max-w-[170px]">
                       {order.salesOrder?.customer?.name || 'Não informado'}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-455">Etapas Cadastradas:</span>
-                    <span className="font-mono font-bold text-slate-800">
+                    <span className="text-muted-foreground">Etapas Cadastradas:</span>
+                    <span className="tabular-nums font-bold text-foreground">
                       {order.steps?.length || 0}
                     </span>
                   </div>
@@ -144,7 +139,7 @@ export default function PcpPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-slate-700 hover:text-slate-900 hover:bg-slate-50 font-semibold active:scale-[0.97] transition-all flex items-center gap-1"
+                        className="text-foreground hover:text-foreground hover:bg-muted font-semibold active:scale-[0.97] transition-all flex items-center gap-1"
                       >
                         <span>Gerenciar OP</span>
                         <ArrowRight className="h-4 w-4" />

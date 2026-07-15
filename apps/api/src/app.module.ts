@@ -14,6 +14,11 @@ import { ProductsModule } from './products/products.module';
 import { RhModule } from './rh/rh.module';
 import { LogisticaModule } from './logistica/logistica.module';
 import { FinanceiroModule } from './financeiro/financeiro.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { OpportunitiesModule } from './opportunities/opportunities.module';
+import { ActivitiesModule } from './activities/activities.module';
+import { TasksModule } from './tasks/tasks.module';
+import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
   imports: [
@@ -34,6 +39,11 @@ import { FinanceiroModule } from './financeiro/financeiro.module';
     RhModule,
     LogisticaModule,
     FinanceiroModule,
+    DashboardModule,
+    OpportunitiesModule,
+    ActivitiesModule,
+    TasksModule,
+    ContactsModule,
   ],
   controllers: [],
   providers: [

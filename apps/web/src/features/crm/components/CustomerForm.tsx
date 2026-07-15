@@ -109,7 +109,7 @@ function CustomerFormContent() {
   };
 
   if (loading) {
-    return <div className="text-center py-12 text-slate-500 font-medium">Carregando dados do cliente...</div>;
+    return <div className="text-center py-12 text-muted-foreground font-medium">Carregando dados do cliente...</div>;
   }
 
   return (
@@ -121,10 +121,10 @@ function CustomerFormContent() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-700 font-semibold text-sm">Razão Social / Nome Completo</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">Razão Social / Nome Completo</FormLabel>
                 <FormControl>
                   <Input
-                    className="h-10 border-slate-200 focus-visible:ring-djob"
+                    className="h-10 border-border focus-visible:ring-ring"
                     placeholder="Ex: Confecções Estrela Ltda"
                     {...field}
                   />
@@ -139,10 +139,10 @@ function CustomerFormContent() {
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-700 font-semibold text-sm">Regime Fiscal</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">Regime Fiscal</FormLabel>
                 <FormControl>
                   <select
-                    className="flex h-10 w-full rounded-md border border-slate-200 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
+                    className="flex h-10 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     {...field}
                   >
                     <option value="JURIDICA">Pessoa Jurídica (CNPJ)</option>
@@ -159,10 +159,10 @@ function CustomerFormContent() {
             name="document"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-700 font-semibold text-sm">CNPJ / CPF</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">CNPJ / CPF</FormLabel>
                 <FormControl>
                   <Input
-                    className="h-10 border-slate-200 focus-visible:ring-djob"
+                    className="h-10 border-border focus-visible:ring-ring"
                     placeholder="00.000.000/0000-00"
                     {...field}
                   />
@@ -177,10 +177,10 @@ function CustomerFormContent() {
             name="stateReg"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-700 font-semibold text-sm">Inscrição Estadual</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">Inscrição Estadual</FormLabel>
                 <FormControl>
                   <Input
-                    className="h-10 border-slate-200 focus-visible:ring-djob"
+                    className="h-10 border-border focus-visible:ring-ring"
                     placeholder="Isento ou Nº"
                     {...field}
                   />
@@ -195,11 +195,11 @@ function CustomerFormContent() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-700 font-semibold text-sm">E-mail Corporativo</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">E-mail Corporativo</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    className="h-10 border-slate-200 focus-visible:ring-djob"
+                    className="h-10 border-border focus-visible:ring-ring"
                     placeholder="financeiro@empresa.com"
                     {...field}
                   />
@@ -214,10 +214,10 @@ function CustomerFormContent() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-slate-700 font-semibold text-sm">Telefone / WhatsApp</FormLabel>
+                <FormLabel className="text-foreground font-semibold text-sm">Telefone / WhatsApp</FormLabel>
                 <FormControl>
                   <Input
-                    className="h-10 border-slate-200 focus-visible:ring-djob"
+                    className="h-10 border-border focus-visible:ring-ring"
                     placeholder="(11) 99999-9999"
                     {...field}
                   />
@@ -228,18 +228,18 @@ function CustomerFormContent() {
           />
         </div>
 
-        <div className="border-t border-slate-100 pt-6">
-          <h3 className="text-base font-bold text-slate-900 mb-4">Endereço e Expedição</h3>
+        <div className="border-t border-border pt-6">
+          <h3 className="text-base font-semibold text-foreground mb-4">Endereço e Expedição</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <FormField
               control={form.control}
               name="zipCode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-700 font-semibold text-sm">CEP (Auto-completar)</FormLabel>
+                  <FormLabel className="text-foreground font-semibold text-sm">CEP (Auto-completar)</FormLabel>
                   <FormControl>
                     <Input
-                      className="h-10 border-slate-200 focus-visible:ring-djob"
+                      className="h-10 border-border focus-visible:ring-ring"
                       placeholder="00000-000"
                       {...field}
                       onBlur={(e) => {
@@ -258,10 +258,10 @@ function CustomerFormContent() {
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-700 font-semibold text-sm">Cidade</FormLabel>
+                  <FormLabel className="text-foreground font-semibold text-sm">Cidade</FormLabel>
                   <FormControl>
                     <Input
-                      className="h-10 border-slate-200 focus-visible:ring-djob"
+                      className="h-10 border-border focus-visible:ring-ring"
                       placeholder="São Paulo"
                       {...field}
                     />
@@ -276,10 +276,10 @@ function CustomerFormContent() {
               name="state"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-700 font-semibold text-sm">Estado (UF)</FormLabel>
+                  <FormLabel className="text-foreground font-semibold text-sm">Estado (UF)</FormLabel>
                   <FormControl>
                     <Input
-                      className="h-10 border-slate-200 focus-visible:ring-djob"
+                      className="h-10 border-border focus-visible:ring-ring"
                       placeholder="SP"
                       maxLength={2}
                       {...field}
@@ -298,10 +298,10 @@ function CustomerFormContent() {
                 name="street"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-700 font-semibold text-sm">Logradouro / Avenida</FormLabel>
+                    <FormLabel className="text-foreground font-semibold text-sm">Logradouro / Avenida</FormLabel>
                     <FormControl>
                       <Input
-                        className="h-10 border-slate-200 focus-visible:ring-djob"
+                        className="h-10 border-border focus-visible:ring-ring"
                         placeholder="Rua da Consolação"
                         {...field}
                       />
@@ -317,10 +317,10 @@ function CustomerFormContent() {
               name="number"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-slate-700 font-semibold text-sm">Número</FormLabel>
+                  <FormLabel className="text-foreground font-semibold text-sm">Número</FormLabel>
                   <FormControl>
                     <Input
-                      className="h-10 border-slate-200 focus-visible:ring-djob"
+                      className="h-10 border-border focus-visible:ring-ring"
                       placeholder="123"
                       {...field}
                     />
@@ -332,20 +332,20 @@ function CustomerFormContent() {
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 border-t border-slate-100 pt-6">
+        <div className="flex justify-end gap-3 border-t border-border pt-6">
           <Button
             type="button"
             variant="outline"
             onClick={() => router.back()}
             disabled={mutation.isPending}
-            className="border-slate-200 hover:bg-slate-50 text-slate-700"
+            className="border-border hover:bg-muted text-foreground"
           >
             Cancelar
           </Button>
           <Button
             type="submit"
             disabled={mutation.isPending}
-            className="bg-slate-900 hover:bg-slate-800 text-white font-semibold active:scale-[0.98] transition-transform"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold active:scale-[0.98] transition-transform"
           >
             {mutation.isPending ? 'Salvando...' : customerId ? 'Atualizar Cadastro' : 'Cadastrar Cliente'}
           </Button>
@@ -357,7 +357,7 @@ function CustomerFormContent() {
 
 export function CustomerForm() {
   return (
-    <Suspense fallback={<div className="text-center py-12 text-slate-500 font-medium">Carregando formulário...</div>}>
+    <Suspense fallback={<div className="text-center py-12 text-muted-foreground font-medium">Carregando formulário...</div>}>
       <CustomerFormContent />
     </Suspense>
   );

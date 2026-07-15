@@ -13,6 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Plus, RefreshCw, Eye, CheckCircle2, ChevronRight, XCircle, ShoppingBag, Truck, Calendar, Tag, Trash2, X } from 'lucide-react';
+import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { comprasService } from '@/features/compras/api/compras.service';
 import { suppliersService } from '@/features/crm/api/suppliers.service';
 
@@ -93,37 +94,37 @@ export default function ComprasPage() {
     switch (status) {
       case 'DRAFT':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
             Rascunho
           </span>
         );
       case 'SENT':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
             Enviado
           </span>
         );
       case 'CONFIRMED':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-705 border border-amber-200">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
             Confirmado
           </span>
         );
       case 'RECEIVED':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-705 border border-emerald-200">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
             Recebido
           </span>
         );
       case 'CANCELLED':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-700 border border-red-100">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-100">
             Cancelado
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
             {status}
           </span>
         );
@@ -146,68 +147,52 @@ export default function ComprasPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12 bg-slate-900 text-white rounded-xl flex items-center justify-center">
-            <ShoppingBag className="h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Gestão de Compras</h1>
-            <p className="text-sm text-slate-500">
-              Crie e gerencie os pedidos de compra de insumos industriais
-            </p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={loadData}
-            className="border-slate-200 hover:bg-slate-100 text-slate-700 active:scale-[0.98] transition-transform"
-          >
-            <RefreshCw className="h-4 w-4 mr-2" />
-            <span>Atualizar</span>
-          </Button>
-          <Button
-            onClick={() => setShowCreateModal(true)}
-            className="bg-slate-900 hover:bg-slate-800 text-white font-semibold active:scale-[0.98] transition-transform"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            <span>Novo Pedido</span>
-          </Button>
-        </div>
-      </div>
+      <PageActionHeader
+        icon={ShoppingBag}
+        title="Gestão de Compras"
+        subtitle="Crie e gerencie os pedidos de compra de insumos industriais"
+      >
+        <Button variant="outline" onClick={loadData} className="gap-1.5">
+          <RefreshCw className="h-4 w-4" />
+          Atualizar
+        </Button>
+        <Button onClick={() => setShowCreateModal(true)} className="gap-1.5">
+          <Plus className="h-4 w-4" />
+          Novo Pedido
+        </Button>
+      </PageActionHeader>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-white border border-slate-200 rounded-2xl shadow-sm">
+        <Card className="bg-card border border-border rounded-lg shadow-sm">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold text-slate-500 uppercase tracking-wide">
+            <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Total de Pedidos
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-mono font-extrabold text-slate-900">{orders.length}</div>
+            <div className="text-2xl tabular-nums font-bold text-foreground">{orders.length}</div>
           </CardContent>
         </Card>
-        <Card className="bg-white border border-slate-200 rounded-2xl shadow-sm">
+        <Card className="bg-card border border-border rounded-lg shadow-sm">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold text-slate-500 uppercase tracking-wide">
+            <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Pedidos Pendentes
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-mono font-extrabold text-amber-600">
+            <div className="text-2xl tabular-nums font-bold text-warning">
               {orders.filter((o) => o.status !== 'RECEIVED' && o.status !== 'CANCELLED').length}
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-white border border-slate-200 rounded-2xl shadow-sm">
+        <Card className="bg-card border border-border rounded-lg shadow-sm">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold text-slate-500 uppercase tracking-wide">
+            <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Total Comprado
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-mono font-extrabold text-slate-950">
+            <div className="text-2xl tabular-nums font-bold text-foreground">
               R${' '}
               {orders
                 .reduce((acc, o) => acc + Number(o.totalAmount), 0)
@@ -217,41 +202,41 @@ export default function ComprasPage() {
         </Card>
       </div>
 
-      <Card className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-        <CardHeader className="pb-3 border-b border-slate-100">
-          <CardTitle className="text-lg font-bold text-slate-900">Histórico de Compras</CardTitle>
+      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+        <CardHeader className="pb-3 border-b border-border">
+          <CardTitle className="text-base font-semibold text-foreground">Histórico de Compras</CardTitle>
           <CardDescription>Acompanhe o pipeline de insumos solicitados e recebidos</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-slate-500 font-medium">Carregando pedidos de compra...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">Carregando pedidos de compra...</div>
           ) : orders.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 font-medium">
+            <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhum pedido de compra registrado.
             </div>
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-slate-50/70">
-                  <TableHead className="pl-6 text-xs font-bold uppercase tracking-wider text-slate-500">Código</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Fornecedor</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Previsão de Entrega</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500 text-right">Valor Total</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Status</TableHead>
-                  <TableHead className="pr-6 text-xs font-bold uppercase tracking-wider text-slate-500 text-right">Ações</TableHead>
+                <TableRow className="bg-muted/70">
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Código</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Fornecedor</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Previsão de Entrega</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Valor Total</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Status</TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {orders.map((order) => (
-                  <TableRow key={order.id} className="hover:bg-slate-50/50">
-                    <TableCell className="pl-6 font-bold text-slate-900">{order.code}</TableCell>
-                    <TableCell className="font-semibold text-slate-800">{order.supplier.name}</TableCell>
-                    <TableCell className="text-slate-550 font-medium">
+                  <TableRow key={order.id} className="hover:bg-muted/50">
+                    <TableCell className="pl-6 font-bold text-foreground">{order.code}</TableCell>
+                    <TableCell className="font-semibold text-foreground">{order.supplier.name}</TableCell>
+                    <TableCell className="text-muted-foreground font-medium">
                       {order.expectedDate
                         ? new Date(order.expectedDate).toLocaleDateString('pt-BR')
                         : '—'}
                     </TableCell>
-                    <TableCell className="font-mono font-bold text-slate-900 text-right text-base">
+                    <TableCell className="tabular-nums font-bold text-foreground text-right text-base">
                       R$ {Number(order.totalAmount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                     </TableCell>
                     <TableCell>{getStatusBadge(order.status)}</TableCell>
@@ -264,7 +249,7 @@ export default function ComprasPage() {
                           setSelectedOrder(detailed);
                           setShowDetailModal(true);
                         }}
-                        className="border-slate-200 text-slate-700 hover:bg-slate-50 active:scale-[0.97]"
+                        className="border-border text-foreground hover:bg-muted active:scale-[0.97]"
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
@@ -274,7 +259,7 @@ export default function ComprasPage() {
                           variant="outline"
                           onClick={() => handleUpdateStatus(order.id, 'SENT')}
                           title="Enviar pedido"
-                          className="border-slate-200 text-slate-700 hover:bg-slate-50 active:scale-[0.97]"
+                          className="border-border text-foreground hover:bg-muted active:scale-[0.97]"
                         >
                           <ChevronRight className="h-4 w-4" />
                         </Button>
@@ -285,7 +270,7 @@ export default function ComprasPage() {
                           variant="outline"
                           onClick={() => handleUpdateStatus(order.id, 'CONFIRMED')}
                           title="Confirmar recebimento do fornecedor"
-                          className="border-slate-200 text-slate-700 hover:bg-slate-50 active:scale-[0.97]"
+                          className="border-border text-foreground hover:bg-muted active:scale-[0.97]"
                         >
                           <CheckCircle2 className="h-4 w-4 text-blue-600" />
                         </Button>
@@ -293,7 +278,7 @@ export default function ComprasPage() {
                       {order.status === 'CONFIRMED' && (
                         <Button
                           size="sm"
-                          className="bg-slate-900 hover:bg-slate-800 text-white font-semibold active:scale-[0.97]"
+                          className="font-semibold active:scale-[0.97]"
                           onClick={() => handleUpdateStatus(order.id, 'RECEIVED')}
                           title="Receber insumos no estoque"
                         >
@@ -311,12 +296,12 @@ export default function ComprasPage() {
 
       {/* Modal de Criação de Pedido */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-slate-900/60 flex items-center justify-center z-50 overflow-y-auto p-4">
-          <Card className="w-full max-w-2xl bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <CardHeader className="pb-4 border-b border-slate-100">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-y-auto p-4">
+          <Card className="w-full max-w-2xl bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <CardHeader className="pb-4 border-b border-border">
               <div className="flex justify-between items-center">
-                <CardTitle className="text-xl font-bold text-slate-900">Novo Pedido de Compra</CardTitle>
-                <button type="button" onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-slate-600">
+                <CardTitle className="text-base font-semibold text-foreground">Novo Pedido de Compra</CardTitle>
+                <button type="button" onClick={() => setShowCreateModal(false)} className="text-muted-foreground hover:text-muted-foreground">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -325,9 +310,9 @@ export default function ComprasPage() {
               <CardContent className="space-y-5 p-6 max-h-[60vh] overflow-y-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-slate-700">Fornecedor</label>
+                    <label className="text-sm font-semibold text-foreground">Fornecedor</label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-slate-200 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
+                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                       value={selectedSupplierId}
                       onChange={(e) => setSelectedSupplierId(e.target.value)}
                       required
@@ -342,10 +327,10 @@ export default function ComprasPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-slate-700">Data de Entrega Estimada</label>
+                    <label className="text-sm font-semibold text-foreground">Data de Entrega Estimada</label>
                     <Input
                       type="date"
-                      className="h-10 border-slate-200 focus-visible:ring-djob"
+                      className="h-10 border-border focus-visible:ring-djob"
                       value={expectedDate}
                       onChange={(e) => setExpectedDate(e.target.value)}
                     />
@@ -353,9 +338,9 @@ export default function ComprasPage() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-slate-700">Observações gerais</label>
+                  <label className="text-sm font-semibold text-foreground">Observações gerais</label>
                   <textarea
-                    className="flex min-h-[60px] w-full rounded-md border border-slate-200 bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
+                    className="flex min-h-[60px] w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Termos de pagamento, frete, etc..."
@@ -363,15 +348,15 @@ export default function ComprasPage() {
                 </div>
 
                 {/* Itens do Pedido */}
-                <div className="space-y-4 pt-4 border-t border-slate-100">
+                <div className="space-y-4 pt-4 border-t border-border">
                   <div className="flex justify-between items-center">
-                    <h4 className="text-sm font-bold text-slate-900">Itens e Matérias-Primas</h4>
+                    <h4 className="text-sm font-bold text-foreground">Itens e Matérias-Primas</h4>
                     <Button
                       type="button"
                       variant="outline"
                       size="sm"
                       onClick={addItemRow}
-                      className="border-slate-200 hover:bg-slate-50 text-slate-700"
+                      className="border-border hover:bg-muted text-foreground"
                     >
                       + Insumo
                     </Button>
@@ -380,10 +365,10 @@ export default function ComprasPage() {
                   {items.map((item, index) => (
                     <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end border-b pb-4 last:border-0 last:pb-0">
                       <div className="md:col-span-2 flex flex-col gap-1.5">
-                        <label className="text-xs font-semibold text-slate-500">Nome do Insumo</label>
+                        <label className="text-xs font-semibold text-muted-foreground">Nome do Insumo</label>
                         <Input
                           type="text"
-                          className="h-9 border-slate-200 focus-visible:ring-djob"
+                          className="h-9 border-border focus-visible:ring-djob"
                           placeholder="Ex: Tecido Algodão Premium"
                           value={item.productName}
                           onChange={(e) => updateItemRow(index, 'productName', e.target.value)}
@@ -391,11 +376,11 @@ export default function ComprasPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label className="text-xs font-semibold text-slate-500">Qtd</label>
+                        <label className="text-xs font-semibold text-muted-foreground">Qtd</label>
                         <Input
                           type="number"
                           step="0.01"
-                          className="h-9 border-slate-200 focus-visible:ring-djob"
+                          className="h-9 border-border focus-visible:ring-djob"
                           value={item.quantity}
                           onChange={(e) => updateItemRow(index, 'quantity', Number(e.target.value))}
                           min="0.01"
@@ -403,12 +388,12 @@ export default function ComprasPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-1.5 relative">
-                        <label className="text-xs font-semibold text-slate-500">Preço Unitário (R$)</label>
+                        <label className="text-xs font-semibold text-muted-foreground">Preço Unitário (R$)</label>
                         <div className="flex gap-2">
                           <Input
                             type="number"
                             step="0.01"
-                            className="h-9 border-slate-200 focus-visible:ring-djob"
+                            className="h-9 border-border focus-visible:ring-djob"
                             value={item.unitPrice}
                             onChange={(e) => updateItemRow(index, 'unitPrice', Number(e.target.value))}
                             min="0"
@@ -420,7 +405,7 @@ export default function ComprasPage() {
                               variant="ghost"
                               size="icon"
                               onClick={() => removeItemRow(index)}
-                              className="text-red-500 hover:bg-red-50"
+                              className="text-destructive hover:bg-destructive/10"
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -431,18 +416,18 @@ export default function ComprasPage() {
                   ))}
                 </div>
               </CardContent>
-              <div className="flex justify-end gap-3 p-6 border-t border-slate-100 bg-slate-50/50">
+              <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowCreateModal(false)}
-                  className="border-slate-200 hover:bg-slate-100 text-slate-700"
+                  className="border-border hover:bg-muted text-foreground"
                 >
                   Cancelar
                 </Button>
                 <Button
                   type="submit"
-                  className="bg-slate-900 hover:bg-slate-800 text-white font-semibold active:scale-[0.98] transition-transform"
+                  className="font-semibold active:scale-[0.98] transition-transform"
                 >
                   Gerar Pedido de Compra
                 </Button>
@@ -454,15 +439,15 @@ export default function ComprasPage() {
 
       {/* Modal de Detalhes */}
       {showDetailModal && selectedOrder && (
-        <div className="fixed inset-0 bg-slate-900/60 flex items-center justify-center z-50 p-4">
-          <Card className="w-full max-w-xl bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <CardHeader className="pb-4 border-b border-slate-100">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-xl bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <CardHeader className="pb-4 border-b border-border">
               <div className="flex justify-between items-center">
                 <div>
-                  <CardTitle className="text-xl font-bold text-slate-900">Detalhes do Pedido {selectedOrder.code}</CardTitle>
+                  <CardTitle className="text-base font-semibold text-foreground">Detalhes do Pedido {selectedOrder.code}</CardTitle>
                   <CardDescription>Acompanhamento de entregas e insumos inclusos</CardDescription>
                 </div>
-                <button type="button" onClick={() => setShowDetailModal(false)} className="text-slate-400 hover:text-slate-600">
+                <button type="button" onClick={() => setShowDetailModal(false)} className="text-muted-foreground hover:text-muted-foreground">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -470,56 +455,56 @@ export default function ComprasPage() {
             <CardContent className="space-y-6 p-6">
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="text-slate-500 block font-semibold">Fornecedor</span>
-                  <span className="font-bold text-slate-950">{selectedOrder.supplier?.name}</span>
+                  <span className="text-muted-foreground block font-semibold">Fornecedor</span>
+                  <span className="font-bold text-foreground">{selectedOrder.supplier?.name}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block font-semibold">Data Esperada</span>
-                  <span className="font-medium text-slate-800">
+                  <span className="text-muted-foreground block font-semibold">Data Esperada</span>
+                  <span className="font-medium text-foreground">
                     {selectedOrder.expectedDate
                       ? new Date(selectedOrder.expectedDate).toLocaleDateString('pt-BR')
                       : '—'}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block font-semibold">Status do Pedido</span>
+                  <span className="text-muted-foreground block font-semibold">Status do Pedido</span>
                   <span>{getStatusBadge(selectedOrder.status)}</span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block font-semibold">Valor Total</span>
-                  <span className="font-mono font-bold text-slate-950 text-base">
+                  <span className="text-muted-foreground block font-semibold">Valor Total</span>
+                  <span className="tabular-nums font-bold text-foreground text-base">
                     R$ {Number(selectedOrder.totalAmount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
               </div>
 
               {selectedOrder.notes && (
-                <div className="bg-slate-50 border p-3 rounded-lg text-sm text-slate-650">
-                  <span className="font-bold text-slate-800 block mb-1">Notas Operacionais</span>
+                <div className="bg-muted border p-3 rounded-lg text-sm text-muted-foreground">
+                  <span className="font-bold text-foreground block mb-1">Notas Operacionais</span>
                   {selectedOrder.notes}
                 </div>
               )}
 
               {/* Itens do Pedido */}
               <div className="space-y-3">
-                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Itens e Matérias-Primas Inclusos</h4>
-                <div className="border border-slate-200 rounded-xl overflow-hidden">
+                <h4 className="text-sm font-bold text-foreground uppercase tracking-wider">Itens e Matérias-Primas Inclusos</h4>
+                <div className="border border-border rounded-lg overflow-hidden">
                   <Table>
-                    <TableHeader className="bg-slate-50">
+                    <TableHeader className="bg-muted">
                       <TableRow>
-                        <TableHead className="pl-4 text-xs font-semibold text-slate-500">Item / Insumo</TableHead>
-                        <TableHead className="text-xs font-semibold text-slate-500 text-right">Qtd</TableHead>
-                        <TableHead className="text-xs font-semibold text-slate-500 text-right">Preço Unit.</TableHead>
-                        <TableHead className="pr-4 text-xs font-semibold text-slate-500 text-right">Total</TableHead>
+                        <TableHead className="pl-4 text-xs font-semibold text-muted-foreground">Item / Insumo</TableHead>
+                        <TableHead className="text-xs font-semibold text-muted-foreground text-right">Qtd</TableHead>
+                        <TableHead className="text-xs font-semibold text-muted-foreground text-right">Preço Unit.</TableHead>
+                        <TableHead className="pr-4 text-xs font-semibold text-muted-foreground text-right">Total</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {selectedOrder.items?.map((item: any) => (
                         <TableRow key={item.id}>
-                          <TableCell className="pl-4 font-semibold text-slate-900">{item.productName}</TableCell>
-                          <TableCell className="font-mono text-right">{Number(item.quantity)}</TableCell>
-                          <TableCell className="font-mono text-right">R$ {Number(item.unitPrice).toFixed(2)}</TableCell>
-                          <TableCell className="pr-4 font-mono font-bold text-slate-950 text-right">
+                          <TableCell className="pl-4 font-semibold text-foreground">{item.productName}</TableCell>
+                          <TableCell className="tabular-nums text-right">{Number(item.quantity)}</TableCell>
+                          <TableCell className="tabular-nums text-right">R$ {Number(item.unitPrice).toFixed(2)}</TableCell>
+                          <TableCell className="pr-4 tabular-nums font-bold text-foreground text-right">
                             R$ {Number(item.totalPrice).toFixed(2)}
                           </TableCell>
                         </TableRow>
@@ -529,10 +514,10 @@ export default function ComprasPage() {
                 </div>
               </div>
             </CardContent>
-            <div className="flex justify-end gap-2 p-6 border-t border-slate-100 bg-slate-50/50">
+            <div className="flex justify-end gap-2 p-6 border-t border-border bg-muted/50">
               {selectedOrder.status === 'SENT' && (
                 <Button
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold active:scale-[0.97]"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold active:scale-[0.97]"
                   onClick={() => handleUpdateStatus(selectedOrder.id, 'CONFIRMED')}
                 >
                   Confirmar Envio
@@ -540,7 +525,7 @@ export default function ComprasPage() {
               )}
               {selectedOrder.status === 'CONFIRMED' && (
                 <Button
-                  className="bg-slate-900 hover:bg-slate-800 text-white font-semibold active:scale-[0.97]"
+                  className="font-semibold active:scale-[0.97]"
                   onClick={() => handleUpdateStatus(selectedOrder.id, 'RECEIVED')}
                 >
                   Receber no Estoque
@@ -550,7 +535,7 @@ export default function ComprasPage() {
                 type="button"
                 variant="outline"
                 onClick={() => setShowDetailModal(false)}
-                className="border-slate-200 hover:bg-slate-100 text-slate-700"
+                className="border-border hover:bg-muted text-foreground"
               >
                 Fechar
               </Button>

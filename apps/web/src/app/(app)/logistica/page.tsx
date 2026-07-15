@@ -13,6 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { RefreshCw, Plus, Eye, Printer, Truck, CheckSquare, Package, X, Calendar, User, Navigation } from 'lucide-react';
+import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { logisticaService } from '@/features/logistica/api/logistica.service';
 import { vendasService } from '@/features/vendas/api/vendas.service';
 
@@ -129,37 +130,37 @@ export default function LogisticaPage() {
     switch (status) {
       case 'PENDING':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
             Pendente
           </span>
         );
       case 'PICKED':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">
             Separado
           </span>
         );
       case 'SHIPPED':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-50 text-purple-700 border border-purple-100">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-50 text-purple-700 border border-purple-100">
             Despachado
           </span>
         );
       case 'IN_TRANSIT':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-705 border border-amber-200 animate-pulse">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
             Em Trânsito
           </span>
         );
       case 'DELIVERED':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-705 border border-emerald-200">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
             Entregue
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
             {status}
           </span>
         );
@@ -172,73 +173,57 @@ export default function LogisticaPage() {
 
   return (
     <div className="space-y-6">
-      {/* Ocultar cabeçalho na impressão */}
-      <div className="flex justify-between items-center print:hidden">
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12 bg-slate-900 text-white rounded-xl flex items-center justify-center">
-            <Truck className="h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Logística & Entregas</h1>
-            <p className="text-sm text-slate-500">
-              Controle de expedição de mercadorias, protocolos físicos de entrega e rastreamento
-            </p>
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={loadData}
-            className="border-slate-200 hover:bg-slate-100 text-slate-700 active:scale-[0.98] transition-transform"
-          >
-            <RefreshCw className="h-4 w-4 mr-2" />
-            <span>Atualizar</span>
-          </Button>
-          <Button
-            onClick={() => setShowCreateModal(true)}
-            className="bg-slate-900 hover:bg-slate-800 text-white font-semibold active:scale-[0.98] transition-transform"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            <span>Emitir Protocolo</span>
-          </Button>
-        </div>
-      </div>
+      <PageActionHeader
+        icon={Truck}
+        title="Logística & Entregas"
+        subtitle="Controle de expedição de mercadorias, protocolos físicos de entrega e rastreamento"
+        className="print:hidden"
+      >
+        <Button variant="outline" onClick={loadData} className="gap-1.5">
+          <RefreshCw className="h-4 w-4" />
+          Atualizar
+        </Button>
+        <Button onClick={() => setShowCreateModal(true)} className="gap-1.5">
+          <Plus className="h-4 w-4" />
+          Emitir Protocolo
+        </Button>
+      </PageActionHeader>
 
-      <Card className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden print:hidden">
-        <CardHeader className="pb-3 border-b border-slate-100">
-          <CardTitle className="text-lg font-bold text-slate-900">Remessas & Expedição</CardTitle>
+      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden print:hidden">
+        <CardHeader className="pb-3 border-b border-border">
+          <CardTitle className="text-base font-semibold text-foreground">Remessas & Expedição</CardTitle>
           <CardDescription>Acompanhe o status e a entrega dos pedidos finalizados</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-slate-500 font-medium">Carregando expedição...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">Carregando expedição...</div>
           ) : shipments.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 font-medium">
+            <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhuma remessa em andamento no momento.
             </div>
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-slate-50/70">
-                  <TableHead className="pl-6 text-xs font-bold uppercase tracking-wider text-slate-500">Código</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Pedido</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Destinatário</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Cidade / UF</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Transportadora</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Status</TableHead>
-                  <TableHead className="pr-6 text-xs font-bold uppercase tracking-wider text-slate-500 text-right">Ações</TableHead>
+                <TableRow className="bg-muted/70">
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Código</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Pedido</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Destinatário</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Cidade / UF</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Transportadora</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Status</TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {shipments.map((ship) => (
-                  <TableRow key={ship.id} className="hover:bg-slate-50/50">
-                    <TableCell className="pl-6 font-bold text-slate-900">{ship.code}</TableCell>
-                    <TableCell className="font-mono text-xs text-slate-500">{ship.salesOrder.code}</TableCell>
-                    <TableCell className="font-semibold text-slate-800">{ship.recipientName}</TableCell>
-                    <TableCell className="text-slate-650">
+                  <TableRow key={ship.id} className="hover:bg-muted/50">
+                    <TableCell className="pl-6 font-bold text-foreground">{ship.code}</TableCell>
+                    <TableCell className="tabular-nums text-xs text-muted-foreground">{ship.salesOrder.code}</TableCell>
+                    <TableCell className="font-semibold text-foreground">{ship.recipientName}</TableCell>
+                    <TableCell className="text-muted-foreground">
                       {ship.city} / {ship.state}
                     </TableCell>
-                    <TableCell className="font-medium text-slate-600">{ship.carrier || '—'}</TableCell>
+                    <TableCell className="font-medium text-muted-foreground">{ship.carrier || '—'}</TableCell>
                     <TableCell>{getStatusBadge(ship.status)}</TableCell>
                     <TableCell className="pr-6 text-right">
                       <Button
@@ -249,7 +234,7 @@ export default function LogisticaPage() {
                           setSelectedShipment(detailed);
                           setShowDetailModal(true);
                         }}
-                        className="border-slate-200 text-slate-700 hover:bg-slate-50 active:scale-[0.97] flex items-center gap-1 ml-auto"
+                        className="border-border text-foreground hover:bg-muted active:scale-[0.97] flex items-center gap-1 ml-auto"
                       >
                         <Eye className="h-4 w-4" />
                         <span>Ver Protocolo</span>
@@ -265,12 +250,12 @@ export default function LogisticaPage() {
 
       {/* Modal de Criação de Remessa */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-slate-900/60 flex items-center justify-center z-50 p-4 print:hidden">
-          <Card className="w-full max-w-2xl bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <CardHeader className="pb-4 border-b border-slate-100">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 print:hidden">
+          <Card className="w-full max-w-2xl bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <CardHeader className="pb-4 border-b border-border">
               <div className="flex justify-between items-center">
-                <CardTitle className="text-xl font-bold text-slate-900">Novo Protocolo de Expedição</CardTitle>
-                <button type="button" onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-slate-600">
+                <CardTitle className="text-base font-semibold text-foreground">Novo Protocolo de Expedição</CardTitle>
+                <button type="button" onClick={() => setShowCreateModal(false)} className="text-muted-foreground hover:text-muted-foreground">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -278,9 +263,9 @@ export default function LogisticaPage() {
             <form onSubmit={handleCreateShipment}>
               <CardContent className="space-y-5 p-6 max-h-[60vh] overflow-y-auto">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-slate-700">Selecione o Pedido de Venda Pronto</label>
+                  <label className="text-sm font-semibold text-foreground">Selecione o Pedido de Venda Pronto</label>
                   <select
-                    className="flex h-10 w-full rounded-md border border-slate-200 bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
+                    className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     value={selectedOrderId}
                     onChange={(e) => handleOrderChange(e.target.value)}
                     required
@@ -296,10 +281,10 @@ export default function LogisticaPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-slate-700">Nome da Transportadora</label>
+                    <label className="text-sm font-semibold text-foreground">Nome da Transportadora</label>
                     <Input
                       type="text"
-                      className="h-10 border-slate-200 focus-visible:ring-djob"
+                      className="h-10 border-border focus-visible:ring-djob"
                       placeholder="Ex: Correios, DHL"
                       value={carrier}
                       onChange={(e) => setCarrier(e.target.value)}
@@ -307,10 +292,10 @@ export default function LogisticaPage() {
                   </div>
 
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-slate-700">Código de Rastreamento</label>
+                    <label className="text-sm font-semibold text-foreground">Código de Rastreamento</label>
                     <Input
                       type="text"
-                      className="h-10 border-slate-200 focus-visible:ring-djob"
+                      className="h-10 border-border focus-visible:ring-djob"
                       placeholder="Ex: BR123456789XX"
                       value={trackingCode}
                       onChange={(e) => setTrackingCode(e.target.value)}
@@ -318,13 +303,13 @@ export default function LogisticaPage() {
                   </div>
                 </div>
 
-                <div className="border-t border-slate-100 pt-4 space-y-4">
-                  <h4 className="text-sm font-bold text-slate-900">Destinatário & Endereço de Entrega</h4>
+                <div className="border-t border-border pt-4 space-y-4">
+                  <h4 className="text-sm font-bold text-foreground">Destinatário & Endereço de Entrega</h4>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-semibold text-slate-700">Nome do Recebedor</label>
+                    <label className="text-sm font-semibold text-foreground">Nome do Recebedor</label>
                     <Input
                       type="text"
-                      className="h-10 border-slate-200 focus-visible:ring-djob"
+                      className="h-10 border-border focus-visible:ring-djob"
                       placeholder="Ex: Almoxarifado central"
                       value={recipientName}
                       onChange={(e) => setRecipientName(e.target.value)}
@@ -334,29 +319,29 @@ export default function LogisticaPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-sm font-semibold text-slate-700">CEP</label>
+                      <label className="text-sm font-semibold text-foreground">CEP</label>
                       <Input
                         type="text"
-                        className="h-10 border-slate-200 focus-visible:ring-djob"
+                        className="h-10 border-border focus-visible:ring-djob"
                         placeholder="00000-000"
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-sm font-semibold text-slate-700">Cidade</label>
+                      <label className="text-sm font-semibold text-foreground">Cidade</label>
                       <Input
                         type="text"
-                        className="h-10 border-slate-200 focus-visible:ring-djob"
+                        className="h-10 border-border focus-visible:ring-djob"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-sm font-semibold text-slate-700">Estado (UF)</label>
+                      <label className="text-sm font-semibold text-foreground">Estado (UF)</label>
                       <Input
                         type="text"
-                        className="h-10 border-slate-200 focus-visible:ring-djob"
+                        className="h-10 border-border focus-visible:ring-djob"
                         maxLength={2}
                         value={state}
                         onChange={(e) => setState(e.target.value)}
@@ -366,19 +351,19 @@ export default function LogisticaPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-2 flex flex-col gap-1.5">
-                      <label className="text-sm font-semibold text-slate-700">Rua / Avenida</label>
+                      <label className="text-sm font-semibold text-foreground">Rua / Avenida</label>
                       <Input
                         type="text"
-                        className="h-10 border-slate-200 focus-visible:ring-djob"
+                        className="h-10 border-border focus-visible:ring-djob"
                         value={street}
                         onChange={(e) => setStreet(e.target.value)}
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-sm font-semibold text-slate-700">Número</label>
+                      <label className="text-sm font-semibold text-foreground">Número</label>
                       <Input
                         type="text"
-                        className="h-10 border-slate-200 focus-visible:ring-djob"
+                        className="h-10 border-border focus-visible:ring-djob"
                         value={number}
                         onChange={(e) => setNumber(e.target.value)}
                       />
@@ -386,18 +371,18 @@ export default function LogisticaPage() {
                   </div>
                 </div>
               </CardContent>
-              <div className="flex justify-end gap-3 p-6 border-t border-slate-100 bg-slate-50/50">
+              <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowCreateModal(false)}
-                  className="border-slate-200 hover:bg-slate-100 text-slate-700"
+                  className="border-border hover:bg-muted text-foreground"
                 >
                   Cancelar
                 </Button>
                 <Button
                   type="submit"
-                  className="bg-slate-900 hover:bg-slate-800 text-white font-semibold active:scale-[0.98] transition-transform"
+                  className="font-semibold active:scale-[0.98] transition-transform"
                 >
                   Confirmar Expedição
                 </Button>
@@ -409,85 +394,85 @@ export default function LogisticaPage() {
 
       {/* Modal de Protocolo Físico (Otimizado para Impressão) */}
       {showDetailModal && selectedShipment && (
-        <div className="fixed inset-0 bg-slate-900/60 flex items-center justify-center z-50 p-4 print:p-0 print:bg-white print:static print:h-full print:w-full">
-          <Card className="w-full max-w-2xl bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden print:border-none print:shadow-none print:rounded-none">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 print:p-0 print:bg-card print:static print:h-full print:w-full">
+          <Card className="w-full max-w-2xl bg-card border border-border shadow-lg rounded-lg overflow-hidden print:border-none print:shadow-none print:rounded-none">
             {/* Ocultar no print */}
-            <CardHeader className="pb-4 border-b border-slate-100 print:hidden flex flex-row items-center justify-between">
+            <CardHeader className="pb-4 border-b border-border print:hidden flex flex-row items-center justify-between">
               <div>
-                <CardTitle className="text-xl font-bold text-slate-900">Protocolo Físico de Entrega</CardTitle>
+                <CardTitle className="text-base font-semibold text-foreground">Protocolo Físico de Entrega</CardTitle>
                 <CardDescription>Visualize ou imprima o recibo para entrega presencial</CardDescription>
               </div>
-              <button type="button" onClick={() => setShowDetailModal(false)} className="text-slate-400 hover:text-slate-600">
+              <button type="button" onClick={() => setShowDetailModal(false)} className="text-muted-foreground hover:text-muted-foreground">
                 <X className="h-5 w-5" />
               </button>
             </CardHeader>
             <CardContent className="p-8 space-y-6">
               {/* Cabeçalho do Protocolo Físico */}
-              <div className="flex justify-between items-start border-b-2 border-slate-900 pb-4">
+              <div className="flex justify-between items-start border-b-2 border-foreground pb-4">
                 <div>
-                  <h3 className="text-xl font-black tracking-tight text-slate-950 uppercase">D.job Brindes & Confecção</h3>
-                  <p className="text-xs text-slate-500 mt-1">CNPJ: 00.000.000/0001-00 | Tel: (11) 99999-9999</p>
+                  <h3 className="text-xl font-black tracking-tight text-foreground uppercase">D.job Brindes & Confecção</h3>
+                  <p className="text-xs text-muted-foreground mt-1">CNPJ: 00.000.000/0001-00 | Tel: (11) 99999-9999</p>
                 </div>
                 <div className="text-right">
-                  <span className="text-sm font-bold block text-slate-500 uppercase tracking-widest">Protocolo</span>
-                  <span className="text-lg font-black text-slate-950 font-mono">{selectedShipment.code}</span>
+                  <span className="text-sm font-bold block text-muted-foreground uppercase tracking-widest">Protocolo</span>
+                  <span className="text-lg font-black text-foreground tabular-nums">{selectedShipment.code}</span>
                 </div>
               </div>
 
               {/* Informações da Entrega */}
               <div className="grid grid-cols-2 gap-6 text-sm">
                 <div className="space-y-1">
-                  <span className="text-slate-500 font-bold block uppercase text-xs">Destinatário</span>
-                  <span className="font-extrabold text-slate-950 text-base">{selectedShipment.recipientName}</span>
+                  <span className="text-muted-foreground font-bold block uppercase text-xs">Destinatário</span>
+                  <span className="font-semibold text-foreground text-base">{selectedShipment.recipientName}</span>
                 </div>
                 <div className="space-y-1">
-                  <span className="text-slate-500 font-bold block uppercase text-xs">Pedido de Venda</span>
-                  <span className="font-mono font-extrabold text-slate-950 text-base">{selectedShipment.salesOrder?.code}</span>
+                  <span className="text-muted-foreground font-bold block uppercase text-xs">Pedido de Venda</span>
+                  <span className="tabular-nums font-semibold text-foreground text-base">{selectedShipment.salesOrder?.code}</span>
                 </div>
                 <div className="space-y-1">
-                  <span className="text-slate-500 font-bold block uppercase text-xs">Transportadora</span>
-                  <span className="font-semibold text-slate-800">{selectedShipment.carrier || 'Entrega Direta / Própria'}</span>
+                  <span className="text-muted-foreground font-bold block uppercase text-xs">Transportadora</span>
+                  <span className="font-semibold text-foreground">{selectedShipment.carrier || 'Entrega Direta / Própria'}</span>
                 </div>
                 <div className="space-y-1">
-                  <span className="text-slate-500 font-bold block uppercase text-xs">Rastreamento</span>
-                  <span className="font-mono text-slate-850 font-semibold">{selectedShipment.trackingCode || '—'}</span>
+                  <span className="text-muted-foreground font-bold block uppercase text-xs">Rastreamento</span>
+                  <span className="tabular-nums text-foreground font-semibold">{selectedShipment.trackingCode || '—'}</span>
                 </div>
               </div>
 
-              <div className="space-y-1 border-t border-slate-100 pt-4">
-                <span className="text-slate-500 font-bold block uppercase text-xs">Endereço de Entrega</span>
-                <span className="font-semibold text-slate-900 block text-sm">
+              <div className="space-y-1 border-t border-border pt-4">
+                <span className="text-muted-foreground font-bold block uppercase text-xs">Endereço de Entrega</span>
+                <span className="font-semibold text-foreground block text-sm">
                   {selectedShipment.street}, {selectedShipment.number} {selectedShipment.complement && `(${selectedShipment.complement})`}
                 </span>
-                <span className="text-slate-500 text-xs font-semibold">
+                <span className="text-muted-foreground text-xs font-semibold">
                   {selectedShipment.neighborhood} — {selectedShipment.city} / {selectedShipment.state} | CEP: {selectedShipment.zipCode}
                 </span>
               </div>
 
               {/* Campos de Assinatura */}
-              <div className="grid grid-cols-2 gap-8 pt-12 border-t-2 border-dashed border-slate-200">
-                <div className="text-center pt-8 border-t border-slate-400">
-                  <span className="text-xs text-slate-500 block uppercase font-bold">Assinatura do Entregador</span>
-                  <span className="text-xs text-slate-400 block mt-1">Data: ___/___/______</span>
+              <div className="grid grid-cols-2 gap-8 pt-12 border-t border-border">
+                <div className="text-center pt-8 border-t border-border">
+                  <span className="text-xs text-muted-foreground block uppercase font-bold">Assinatura do Entregador</span>
+                  <span className="text-xs text-muted-foreground block mt-1">Data: ___/___/______</span>
                 </div>
-                <div className="text-center pt-8 border-t border-slate-400">
-                  <span className="text-xs text-slate-500 block uppercase font-bold">Assinatura do Recebedor (Cliente)</span>
-                  <span className="text-xs text-slate-400 block mt-1">Documento / RG: __________________</span>
+                <div className="text-center pt-8 border-t border-border">
+                  <span className="text-xs text-muted-foreground block uppercase font-bold">Assinatura do Recebedor (Cliente)</span>
+                  <span className="text-xs text-muted-foreground block mt-1">Documento / RG: __________________</span>
                 </div>
               </div>
             </CardContent>
             {/* Ocultar no print */}
-            <div className="flex justify-end gap-3 p-6 border-t border-slate-100 bg-slate-50/50 print:hidden">
+            <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50 print:hidden">
               <Button
                 onClick={handlePrint}
-                className="bg-slate-900 hover:bg-slate-800 text-white font-semibold active:scale-[0.97] flex items-center gap-1.5"
+                className="font-semibold active:scale-[0.97] flex items-center gap-1.5"
               >
                 <Printer className="h-4 w-4" />
                 <span>Imprimir Protocolo</span>
               </Button>
               {selectedShipment.status !== 'DELIVERED' && (
                 <Button
-                  className="bg-emerald-600 hover:bg-emerald-705 text-white font-semibold active:scale-[0.97] flex items-center gap-1.5"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold active:scale-[0.97] flex items-center gap-1.5"
                   onClick={() => handleUpdateStatus(selectedShipment.id, 'DELIVERED')}
                 >
                   <CheckSquare className="h-4 w-4" />
@@ -498,7 +483,7 @@ export default function LogisticaPage() {
                 type="button"
                 variant="outline"
                 onClick={() => setShowDetailModal(false)}
-                className="border-slate-200 hover:bg-slate-100 text-slate-700"
+                className="border-border hover:bg-muted text-foreground"
               >
                 Fechar
               </Button>

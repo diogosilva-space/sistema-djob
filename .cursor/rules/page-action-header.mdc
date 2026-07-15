@@ -1,0 +1,21 @@
+---
+description: Padroniza o uso do PageActionHeader nas páginas da aplicação
+globs: apps/web/src/app/(app)/**/*.tsx
+alwaysApply: false
+---
+
+# PageActionHeader
+
+- Toda página que usar `PageActionHeader` DEVE informar a prop `icon`, com um ícone Lucide que represente o módulo ou contexto da rota.
+- O ícone deve aparecer à esquerda do título e subtítulo por meio do componente compartilhado `@/components/dashboard/PageActionHeader`; não recriar essa estrutura localmente.
+- Exemplo:
+
+```tsx
+<PageActionHeader
+  icon={LayoutDashboard}
+  title="Painel Geral"
+  subtitle="Métricas operacionais do negócio"
+/>
+```
+
+- Manter os padrões do componente: ícone circular `h-9 w-9`, `bg-primary`, sem borda inferior externa.

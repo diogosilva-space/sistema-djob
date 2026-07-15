@@ -9,3 +9,4 @@ export * from './rh';
 export * from './logistica';
 export * from './financeiro';
 export * from './tenant';
+export * from './dashboard';

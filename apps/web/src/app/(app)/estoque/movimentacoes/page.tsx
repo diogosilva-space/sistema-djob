@@ -12,6 +12,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { RefreshCw, ArrowUpRight, ArrowDownLeft, SlidersHorizontal, Scale, History } from 'lucide-react';
+import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 import { estoqueService } from '@/features/estoque/api/estoque.service';
 
 export default function MovimentacoesPage() {
@@ -39,28 +40,28 @@ export default function MovimentacoesPage() {
       case 'ENTRY':
       case 'RETURN':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-green-50 text-green-750 border border-green-150">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
             <ArrowDownLeft className="h-3 w-3" />
             <span>Entrada / Retorno</span>
           </span>
         );
       case 'EXIT':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-750 border border-red-150">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200">
             <ArrowUpRight className="h-3 w-3" />
             <span>Saída / Baixa</span>
           </span>
         );
       case 'ADJUST':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-750 border border-blue-150">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
             <Scale className="h-3 w-3" />
             <span>Ajuste Manual</span>
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold bg-slate-50 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
             <SlidersHorizontal className="h-3 w-3" />
             <span>Outro</span>
           </span>
@@ -70,65 +71,54 @@ export default function MovimentacoesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12 bg-slate-900 text-white rounded-xl flex items-center justify-center">
-            <History className="h-6 w-6" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Movimentações de Estoque</h1>
-            <p className="text-sm text-slate-500">
-              Histórico operacional completo de entradas, saídas e deduções automáticas
-            </p>
-          </div>
-        </div>
-        <Button
-          variant="outline"
-          onClick={loadMovements}
-          className="border-slate-200 hover:bg-slate-100 text-slate-700 active:scale-[0.98] transition-transform"
-        >
-          <RefreshCw className="h-4 w-4 mr-2" />
-          <span>Atualizar Logs</span>
+      <PageActionHeader
+        icon={History}
+        title="Movimentações de Estoque"
+        subtitle="Histórico operacional completo de entradas, saídas e deduções automáticas"
+      >
+        <Button variant="outline" onClick={loadMovements} className="gap-1.5">
+          <RefreshCw className="h-4 w-4" />
+          Atualizar Logs
         </Button>
-      </div>
+      </PageActionHeader>
 
-      <Card className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-        <CardHeader className="pb-3 border-b border-slate-100">
-          <CardTitle className="text-lg font-bold text-slate-900">Histórico de Transações</CardTitle>
+      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
+        <CardHeader className="pb-3 border-b border-border">
+          <CardTitle className="text-base font-semibold text-foreground">Histórico de Transações</CardTitle>
           <CardDescription>Auditoria permanente de toda movimentação física de insumos</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="text-center py-12 text-slate-500 font-medium">Carregando movimentações...</div>
+            <div className="text-center py-12 text-sm text-muted-foreground">Carregando movimentações...</div>
           ) : movements.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 font-medium">
+            <div className="text-center py-12 text-sm text-muted-foreground">
               Nenhuma movimentação registrada no histórico.
             </div>
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-slate-50/70">
-                  <TableHead className="pl-6 text-xs font-bold uppercase tracking-wider text-slate-500">Data / Hora</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Insumo</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Operação</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500 text-right">Quantidade</TableHead>
-                  <TableHead className="text-xs font-bold uppercase tracking-wider text-slate-500">Referência</TableHead>
-                  <TableHead className="pr-6 text-xs font-bold uppercase tracking-wider text-slate-500">Motivo / Notas</TableHead>
+                <TableRow className="bg-muted/70">
+                  <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Data / Hora</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Insumo</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Operação</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground text-right">Quantidade</TableHead>
+                  <TableHead className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Referência</TableHead>
+                  <TableHead className="pr-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">Motivo / Notas</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {movements.map((mov) => (
-                  <TableRow key={mov.id} className="hover:bg-slate-50/50">
-                    <TableCell className="pl-6 text-slate-500 font-medium text-xs">
+                  <TableRow key={mov.id} className="hover:bg-muted/50">
+                    <TableCell className="pl-6 text-muted-foreground font-medium text-xs">
                       {new Date(mov.createdAt).toLocaleString('pt-BR')}
                     </TableCell>
-                    <TableCell className="font-bold text-slate-900">{mov.productName}</TableCell>
+                    <TableCell className="font-bold text-foreground">{mov.productName}</TableCell>
                     <TableCell>{getTypeBadge(mov.type)}</TableCell>
-                    <TableCell className="font-mono font-bold text-slate-900 text-right text-base">
+                    <TableCell className="tabular-nums font-bold text-foreground text-right text-base">
                       {Number(mov.quantity).toLocaleString('pt-BR', { minimumFractionDigits: 3 })}
                     </TableCell>
-                    <TableCell className="font-mono text-xs text-slate-650">{mov.reference || '—'}</TableCell>
-                    <TableCell className="pr-6 text-slate-700 text-sm">{mov.notes || '—'}</TableCell>
+                    <TableCell className="tabular-nums text-xs text-muted-foreground">{mov.reference || '—'}</TableCell>
+                    <TableCell className="pr-6 text-foreground text-sm">{mov.notes || '—'}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
