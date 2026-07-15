@@ -100,6 +100,67 @@
 }
 
 @layer components {
+  /* ── Glassmorphism: App Shell ── */
+  .glass-sidebar {
+    @apply bg-white/50 dark:bg-black/30 backdrop-blur-xl
+      border-r border-white/30 dark:border-white/[0.08];
+  }
+
+  .glass-header {
+    @apply bg-white/50 dark:bg-black/30 backdrop-blur-xl
+      border-b border-white/30 dark:border-white/[0.08];
+  }
+
+  .glass-card {
+    @apply bg-white/60 dark:bg-white/[0.08] backdrop-blur-xl
+      border border-white/40 dark:border-white/[0.10]
+      shadow-lg shadow-black/[0.03] dark:shadow-black/[0.15];
+  }
+
+  .glass-card-elevated {
+    @apply bg-white/70 dark:bg-white/[0.12] backdrop-blur-xl
+      border border-white/50 dark:border-white/[0.14]
+      shadow-xl shadow-black/[0.04] dark:shadow-black/[0.20];
+  }
+
+  .glass-table {
+    @apply bg-white/65 dark:bg-white/[0.06] backdrop-blur-lg
+      border border-white/40 dark:border-white/[0.08];
+  }
+
+  .glass-input {
+    @apply bg-white/40 dark:bg-white/[0.06]
+      border-white/30 dark:border-white/[0.12]
+      text-foreground placeholder:text-muted-foreground
+      focus:border-primary/50 dark:focus:border-white/[0.25]
+      focus:ring-primary/20 dark:focus:ring-white/[0.10];
+  }
+
+  .glass-popover {
+    @apply bg-white/75 dark:bg-black/60 backdrop-blur-xl
+      border border-white/40 dark:border-white/[0.10]
+      shadow-xl shadow-black/[0.05] dark:shadow-black/[0.25];
+  }
+
+  .glass-overlay-light {
+    background: linear-gradient(
+      135deg,
+      rgba(255 255 255 / 0.15) 0%,
+      rgba(255 255 255 / 0.05) 50%,
+      rgba(255 255 255 / 0.10) 100%
+    );
+  }
+
+  .glass-overlay-dark {
+    background: linear-gradient(
+      135deg,
+      rgba(0 0 0 / 0.45) 0%,
+      rgba(0 0 0 / 0.35) 50%,
+      rgba(0 0 0 / 0.50) 100%
+    );
+  }
+
+  /* ── Glassmorphism: Auth Shell ── */
   .auth-glass-form label {
     @apply text-white/70;
   }
@@ -158,6 +219,7 @@
     background-color: rgba(239, 68, 68, 0.15);
   }
 
+  /* ── Prose / Legal pages ── */
   .prose-container h2 {
     @apply text-lg font-semibold text-foreground mt-10 mb-4 scroll-mt-20;
   }

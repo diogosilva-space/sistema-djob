@@ -76,19 +76,18 @@ export function Sidebar({ collapsed }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'flex h-screen flex-col border-r border-border bg-card transition-[width] duration-200 ease-in-out',
+        'glass-sidebar flex h-screen flex-col transition-[width] duration-200 ease-in-out',
         collapsed ? 'w-[3.25rem]' : 'w-60',
       )}
     >
-      {/* Branding */}
       <div
         className={cn(
-          'flex h-[50px] shrink-0 items-center border-b border-border',
+          'flex h-[50px] shrink-0 items-center border-b border-white/20 dark:border-white/[0.06]',
           collapsed ? 'justify-center px-2' : 'gap-2.5 px-4',
         )}
       >
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary">
-          <span className="text-sm font-bold text-primary-foreground">D</span>
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/15 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/[0.12]">
+          <span className="text-sm font-bold text-foreground">D</span>
         </div>
         {!collapsed && (
           <span className="text-[14px] font-semibold tracking-tight text-foreground">
@@ -97,9 +96,8 @@ export function Sidebar({ collapsed }: SidebarProps) {
         )}
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-2 px-2">
-        <div className="flex flex-col gap-3">
+      <nav className="flex-1 overflow-y-auto py-3 px-2">
+        <div className="flex flex-col gap-4">
           {navSections.map((section) => (
             <div key={section.label}>
               {!collapsed && (
@@ -120,8 +118,8 @@ export function Sidebar({ collapsed }: SidebarProps) {
                         'flex items-center gap-2.5 overflow-hidden rounded-lg text-xs font-normal transition-colors duration-150',
                         collapsed ? 'justify-center px-2 py-2' : 'px-3 py-2',
                         isActive
-                          ? 'bg-primary/10 font-semibold text-primary'
-                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                          ? 'bg-white/20 dark:bg-white/[0.10] font-semibold text-primary backdrop-blur-sm'
+                          : 'text-muted-foreground hover:bg-white/15 dark:hover:bg-white/[0.06] hover:text-foreground',
                       )}
                     >
                       <Icon className="h-[18px] w-[18px] shrink-0" strokeWidth={1.5} />

@@ -120,7 +120,7 @@ export function Header({ collapsed, onToggleSidebar, onMobileMenuToggle }: Heade
   const initials = displayName.charAt(0).toUpperCase();
 
   return (
-    <header className="sticky top-0 z-30 flex h-[50px] shrink-0 items-center justify-between border-b border-border bg-card px-4 md:px-5">
+    <header className="glass-header sticky top-0 z-30 flex h-[50px] shrink-0 items-center justify-between px-4 md:px-5">
       {/* Left: toggle + breadcrumb */}
       <div className="flex items-center gap-2">
         <Button
@@ -141,7 +141,7 @@ export function Header({ collapsed, onToggleSidebar, onMobileMenuToggle }: Heade
         >
           <Menu className="h-4 w-4" />
         </Button>
-        <Separator orientation="vertical" className="hidden h-5 md:block" />
+        <Separator orientation="vertical" className="hidden h-5 md:block bg-white/20 dark:bg-white/[0.08]" />
         <Breadcrumb />
       </div>
 
@@ -163,8 +163,8 @@ export function Header({ collapsed, onToggleSidebar, onMobileMenuToggle }: Heade
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="gap-2 pl-2 pr-2 ml-1">
-              <div className="h-7 w-7 rounded-md bg-primary/10 flex items-center justify-center">
-                <span className="text-xs font-bold text-primary">{initials}</span>
+              <div className="h-7 w-7 rounded-md bg-white/15 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/[0.10] flex items-center justify-center">
+                <span className="text-xs font-bold text-foreground">{initials}</span>
               </div>
               <div className="hidden sm:block text-left">
                 <p className="text-xs font-medium leading-tight">{displayName}</p>
