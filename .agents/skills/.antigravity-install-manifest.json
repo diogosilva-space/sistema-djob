@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-14T19:30:17.697Z",
+  "entries": [
+    "architecture-patterns",
+    "design-taste-frontend",
+    "docs",
+    "geminiignore-finops",
+    "lore",
+    "nestjs-expert",
+    "nextjs-app-router-patterns",
+    "openapi-spec-generation",
+    "postgres-best-practices",
+    "postgres-readonly-queries",
+    "prisma-expert",
+    "react-nextjs-development",
+    "recursive-context-pruning-token-budgeting",
+    "styleseed-design-review",
+    "tree-ring-memory",
+    "unship",
+    "zod-validation-expert"
+  ]
+}
