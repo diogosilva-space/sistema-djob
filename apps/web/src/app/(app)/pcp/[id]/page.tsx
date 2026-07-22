@@ -58,7 +58,7 @@ export default function PcpOrderDetailsPage() {
     switch (status) {
       case 'PENDING':
         return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             Aguardando
           </span>
         );
@@ -76,13 +76,13 @@ export default function PcpOrderDetailsPage() {
         );
       case 'SKIPPED':
         return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             Ignorado
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             {status}
           </span>
         );
@@ -92,13 +92,13 @@ export default function PcpOrderDetailsPage() {
   const getStepIndicatorStyle = (status: string) => {
     switch (status) {
       case 'PENDING':
-        return 'border-border bg-card text-muted-foreground';
+        return 'border-white/20 dark:border-white/[0.08] bg-white/15 dark:bg-white/[0.06] text-muted-foreground';
       case 'IN_PROGRESS':
         return 'border-blue-500 bg-blue-50 text-blue-600 ring-4 ring-blue-50';
       case 'COMPLETED':
         return 'border-emerald-500 bg-emerald-500 text-white';
       default:
-        return 'border-border bg-muted text-muted-foreground';
+        return 'border-white/20 dark:border-white/[0.08] bg-white/15 dark:bg-white/[0.06] text-muted-foreground';
     }
   };
 
@@ -123,7 +123,7 @@ export default function PcpOrderDetailsPage() {
   }
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto">
+    <div className="space-y-6 mt-6 max-w-5xl mx-auto">
       <PageActionHeader
         icon={Cpu}
         backHref="/pcp"
@@ -133,13 +133,13 @@ export default function PcpOrderDetailsPage() {
 
       <div className="grid gap-6 md:grid-cols-3">
         {/* Informações Gerais */}
-        <Card className="bg-card rounded-lg border border-border shadow-sm md:col-span-1 h-fit">
+        <Card className="rounded-xl glass-card md:col-span-1 h-fit">
           <CardHeader className="pb-4">
             <CardTitle className="text-base font-semibold text-foreground">
               Detalhes da OP
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 text-sm border-t border-border pt-4">
+          <CardContent className="space-y-4 text-sm border-t border-white/20 dark:border-white/[0.08] pt-4">
             <div className="space-y-1">
               <span className="text-muted-foreground block font-semibold">Cliente</span>
               <span className="font-bold text-foreground text-base">
@@ -154,7 +154,7 @@ export default function PcpOrderDetailsPage() {
             </div>
             <div className="space-y-1">
               <span className="text-muted-foreground block font-semibold">Status de Produção</span>
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/15 dark:bg-primary/10 backdrop-blur-sm text-primary">
                 {order.status}
               </span>
             </div>
@@ -166,7 +166,7 @@ export default function PcpOrderDetailsPage() {
         </Card>
 
         {/* Linha do tempo das Etapas */}
-        <Card className="bg-card rounded-lg border border-border shadow-sm md:col-span-2">
+        <Card className="rounded-xl glass-card md:col-span-2">
           <CardHeader className="pb-4">
             <CardTitle className="text-base font-semibold text-foreground">
               Roteiro de Confecção
@@ -175,8 +175,8 @@ export default function PcpOrderDetailsPage() {
               Gerencie e registre o progresso em tempo real das etapas
             </CardDescription>
           </CardHeader>
-          <CardContent className="border-t border-border pt-6">
-            <div className="relative pl-8 space-y-8 before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-muted">
+          <CardContent className="border-t border-white/20 dark:border-white/[0.08] pt-6">
+            <div className="relative pl-8 space-y-8 before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-white/15 dark:before:bg-white/[0.06]">
               {order.steps?.map((step: any, index: number) => {
                 const stepIndicatorClass = getStepIndicatorStyle(step.status);
                 return (
@@ -213,7 +213,7 @@ export default function PcpOrderDetailsPage() {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="border-border text-foreground hover:bg-muted flex items-center gap-1 active:scale-[0.97]"
+                            className="border-white/20 dark:border-white/[0.08] text-foreground hover:bg-white/15 dark:hover:bg-white/[0.06] flex items-center gap-1 active:scale-[0.97]"
                             onClick={() => handleAction(step.id, 'PAUSE')}
                           >
                             <Pause className="h-3.5 w-3.5" />

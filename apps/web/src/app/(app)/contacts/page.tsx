@@ -18,7 +18,7 @@ export default function ContactsPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Users}
         title="Contatos"
@@ -31,8 +31,8 @@ export default function ContactsPage() {
           </Button>
         </Link>
       </PageActionHeader>
-      <section className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-        <div className="border-b border-border p-4">
+      <section className="overflow-hidden rounded-xl glass-card">
+        <div className="border-b border-white/20 dark:border-white/[0.06] p-4">
           <div className="relative max-w-sm">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -54,7 +54,7 @@ export default function ContactsPage() {
         {contacts.data && (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-muted/50 text-left text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              <thead className="bg-white/20 dark:bg-white/[0.04] text-left text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 <tr>
                   <th className="px-4 py-3">Contato</th>
                   <th className="px-4 py-3">Papel</th>
@@ -63,15 +63,18 @@ export default function ContactsPage() {
                   <th className="px-4 py-3" />
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border">
+              <tbody className="divide-y divide-white/15 dark:divide-white/[0.06]">
                 {contacts.data.map((contact) => (
-                  <tr key={contact.id} className="hover:bg-muted/30">
+                  <tr
+                    key={contact.id}
+                    className="hover:bg-white/10 dark:hover:bg-white/[0.04] transition-colors"
+                  >
                     <td className="px-4 py-3">
                       <Link
                         href={`/contacts/${contact.id}`}
                         className="flex items-center gap-3 font-medium text-foreground hover:text-primary"
                       >
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 dark:bg-primary/10 backdrop-blur-sm text-primary">
                           {contact.type === 'JURIDICA' ? (
                             <Building2 className="h-4 w-4" />
                           ) : (
@@ -82,7 +85,7 @@ export default function ContactsPage() {
                       </Link>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                      <span className="rounded-full bg-white/20 dark:bg-white/[0.08] px-2 py-0.5 text-xs font-medium text-muted-foreground">
                         {contact.role === 'CLIENT'
                           ? 'Cliente'
                           : contact.role === 'SUPPLIER'

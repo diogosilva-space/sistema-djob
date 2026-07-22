@@ -36,7 +36,7 @@ export function PipelineColumn({ column, collapsed = false }: PipelineColumnProp
     <section
       ref={setNodeRef}
       className={cn(
-        'flex min-h-[14rem] min-w-[16rem] flex-1 flex-col rounded-lg border border-border bg-muted/40 p-2',
+        'flex min-h-[14rem] min-w-[16rem] flex-1 flex-col rounded-xl bg-white/30 dark:bg-white/[0.04] backdrop-blur-md border border-white/25 dark:border-white/[0.06] p-2',
         isOver && 'ring-2 ring-primary/30',
         collapsed && 'min-w-[9rem] flex-none',
       )}
@@ -50,7 +50,7 @@ export function PipelineColumn({ column, collapsed = false }: PipelineColumnProp
             </p>
           )}
         </div>
-        <span className="rounded-full bg-card px-2 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+        <span className="rounded-full bg-white/30 dark:bg-white/[0.08] px-2 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
           {column.count}
         </span>
       </header>

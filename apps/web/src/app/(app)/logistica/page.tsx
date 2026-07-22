@@ -142,7 +142,7 @@ export default function LogisticaPage() {
     switch (status) {
       case 'PENDING':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             Pendente
           </span>
         );
@@ -172,7 +172,7 @@ export default function LogisticaPage() {
         );
       default:
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             {status}
           </span>
         );
@@ -184,7 +184,7 @@ export default function LogisticaPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Truck}
         title="Logística & Entregas"
@@ -201,8 +201,8 @@ export default function LogisticaPage() {
         </Button>
       </PageActionHeader>
 
-      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden print:hidden">
-        <CardHeader className="pb-3 border-b border-border">
+      <Card className="rounded-xl glass-card overflow-hidden print:hidden">
+        <CardHeader className="pb-3 border-b border-white/20 dark:border-white/[0.08]">
           <CardTitle className="text-base font-semibold text-foreground">
             Remessas & Expedição
           </CardTitle>
@@ -220,7 +220,7 @@ export default function LogisticaPage() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/70">
+                <TableRow className="bg-white/15 dark:bg-white/[0.06]">
                   <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     Código
                   </TableHead>
@@ -246,7 +246,7 @@ export default function LogisticaPage() {
               </TableHeader>
               <TableBody>
                 {shipments.map((ship) => (
-                  <TableRow key={ship.id} className="hover:bg-muted/50">
+                  <TableRow key={ship.id} className="hover:bg-white/20 dark:hover:bg-white/[0.04]">
                     <TableCell className="pl-6 font-bold text-foreground">{ship.code}</TableCell>
                     <TableCell className="tabular-nums text-xs text-muted-foreground">
                       {ship.salesOrder.code}
@@ -270,7 +270,7 @@ export default function LogisticaPage() {
                           setSelectedShipment(detailed);
                           setShowDetailModal(true);
                         }}
-                        className="border-border text-foreground hover:bg-muted active:scale-[0.97] flex items-center gap-1 ml-auto"
+                        className="border-white/20 dark:border-white/[0.08] text-foreground hover:bg-white/15 dark:hover:bg-white/[0.06] active:scale-[0.97] flex items-center gap-1 ml-auto"
                       >
                         <Eye className="h-4 w-4" />
                         <span>Ver Protocolo</span>
@@ -287,8 +287,8 @@ export default function LogisticaPage() {
       {/* Modal de Criação de Remessa */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 print:hidden">
-          <Card className="w-full max-w-2xl bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <CardHeader className="pb-4 border-b border-border">
+          <Card className="w-full max-w-2xl rounded-xl glass-card-elevated shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <CardHeader className="pb-4 border-b border-white/20 dark:border-white/[0.08]">
               <div className="flex justify-between items-center">
                 <CardTitle className="text-base font-semibold text-foreground">
                   Novo Protocolo de Expedição
@@ -309,7 +309,7 @@ export default function LogisticaPage() {
                     Selecione o Pedido de Venda Pronto
                   </label>
                   <select
-                    className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="flex h-8 w-full rounded-lg border border-input px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring glass-input"
                     value={selectedOrderId}
                     onChange={(e) => handleOrderChange(e.target.value)}
                     required
@@ -330,7 +330,7 @@ export default function LogisticaPage() {
                     </label>
                     <Input
                       type="text"
-                      className="h-10 border-border focus-visible:ring-djob"
+                      className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                       placeholder="Ex: Correios, DHL"
                       value={carrier}
                       onChange={(e) => setCarrier(e.target.value)}
@@ -343,7 +343,7 @@ export default function LogisticaPage() {
                     </label>
                     <Input
                       type="text"
-                      className="h-10 border-border focus-visible:ring-djob"
+                      className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                       placeholder="Ex: BR123456789XX"
                       value={trackingCode}
                       onChange={(e) => setTrackingCode(e.target.value)}
@@ -351,7 +351,7 @@ export default function LogisticaPage() {
                   </div>
                 </div>
 
-                <div className="border-t border-border pt-4 space-y-4">
+                <div className="border-t border-white/20 dark:border-white/[0.08] pt-4 space-y-4">
                   <h4 className="text-sm font-bold text-foreground">
                     Destinatário & Endereço de Entrega
                   </h4>
@@ -361,7 +361,7 @@ export default function LogisticaPage() {
                     </label>
                     <Input
                       type="text"
-                      className="h-10 border-border focus-visible:ring-djob"
+                      className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                       placeholder="Ex: Almoxarifado central"
                       value={recipientName}
                       onChange={(e) => setRecipientName(e.target.value)}
@@ -374,7 +374,7 @@ export default function LogisticaPage() {
                       <label className="text-sm font-semibold text-foreground">CEP</label>
                       <Input
                         type="text"
-                        className="h-10 border-border focus-visible:ring-djob"
+                        className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                         placeholder="00000-000"
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
@@ -384,7 +384,7 @@ export default function LogisticaPage() {
                       <label className="text-sm font-semibold text-foreground">Cidade</label>
                       <Input
                         type="text"
-                        className="h-10 border-border focus-visible:ring-djob"
+                        className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                       />
@@ -393,7 +393,7 @@ export default function LogisticaPage() {
                       <label className="text-sm font-semibold text-foreground">Estado (UF)</label>
                       <Input
                         type="text"
-                        className="h-10 border-border focus-visible:ring-djob"
+                        className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                         maxLength={2}
                         value={state}
                         onChange={(e) => setState(e.target.value)}
@@ -406,7 +406,7 @@ export default function LogisticaPage() {
                       <label className="text-sm font-semibold text-foreground">Rua / Avenida</label>
                       <Input
                         type="text"
-                        className="h-10 border-border focus-visible:ring-djob"
+                        className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                         value={street}
                         onChange={(e) => setStreet(e.target.value)}
                       />
@@ -415,7 +415,7 @@ export default function LogisticaPage() {
                       <label className="text-sm font-semibold text-foreground">Número</label>
                       <Input
                         type="text"
-                        className="h-10 border-border focus-visible:ring-djob"
+                        className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                         value={number}
                         onChange={(e) => setNumber(e.target.value)}
                       />
@@ -423,12 +423,12 @@ export default function LogisticaPage() {
                   </div>
                 </div>
               </CardContent>
-              <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50">
+              <div className="flex justify-end gap-3 p-6 border-t border-white/20 dark:border-white/[0.08] bg-white/20 dark:bg-white/[0.04]">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowCreateModal(false)}
-                  className="border-border hover:bg-muted text-foreground"
+                  className="border-white/20 dark:border-white/[0.08] hover:bg-white/15 dark:hover:bg-white/[0.06] text-foreground"
                 >
                   Cancelar
                 </Button>
@@ -447,9 +447,9 @@ export default function LogisticaPage() {
       {/* Modal de Protocolo Físico (Otimizado para Impressão) */}
       {showDetailModal && selectedShipment && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 print:p-0 print:bg-card print:static print:h-full print:w-full">
-          <Card className="w-full max-w-2xl bg-card border border-border shadow-lg rounded-lg overflow-hidden print:border-none print:shadow-none print:rounded-none">
+          <Card className="w-full max-w-2xl rounded-xl glass-card-elevated shadow-lg overflow-hidden print:border-none print:shadow-none print:rounded-none">
             {/* Ocultar no print */}
-            <CardHeader className="pb-4 border-b border-border print:hidden flex flex-row items-center justify-between">
+            <CardHeader className="pb-4 border-b border-white/20 dark:border-white/[0.08] print:hidden flex flex-row items-center justify-between">
               <div>
                 <CardTitle className="text-base font-semibold text-foreground">
                   Protocolo Físico de Entrega
@@ -523,7 +523,7 @@ export default function LogisticaPage() {
                 </div>
               </div>
 
-              <div className="space-y-1 border-t border-border pt-4">
+              <div className="space-y-1 border-t border-white/20 dark:border-white/[0.08] pt-4">
                 <span className="text-muted-foreground font-bold block uppercase text-xs">
                   Endereço de Entrega
                 </span>
@@ -538,8 +538,8 @@ export default function LogisticaPage() {
               </div>
 
               {/* Campos de Assinatura */}
-              <div className="grid grid-cols-2 gap-8 pt-12 border-t border-border">
-                <div className="text-center pt-8 border-t border-border">
+              <div className="grid grid-cols-2 gap-8 pt-12 border-t border-white/20 dark:border-white/[0.08]">
+                <div className="text-center pt-8 border-t border-white/20 dark:border-white/[0.08]">
                   <span className="text-xs text-muted-foreground block uppercase font-bold">
                     Assinatura do Entregador
                   </span>
@@ -547,7 +547,7 @@ export default function LogisticaPage() {
                     Data: ___/___/______
                   </span>
                 </div>
-                <div className="text-center pt-8 border-t border-border">
+                <div className="text-center pt-8 border-t border-white/20 dark:border-white/[0.08]">
                   <span className="text-xs text-muted-foreground block uppercase font-bold">
                     Assinatura do Recebedor (Cliente)
                   </span>
@@ -558,7 +558,7 @@ export default function LogisticaPage() {
               </div>
             </CardContent>
             {/* Ocultar no print */}
-            <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50 print:hidden">
+            <div className="flex justify-end gap-3 p-6 border-t border-white/20 dark:border-white/[0.08] bg-white/20 dark:bg-white/[0.04] print:hidden">
               <Button
                 onClick={handlePrint}
                 className="font-semibold active:scale-[0.97] flex items-center gap-1.5"
@@ -579,7 +579,7 @@ export default function LogisticaPage() {
                 type="button"
                 variant="outline"
                 onClick={() => setShowDetailModal(false)}
-                className="border-border hover:bg-muted text-foreground"
+                className="border-white/20 dark:border-white/[0.08] hover:bg-white/15 dark:hover:bg-white/[0.06] text-foreground"
               >
                 Fechar
               </Button>

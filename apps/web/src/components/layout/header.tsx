@@ -35,25 +35,59 @@ interface HeaderProps {
 
 const routeLabels: Record<string, string> = {
   '/dashboard': 'Dashboard',
-  '/crm': 'CRM (Clientes)',
+  '/contacts': 'Contatos',
+  '/contacts/new': 'Novo Contato',
+  '/crm': 'CRM',
   '/crm/new': 'Novo Cliente',
+  '/crm/opportunities': 'Oportunidades',
   '/products': 'Produtos',
+  '/vendas': 'Vendas',
   '/vendas/orcamentos': 'Orçamentos',
   '/vendas/pedidos': 'Pedidos de Venda',
   '/pcp': 'Produção (PCP)',
-  '/estoque': 'Estoque (Saldo)',
+  '/estoque': 'Estoque',
   '/estoque/movimentacoes': 'Movimentações',
-  '/compras': 'Pedidos de Compra',
+  '/compras': 'Compras',
   '/rh': 'Recursos Humanos',
   '/rh/novo': 'Novo Colaborador',
-  '/logistica': 'Logística & Entregas',
+  '/logistica': 'Logística',
   '/financeiro': 'Financeiro',
   '/admin': 'Administração',
   '/admin/tenants': 'Empresas',
-  '/admin/tenants/new': 'Nova empresa',
+  '/admin/tenants/new': 'Nova Empresa',
   '/users': 'Usuários',
-  '/users/new': 'Novo usuário',
+  '/users/new': 'Novo Usuário',
 };
+
+const segmentLabels: Record<string, string> = {
+  dashboard: 'Dashboard',
+  contacts: 'Contatos',
+  new: 'Novo',
+  novo: 'Novo',
+  crm: 'CRM',
+  opportunities: 'Oportunidades',
+  products: 'Produtos',
+  vendas: 'Vendas',
+  orcamentos: 'Orçamentos',
+  pedidos: 'Pedidos',
+  pcp: 'Produção (PCP)',
+  estoque: 'Estoque',
+  movimentacoes: 'Movimentações',
+  compras: 'Compras',
+  rh: 'Recursos Humanos',
+  logistica: 'Logística',
+  financeiro: 'Financeiro',
+  admin: 'Administração',
+  tenants: 'Empresas',
+  users: 'Usuários',
+};
+
+function formatSegmentLabel(segment: string): string {
+  const decoded = decodeURIComponent(segment);
+  if (segmentLabels[decoded]) return segmentLabels[decoded];
+  if (/^[0-9a-f-]{8,}$/i.test(decoded)) return decoded;
+  return decoded.charAt(0).toUpperCase() + decoded.slice(1);
+}
 
 function Breadcrumb() {
   const pathname = usePathname();
@@ -64,20 +98,20 @@ function Breadcrumb() {
   let accumulated = '';
   for (const segment of segments) {
     accumulated += `/${segment}`;
-    const label = routeLabels[accumulated] || decodeURIComponent(segment);
+    const label = routeLabels[accumulated] || formatSegmentLabel(segment);
     crumbs.push({ label, path: accumulated });
   }
 
   if (crumbs.length === 0) return null;
 
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm">
+    <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm font-medium">
       {crumbs.map((crumb, idx) => (
         <span key={crumb.path} className="flex items-center gap-1">
           {idx > 0 && <ChevronRight className="h-3 w-3 text-muted-foreground" />}
           <span
             className={
-              idx === crumbs.length - 1 ? 'font-medium text-foreground' : 'text-muted-foreground'
+              idx === crumbs.length - 1 ? 'text-foreground' : 'text-muted-foreground'
             }
           >
             {crumb.label}

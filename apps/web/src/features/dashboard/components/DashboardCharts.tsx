@@ -56,7 +56,7 @@ export function DashboardRevenueChart({ revenueSeries, className }: DashboardRev
                 <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid vertical={false} stroke="hsl(var(--border))" strokeDasharray="3 3" />
+            <CartesianGrid vertical={false} stroke="rgba(255, 255, 255, 0.08)" strokeDasharray="3 3" />
             <XAxis
               dataKey="month"
               axisLine={false}
@@ -72,12 +72,14 @@ export function DashboardRevenueChart({ revenueSeries, className }: DashboardRev
             <Tooltip
               formatter={(value) => currencyFormatter.format(Number(value))}
               contentStyle={{
-                background: 'hsl(var(--card))',
-                border: '1px solid hsl(var(--border))',
-                borderRadius: 'var(--radius)',
-                color: 'hsl(var(--foreground))',
+                background: 'rgba(0, 0, 0, 0.6)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.10)',
+                borderRadius: '0.75rem',
+                color: 'rgba(255, 255, 255, 0.95)',
               }}
-              labelStyle={{ color: 'hsl(var(--muted-foreground))' }}
+              labelStyle={{ color: 'rgba(255, 255, 255, 0.60)' }}
             />
             <Area
               type="monotone"
@@ -132,10 +134,12 @@ export function DashboardSalesByTypeChart({
               <Tooltip
                 formatter={(value) => currencyFormatter.format(Number(value))}
                 contentStyle={{
-                  background: 'hsl(var(--card))',
-                  border: '1px solid hsl(var(--border))',
-                  borderRadius: 'var(--radius)',
-                  color: 'hsl(var(--foreground))',
+                  background: 'rgba(0, 0, 0, 0.6)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.10)',
+                  borderRadius: '0.75rem',
+                  color: 'rgba(255, 255, 255, 0.95)',
                 }}
               />
               <Legend

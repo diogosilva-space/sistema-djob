@@ -130,7 +130,7 @@ function CustomerFormContent() {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    className="h-10 border-border focus-visible:ring-ring"
+                    className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                     placeholder="Ex: Confecções Estrela Ltda"
                     {...field}
                   />
@@ -150,7 +150,7 @@ function CustomerFormContent() {
                 </FormLabel>
                 <FormControl>
                   <select
-                    className="flex h-10 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="flex h-10 w-full rounded-lg border glass-input px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     {...field}
                   >
                     <option value="JURIDICA">Pessoa Jurídica (CNPJ)</option>
@@ -170,7 +170,7 @@ function CustomerFormContent() {
                 <FormLabel className="text-foreground font-semibold text-sm">CNPJ / CPF</FormLabel>
                 <FormControl>
                   <Input
-                    className="h-10 border-border focus-visible:ring-ring"
+                    className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                     placeholder="00.000.000/0000-00"
                     {...field}
                   />
@@ -190,7 +190,7 @@ function CustomerFormContent() {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    className="h-10 border-border focus-visible:ring-ring"
+                    className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                     placeholder="Isento ou Nº"
                     {...field}
                   />
@@ -211,7 +211,7 @@ function CustomerFormContent() {
                 <FormControl>
                   <Input
                     type="email"
-                    className="h-10 border-border focus-visible:ring-ring"
+                    className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                     placeholder="financeiro@empresa.com"
                     {...field}
                   />
@@ -231,7 +231,7 @@ function CustomerFormContent() {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    className="h-10 border-border focus-visible:ring-ring"
+                    className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                     placeholder="(11) 99999-9999"
                     {...field}
                   />
@@ -242,7 +242,7 @@ function CustomerFormContent() {
           />
         </div>
 
-        <div className="border-t border-border pt-6">
+        <div className="border-t border-white/20 dark:border-white/[0.08] pt-6">
           <h3 className="text-base font-semibold text-foreground mb-4">Endereço e Expedição</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <FormField
@@ -255,7 +255,7 @@ function CustomerFormContent() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="h-10 border-border focus-visible:ring-ring"
+                      className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                       placeholder="00000-000"
                       {...field}
                       onBlur={(e) => {
@@ -277,7 +277,7 @@ function CustomerFormContent() {
                   <FormLabel className="text-foreground font-semibold text-sm">Cidade</FormLabel>
                   <FormControl>
                     <Input
-                      className="h-10 border-border focus-visible:ring-ring"
+                      className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                       placeholder="São Paulo"
                       {...field}
                     />
@@ -297,7 +297,7 @@ function CustomerFormContent() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="h-10 border-border focus-visible:ring-ring"
+                      className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                       placeholder="SP"
                       maxLength={2}
                       {...field}
@@ -321,7 +321,7 @@ function CustomerFormContent() {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="h-10 border-border focus-visible:ring-ring"
+                        className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                         placeholder="Rua da Consolação"
                         {...field}
                       />
@@ -340,7 +340,7 @@ function CustomerFormContent() {
                   <FormLabel className="text-foreground font-semibold text-sm">Número</FormLabel>
                   <FormControl>
                     <Input
-                      className="h-10 border-border focus-visible:ring-ring"
+                      className="h-10 border-white/30 dark:border-white/[0.12] focus-visible:ring-ring"
                       placeholder="123"
                       {...field}
                     />
@@ -352,13 +352,13 @@ function CustomerFormContent() {
           </div>
         </div>
 
-        <div className="flex justify-end gap-3 border-t border-border pt-6">
+        <div className="flex justify-end gap-3 border-t border-white/20 dark:border-white/[0.08] pt-6">
           <Button
             type="button"
             variant="outline"
             onClick={() => router.back()}
             disabled={mutation.isPending}
-            className="border-border hover:bg-muted text-foreground"
+            className="border-white/20 dark:border-white/[0.10] hover:bg-white/15 dark:hover:bg-white/[0.06] text-foreground"
           >
             Cancelar
           </Button>

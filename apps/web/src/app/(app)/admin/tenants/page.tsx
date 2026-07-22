@@ -24,7 +24,7 @@ export default function TenantsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Building2}
         title="Empresas"
@@ -50,7 +50,7 @@ export default function TenantsPage() {
             />
           </div>
         </CardContent>
-        <CardContent className="border-t p-0">
+        <CardContent className="border-t border-white/20 dark:border-white/[0.08] p-0">
           {isLoading && (
             <p className="p-8 text-center text-sm text-muted-foreground">Carregando empresas...</p>
           )}

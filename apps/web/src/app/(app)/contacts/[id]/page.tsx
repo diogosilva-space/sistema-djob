@@ -31,13 +31,13 @@ export default function ContactDetailPage() {
       Array<{ id: string; title: string; dueDate: string; status: string }> | undefined) ?? [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={UserRound}
         title={data.name}
         subtitle="Visão 360° de relacionamento"
       />
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-4 lg:col-span-2">
           <Card>
             <CardHeader className="p-4 pb-2">
@@ -69,7 +69,7 @@ export default function ContactDetailPage() {
             </CardHeader>
             <CardContent className="p-4 pt-0">
               {activities.length ? (
-                <ul className="divide-y divide-border">
+                <ul className="divide-y divide-white/15 dark:divide-white/[0.06]">
                   {activities.map((activity) => (
                     <li key={activity.id} className="py-3">
                       <p className="text-sm font-medium">{activity.subject}</p>
@@ -97,7 +97,7 @@ export default function ContactDetailPage() {
               {opportunities.length ? (
                 opportunities.map((opportunity) => (
                   <a
-                    className="block rounded-lg border border-border p-3 text-sm hover:bg-muted/50"
+                    className="block rounded-lg border border-white/20 dark:border-white/[0.08] p-3 text-sm hover:bg-white/15 dark:hover:bg-white/[0.06]"
                     key={opportunity.id}
                     href={`/crm/opportunities/${opportunity.id}`}
                   >
@@ -119,7 +119,7 @@ export default function ContactDetailPage() {
             <CardContent className="space-y-2 p-4 pt-2">
               {tasks.length ? (
                 tasks.map((task) => (
-                  <div key={task.id} className="rounded-lg border border-border p-3 text-sm">
+                  <div key={task.id} className="rounded-lg border border-white/20 dark:border-white/[0.08] p-3 text-sm">
                     <p className="font-medium">{task.title}</p>
                     <p className="mt-1 text-xs text-muted-foreground">
                       {new Intl.DateTimeFormat('pt-BR').format(new Date(task.dueDate))}

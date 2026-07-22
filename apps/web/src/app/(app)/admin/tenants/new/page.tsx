@@ -6,7 +6,7 @@ import { TenantForm } from '@/features/admin/components/TenantForm';
 
 export default function NewTenantPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Building2}
         title="Nova empresa"

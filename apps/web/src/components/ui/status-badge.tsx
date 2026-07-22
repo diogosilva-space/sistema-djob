@@ -15,7 +15,7 @@ const statusBadgeVariants = cva(
         error:
           'bg-red-50 text-red-700 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20',
         info: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
-        neutral: 'bg-muted text-muted-foreground border-border',
+        neutral: 'bg-white/15 dark:bg-white/[0.08] text-muted-foreground border-white/20 dark:border-white/[0.10]',
         active: 'bg-primary/10 text-primary border-primary/20',
       },
     },

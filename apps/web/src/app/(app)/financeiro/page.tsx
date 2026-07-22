@@ -99,7 +99,7 @@ export default function FinanceiroPage() {
     switch (status) {
       case 'PENDING':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             Aberto
           </span>
         );
@@ -117,13 +117,13 @@ export default function FinanceiroPage() {
         );
       case 'CANCELLED':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             Cancelado
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             {status}
           </span>
         );
@@ -142,7 +142,7 @@ export default function FinanceiroPage() {
   const netBalance = totalReceivables - totalPayables;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={DollarSign}
         title="Módulo Financeiro"
@@ -158,7 +158,7 @@ export default function FinanceiroPage() {
         </Button>
       </PageActionHeader>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-3">
         <Card className="shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
@@ -202,8 +202,8 @@ export default function FinanceiroPage() {
         </Card>
       </div>
 
-      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-        <CardHeader className="pb-3 border-b border-border">
+      <Card className="rounded-xl glass-card overflow-hidden">
+        <CardHeader className="pb-3 border-b border-white/20 dark:border-white/[0.08]">
           <CardTitle className="text-base font-semibold text-foreground">
             Histórico de Lançamentos
           </CardTitle>
@@ -221,7 +221,7 @@ export default function FinanceiroPage() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/70">
+                <TableRow className="bg-white/15 dark:bg-white/[0.06]">
                   <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     Descrição
                   </TableHead>
@@ -244,7 +244,7 @@ export default function FinanceiroPage() {
               </TableHeader>
               <TableBody>
                 {transactions.map((t) => (
-                  <TableRow key={t.id} className="hover:bg-muted/50">
+                  <TableRow key={t.id} className="hover:bg-white/20 dark:hover:bg-white/[0.04]">
                     <TableCell className="pl-6 font-semibold text-foreground">
                       {t.description}
                     </TableCell>
@@ -295,8 +295,8 @@ export default function FinanceiroPage() {
       {/* Modal de Criação de Transação */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <Card className="w-full max-w-md bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <CardHeader className="pb-4 border-b border-border">
+          <Card className="w-full max-w-md rounded-xl glass-card-elevated shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <CardHeader className="pb-4 border-b border-white/20 dark:border-white/[0.08]">
               <div className="flex justify-between items-center">
                 <CardTitle className="text-base font-semibold text-foreground">
                   Novo Lançamento Financeiro
@@ -318,7 +318,7 @@ export default function FinanceiroPage() {
                   </label>
                   <Input
                     type="text"
-                    className="h-10 border-border focus-visible:ring-djob"
+                    className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                     placeholder="Ex: Compra de linha de costura"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -329,7 +329,7 @@ export default function FinanceiroPage() {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm font-semibold text-foreground">Fluxo da Operação</label>
                   <select
-                    className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="flex h-8 w-full rounded-lg border border-input px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring glass-input"
                     value={type}
                     onChange={(e) => setType(e.target.value as any)}
                   >
@@ -346,7 +346,7 @@ export default function FinanceiroPage() {
                     <Input
                       type="number"
                       step="0.01"
-                      className="h-10 border-border focus-visible:ring-djob"
+                      className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                       value={amount}
                       onChange={(e) => setAmount(Number(e.target.value))}
                       min="0.01"
@@ -360,7 +360,7 @@ export default function FinanceiroPage() {
                     </label>
                     <Input
                       type="date"
-                      className="h-10 border-border focus-visible:ring-djob"
+                      className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                       value={dueDate}
                       onChange={(e) => setDueDate(e.target.value)}
                       required
@@ -373,19 +373,19 @@ export default function FinanceiroPage() {
                     Notas / Informações Extras
                   </label>
                   <textarea
-                    className="flex min-h-[80px] w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
+                    className="flex min-h-[80px] w-full rounded-lg border border-white/20 dark:border-white/[0.08] bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Nº da fatura, boleto ou referências..."
                   />
                 </div>
               </CardContent>
-              <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50">
+              <div className="flex justify-end gap-3 p-6 border-t border-white/20 dark:border-white/[0.08] bg-white/20 dark:bg-white/[0.04]">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowCreateModal(false)}
-                  className="border-border hover:bg-muted text-foreground"
+                  className="border-white/20 dark:border-white/[0.08] hover:bg-white/15 dark:hover:bg-white/[0.06] text-foreground"
                 >
                   Cancelar
                 </Button>

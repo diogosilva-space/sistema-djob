@@ -110,7 +110,7 @@ export default function ComprasPage() {
     switch (status) {
       case 'DRAFT':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             Rascunho
           </span>
         );
@@ -140,7 +140,7 @@ export default function ComprasPage() {
         );
       default:
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             {status}
           </span>
         );
@@ -162,7 +162,7 @@ export default function ComprasPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={ShoppingBag}
         title="Gestão de Compras"
@@ -178,8 +178,8 @@ export default function ComprasPage() {
         </Button>
       </PageActionHeader>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-card border border-border rounded-lg shadow-sm">
+      <div className="grid gap-6 md:grid-cols-3">
+        <Card className="rounded-xl glass-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Total de Pedidos
@@ -189,7 +189,7 @@ export default function ComprasPage() {
             <div className="text-2xl tabular-nums font-bold text-foreground">{orders.length}</div>
           </CardContent>
         </Card>
-        <Card className="bg-card border border-border rounded-lg shadow-sm">
+        <Card className="rounded-xl glass-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Pedidos Pendentes
@@ -201,7 +201,7 @@ export default function ComprasPage() {
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-card border border-border rounded-lg shadow-sm">
+        <Card className="rounded-xl glass-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Total Comprado
@@ -218,8 +218,8 @@ export default function ComprasPage() {
         </Card>
       </div>
 
-      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-        <CardHeader className="pb-3 border-b border-border">
+      <Card className="rounded-xl glass-card overflow-hidden">
+        <CardHeader className="pb-3 border-b border-white/20 dark:border-white/[0.08]">
           <CardTitle className="text-base font-semibold text-foreground">
             Histórico de Compras
           </CardTitle>
@@ -237,7 +237,7 @@ export default function ComprasPage() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/70">
+                <TableRow className="bg-white/15 dark:bg-white/[0.06]">
                   <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     Código
                   </TableHead>
@@ -260,7 +260,7 @@ export default function ComprasPage() {
               </TableHeader>
               <TableBody>
                 {orders.map((order) => (
-                  <TableRow key={order.id} className="hover:bg-muted/50">
+                  <TableRow key={order.id} className="hover:bg-white/20 dark:hover:bg-white/[0.04]">
                     <TableCell className="pl-6 font-bold text-foreground">{order.code}</TableCell>
                     <TableCell className="font-semibold text-foreground">
                       {order.supplier.name}
@@ -286,7 +286,7 @@ export default function ComprasPage() {
                           setSelectedOrder(detailed);
                           setShowDetailModal(true);
                         }}
-                        className="border-border text-foreground hover:bg-muted active:scale-[0.97]"
+                        className="border-white/20 dark:border-white/[0.08] text-foreground hover:bg-white/15 dark:hover:bg-white/[0.06] active:scale-[0.97]"
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
@@ -296,7 +296,7 @@ export default function ComprasPage() {
                           variant="outline"
                           onClick={() => handleUpdateStatus(order.id, 'SENT')}
                           title="Enviar pedido"
-                          className="border-border text-foreground hover:bg-muted active:scale-[0.97]"
+                          className="border-white/20 dark:border-white/[0.08] text-foreground hover:bg-white/15 dark:hover:bg-white/[0.06] active:scale-[0.97]"
                         >
                           <ChevronRight className="h-4 w-4" />
                         </Button>
@@ -307,7 +307,7 @@ export default function ComprasPage() {
                           variant="outline"
                           onClick={() => handleUpdateStatus(order.id, 'CONFIRMED')}
                           title="Confirmar recebimento do fornecedor"
-                          className="border-border text-foreground hover:bg-muted active:scale-[0.97]"
+                          className="border-white/20 dark:border-white/[0.08] text-foreground hover:bg-white/15 dark:hover:bg-white/[0.06] active:scale-[0.97]"
                         >
                           <CheckCircle2 className="h-4 w-4 text-blue-600" />
                         </Button>
@@ -334,8 +334,8 @@ export default function ComprasPage() {
       {/* Modal de Criação de Pedido */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-y-auto p-4">
-          <Card className="w-full max-w-2xl bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <CardHeader className="pb-4 border-b border-border">
+          <Card className="w-full max-w-2xl rounded-xl glass-card-elevated shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <CardHeader className="pb-4 border-b border-white/20 dark:border-white/[0.08]">
               <div className="flex justify-between items-center">
                 <CardTitle className="text-base font-semibold text-foreground">
                   Novo Pedido de Compra
@@ -355,7 +355,7 @@ export default function ComprasPage() {
                   <div className="flex flex-col gap-1.5">
                     <label className="text-sm font-semibold text-foreground">Fornecedor</label>
                     <select
-                      className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                      className="flex h-8 w-full rounded-lg border border-input px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring glass-input"
                       value={selectedSupplierId}
                       onChange={(e) => setSelectedSupplierId(e.target.value)}
                       required
@@ -375,7 +375,7 @@ export default function ComprasPage() {
                     </label>
                     <Input
                       type="date"
-                      className="h-10 border-border focus-visible:ring-djob"
+                      className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                       value={expectedDate}
                       onChange={(e) => setExpectedDate(e.target.value)}
                     />
@@ -387,7 +387,7 @@ export default function ComprasPage() {
                     Observações gerais
                   </label>
                   <textarea
-                    className="flex min-h-[60px] w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
+                    className="flex min-h-[60px] w-full rounded-lg border border-white/20 dark:border-white/[0.08] bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Termos de pagamento, frete, etc..."
@@ -395,7 +395,7 @@ export default function ComprasPage() {
                 </div>
 
                 {/* Itens do Pedido */}
-                <div className="space-y-4 pt-4 border-t border-border">
+                <div className="space-y-4 pt-4 border-t border-white/20 dark:border-white/[0.08]">
                   <div className="flex justify-between items-center">
                     <h4 className="text-sm font-bold text-foreground">Itens e Matérias-Primas</h4>
                     <Button
@@ -403,7 +403,7 @@ export default function ComprasPage() {
                       variant="outline"
                       size="sm"
                       onClick={addItemRow}
-                      className="border-border hover:bg-muted text-foreground"
+                      className="border-white/20 dark:border-white/[0.08] hover:bg-white/15 dark:hover:bg-white/[0.06] text-foreground"
                     >
                       + Insumo
                     </Button>
@@ -420,7 +420,7 @@ export default function ComprasPage() {
                         </label>
                         <Input
                           type="text"
-                          className="h-9 border-border focus-visible:ring-djob"
+                          className="h-9 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                           placeholder="Ex: Tecido Algodão Premium"
                           value={item.productName}
                           onChange={(e) => updateItemRow(index, 'productName', e.target.value)}
@@ -432,7 +432,7 @@ export default function ComprasPage() {
                         <Input
                           type="number"
                           step="0.01"
-                          className="h-9 border-border focus-visible:ring-djob"
+                          className="h-9 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                           value={item.quantity}
                           onChange={(e) => updateItemRow(index, 'quantity', Number(e.target.value))}
                           min="0.01"
@@ -447,7 +447,7 @@ export default function ComprasPage() {
                           <Input
                             type="number"
                             step="0.01"
-                            className="h-9 border-border focus-visible:ring-djob"
+                            className="h-9 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                             value={item.unitPrice}
                             onChange={(e) =>
                               updateItemRow(index, 'unitPrice', Number(e.target.value))
@@ -472,12 +472,12 @@ export default function ComprasPage() {
                   ))}
                 </div>
               </CardContent>
-              <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50">
+              <div className="flex justify-end gap-3 p-6 border-t border-white/20 dark:border-white/[0.08] bg-white/20 dark:bg-white/[0.04]">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowCreateModal(false)}
-                  className="border-border hover:bg-muted text-foreground"
+                  className="border-white/20 dark:border-white/[0.08] hover:bg-white/15 dark:hover:bg-white/[0.06] text-foreground"
                 >
                   Cancelar
                 </Button>
@@ -496,8 +496,8 @@ export default function ComprasPage() {
       {/* Modal de Detalhes */}
       {showDetailModal && selectedOrder && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <Card className="w-full max-w-xl bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <CardHeader className="pb-4 border-b border-border">
+          <Card className="w-full max-w-xl rounded-xl glass-card-elevated shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <CardHeader className="pb-4 border-b border-white/20 dark:border-white/[0.08]">
               <div className="flex justify-between items-center">
                 <div>
                   <CardTitle className="text-base font-semibold text-foreground">
@@ -546,7 +546,7 @@ export default function ComprasPage() {
               </div>
 
               {selectedOrder.notes && (
-                <div className="bg-muted border p-3 rounded-lg text-sm text-muted-foreground">
+                <div className="bg-white/15 dark:bg-white/[0.06] border border-white/20 dark:border-white/[0.08] p-3 rounded-lg text-sm text-muted-foreground">
                   <span className="font-bold text-foreground block mb-1">Notas Operacionais</span>
                   {selectedOrder.notes}
                 </div>
@@ -557,9 +557,9 @@ export default function ComprasPage() {
                 <h4 className="text-sm font-bold text-foreground uppercase tracking-wider">
                   Itens e Matérias-Primas Inclusos
                 </h4>
-                <div className="border border-border rounded-lg overflow-hidden">
+                <div className="border border-white/20 dark:border-white/[0.08] rounded-lg overflow-hidden">
                   <Table>
-                    <TableHeader className="bg-muted">
+                    <TableHeader className="bg-white/15 dark:bg-white/[0.06]">
                       <TableRow>
                         <TableHead className="pl-4 text-xs font-semibold text-muted-foreground">
                           Item / Insumo
@@ -597,7 +597,7 @@ export default function ComprasPage() {
                 </div>
               </div>
             </CardContent>
-            <div className="flex justify-end gap-2 p-6 border-t border-border bg-muted/50">
+            <div className="flex justify-end gap-2 p-6 border-t border-white/20 dark:border-white/[0.08] bg-white/20 dark:bg-white/[0.04]">
               {selectedOrder.status === 'SENT' && (
                 <Button
                   className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold active:scale-[0.97]"
@@ -618,7 +618,7 @@ export default function ComprasPage() {
                 type="button"
                 variant="outline"
                 onClick={() => setShowDetailModal(false)}
-                className="border-border hover:bg-muted text-foreground"
+                className="border-white/20 dark:border-white/[0.08] hover:bg-white/15 dark:hover:bg-white/[0.06] text-foreground"
               >
                 Fechar
               </Button>

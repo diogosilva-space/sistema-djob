@@ -24,7 +24,7 @@ export default function TenantUsersPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Users}
         title="Usuários"

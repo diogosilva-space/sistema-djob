@@ -23,12 +23,12 @@ export function ActivityForm({ onSubmit, isPending }: ActivityFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg border border-border bg-muted/30 p-3">
+    <form onSubmit={handleSubmit} className="rounded-xl border border-white/20 dark:border-white/[0.08] bg-white/20 dark:bg-white/[0.03] p-3">
       <div className="grid gap-2 sm:grid-cols-[9rem_1fr_auto]">
         <select
           value={type}
           onChange={(event) => setType(event.target.value)}
-          className="h-8 rounded-lg border border-input bg-background px-3 text-sm text-foreground"
+          className="h-8 rounded-lg border glass-input px-3 text-sm text-foreground"
           aria-label="Tipo de atividade"
         >
           <option value="CALL">Ligação</option>
@@ -50,7 +50,7 @@ export function ActivityForm({ onSubmit, isPending }: ActivityFormProps) {
       <textarea
         value={description}
         onChange={(event) => setDescription(event.target.value)}
-        className="mt-2 min-h-16 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="mt-2 min-h-16 w-full rounded-lg border glass-input px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         placeholder="Detalhes opcionais"
       />
     </form>

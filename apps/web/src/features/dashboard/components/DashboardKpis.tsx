@@ -51,7 +51,7 @@ export function DashboardKpis({ kpis }: DashboardKpisProps) {
   return (
     <section
       aria-label="Indicadores principais"
-      className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+      className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4"
     >
       {items.map(({ title, value, description, icon: Icon, valueClassName, iconClassName }) => (
         <Card key={title}>

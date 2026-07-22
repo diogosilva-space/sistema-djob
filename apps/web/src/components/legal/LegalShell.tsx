@@ -67,7 +67,7 @@ function MobileTableOfContents({ sections }: { sections: Section[] }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="lg:hidden mb-8 rounded-lg border bg-card">
+    <div className="lg:hidden mb-8 rounded-xl glass-card">
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
@@ -83,7 +83,7 @@ function MobileTableOfContents({ sections }: { sections: Section[] }) {
         />
       </button>
       {isOpen && (
-        <div className="border-t px-4 pb-4 pt-2">
+        <div className="border-t border-white/15 dark:border-white/[0.06] px-4 pb-4 pt-2">
           <ul className="space-y-1.5">
             {sections.map((section, index) => (
               <li key={section.id}>

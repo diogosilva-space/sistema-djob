@@ -11,7 +11,7 @@ export default function NewTenantUserPage() {
   const params = useParams<{ id: string }>();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={UserPlus}
         title="Novo usuário"

@@ -41,7 +41,7 @@ export function OpportunityCard({ opportunity, draggable = true }: OpportunityCa
       ref={setNodeRef}
       style={style}
       className={cn(
-        'rounded-lg border border-border bg-card p-3 shadow-sm transition-shadow hover:shadow-md',
+        'rounded-xl glass-card-elevated p-3 transition-shadow hover:shadow-xl',
         isDragging && 'z-20 opacity-60',
       )}
     >
@@ -79,7 +79,7 @@ export function OpportunityCard({ opportunity, draggable = true }: OpportunityCa
         <span className="text-sm font-semibold tabular-nums text-foreground">
           {currency.format(Number(opportunity.value))}
         </span>
-        <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+        <span className="rounded-full bg-white/20 dark:bg-white/[0.08] px-2 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
           {opportunity.probability}%
         </span>
       </div>

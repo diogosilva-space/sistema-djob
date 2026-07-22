@@ -101,7 +101,7 @@ export default function EstoquePage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Database}
         title="Estoque & Almoxarifado"
@@ -117,8 +117,8 @@ export default function EstoquePage() {
         </Button>
       </PageActionHeader>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card className="bg-card border border-border rounded-lg shadow-sm">
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card className="rounded-xl glass-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Total de Itens
@@ -128,7 +128,7 @@ export default function EstoquePage() {
             <div className="text-2xl tabular-nums font-bold text-foreground">{items.length}</div>
           </CardContent>
         </Card>
-        <Card className="bg-card border border-border rounded-lg shadow-sm">
+        <Card className="rounded-xl glass-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Itens em Alerta Crítico
@@ -145,8 +145,8 @@ export default function EstoquePage() {
         </Card>
       </div>
 
-      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-        <CardHeader className="pb-3 border-b border-border">
+      <Card className="rounded-xl glass-card overflow-hidden">
+        <CardHeader className="pb-3 border-b border-white/20 dark:border-white/[0.08]">
           <CardTitle className="text-base font-semibold text-foreground">
             Saldo de Insumos
           </CardTitle>
@@ -164,7 +164,7 @@ export default function EstoquePage() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/70">
+                <TableRow className="bg-white/15 dark:bg-white/[0.06]">
                   <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     Insumo / Matéria Prima
                   </TableHead>
@@ -187,7 +187,7 @@ export default function EstoquePage() {
               </TableHeader>
               <TableBody>
                 {items.map((item) => (
-                  <TableRow key={item.id} className="hover:bg-muted/50">
+                  <TableRow key={item.id} className="hover:bg-white/20 dark:hover:bg-white/[0.04]">
                     <TableCell className="pl-6 font-semibold text-foreground">
                       {item.product.name}
                     </TableCell>
@@ -213,8 +213,8 @@ export default function EstoquePage() {
       {/* Modal de Ajuste manual */}
       {showAdjustModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm">
-          <Card className="w-full max-w-md bg-card border border-border shadow-lg rounded-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-            <CardHeader className="pb-4 border-b border-border">
+          <Card className="w-full max-w-md rounded-xl glass-card-elevated shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+            <CardHeader className="pb-4 border-b border-white/20 dark:border-white/[0.08]">
               <CardTitle className="text-base font-semibold text-foreground">
                 Ajustar Saldo de Estoque
               </CardTitle>
@@ -227,7 +227,7 @@ export default function EstoquePage() {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm font-semibold text-foreground">Produto / Insumo</label>
                   <select
-                    className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="flex h-8 w-full rounded-lg border border-input px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring glass-input"
                     value={selectedProductId}
                     onChange={(e) => setSelectedProductId(e.target.value)}
                     required
@@ -244,7 +244,7 @@ export default function EstoquePage() {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm font-semibold text-foreground">Tipo de Ajuste</label>
                   <select
-                    className="flex h-8 w-full rounded-lg border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                    className="flex h-8 w-full rounded-lg border border-input px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring glass-input"
                     value={adjustType}
                     onChange={(e) => setAdjustType(e.target.value as any)}
                   >
@@ -259,7 +259,7 @@ export default function EstoquePage() {
                   <Input
                     type="number"
                     step="0.001"
-                    className="h-10 border-border focus-visible:ring-djob"
+                    className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                     value={quantity}
                     onChange={(e) => setQuantity(Number(e.target.value))}
                     min="0.001"
@@ -273,7 +273,7 @@ export default function EstoquePage() {
                   </label>
                   <Input
                     type="text"
-                    className="h-10 border-border focus-visible:ring-djob"
+                    className="h-10 border-white/20 dark:border-white/[0.08] focus-visible:ring-djob"
                     value={reference}
                     placeholder="Ex: AJUSTE-2026, NF-123"
                     onChange={(e) => setReference(e.target.value)}
@@ -285,19 +285,19 @@ export default function EstoquePage() {
                     Observações / Motivo
                   </label>
                   <textarea
-                    className="flex min-h-[80px] w-full rounded-lg border border-border bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
+                    className="flex min-h-[80px] w-full rounded-lg border border-white/20 dark:border-white/[0.08] bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-djob"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Descreva o motivo do ajuste..."
                   />
                 </div>
               </CardContent>
-              <div className="flex justify-end gap-3 p-6 border-t border-border bg-muted/50">
+              <div className="flex justify-end gap-3 p-6 border-t border-white/20 dark:border-white/[0.08] bg-white/20 dark:bg-white/[0.04]">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => setShowAdjustModal(false)}
-                  className="border-border hover:bg-muted text-foreground"
+                  className="border-white/20 dark:border-white/[0.08] hover:bg-white/15 dark:hover:bg-white/[0.06] text-foreground"
                 >
                   Cancelar
                 </Button>

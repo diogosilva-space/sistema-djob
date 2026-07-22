@@ -68,7 +68,7 @@ export default function MovimentacoesPage() {
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             <SlidersHorizontal className="h-3 w-3" />
             <span>Outro</span>
           </span>
@@ -77,7 +77,7 @@ export default function MovimentacoesPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={History}
         title="Movimentações de Estoque"
@@ -89,8 +89,8 @@ export default function MovimentacoesPage() {
         </Button>
       </PageActionHeader>
 
-      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-        <CardHeader className="pb-3 border-b border-border">
+      <Card className="rounded-xl glass-card overflow-hidden">
+        <CardHeader className="pb-3 border-b border-white/20 dark:border-white/[0.08]">
           <CardTitle className="text-base font-semibold text-foreground">
             Histórico de Transações
           </CardTitle>
@@ -110,7 +110,7 @@ export default function MovimentacoesPage() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/70">
+                <TableRow className="bg-white/15 dark:bg-white/[0.06]">
                   <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     Data / Hora
                   </TableHead>
@@ -133,7 +133,7 @@ export default function MovimentacoesPage() {
               </TableHeader>
               <TableBody>
                 {movements.map((mov) => (
-                  <TableRow key={mov.id} className="hover:bg-muted/50">
+                  <TableRow key={mov.id} className="hover:bg-white/20 dark:hover:bg-white/[0.04]">
                     <TableCell className="pl-6 text-muted-foreground font-medium text-xs">
                       {new Date(mov.createdAt).toLocaleString('pt-BR')}
                     </TableCell>

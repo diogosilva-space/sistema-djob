@@ -21,7 +21,7 @@ export function DashboardAlerts({ alerts }: DashboardAlertsProps) {
             Nenhum alerta operacional no momento.
           </p>
         ) : (
-          <div className="divide-y divide-border">
+          <div className="divide-y divide-white/15 dark:divide-white/[0.06]">
             {alerts.map((alert) => {
               const Icon = alert.severity === 'critical' ? AlertCircle : TriangleAlert;
               const iconClassName =

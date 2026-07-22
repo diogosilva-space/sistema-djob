@@ -67,7 +67,7 @@ export default function RhPage() {
         );
       default:
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             {status}
           </span>
         );
@@ -75,7 +75,7 @@ export default function RhPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Users}
         title="Recursos Humanos"
@@ -93,8 +93,8 @@ export default function RhPage() {
         </Link>
       </PageActionHeader>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card className="bg-card border border-border rounded-lg shadow-sm">
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card className="rounded-xl glass-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Colaboradores Ativos
@@ -107,7 +107,7 @@ export default function RhPage() {
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-card border border-border rounded-lg shadow-sm">
+        <Card className="rounded-xl glass-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
               Folha Mensal Estimada (Ativos)
@@ -126,8 +126,8 @@ export default function RhPage() {
         </Card>
       </div>
 
-      <Card className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
-        <CardHeader className="pb-3 border-b border-border">
+      <Card className="rounded-xl glass-card overflow-hidden">
+        <CardHeader className="pb-3 border-b border-white/20 dark:border-white/[0.08]">
           <CardTitle className="text-base font-semibold text-foreground">
             Quadro de Funcionários
           </CardTitle>
@@ -145,7 +145,7 @@ export default function RhPage() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/70">
+                <TableRow className="bg-white/15 dark:bg-white/[0.06]">
                   <TableHead className="pl-6 text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     Nome Completo
                   </TableHead>
@@ -171,10 +171,10 @@ export default function RhPage() {
               </TableHeader>
               <TableBody>
                 {employees.map((emp) => (
-                  <TableRow key={emp.id} className="hover:bg-muted/50">
+                  <TableRow key={emp.id} className="hover:bg-white/20 dark:hover:bg-white/[0.04]">
                     <TableCell className="pl-6 font-semibold text-foreground">
                       <div className="flex items-center gap-2.5">
-                        <div className="h-8 w-8 bg-muted rounded-full flex items-center justify-center border border-border">
+                        <div className="h-8 w-8 bg-white/15 dark:bg-white/[0.06] rounded-full flex items-center justify-center border border-white/20 dark:border-white/[0.08]">
                           <User className="h-4 w-4 text-muted-foreground" />
                         </div>
                         <span>{emp.name}</span>
@@ -203,7 +203,7 @@ export default function RhPage() {
                         <Button
                           size="sm"
                           variant="outline"
-                          className="border-border text-foreground hover:bg-muted active:scale-[0.97] transition-all flex items-center gap-1 ml-auto"
+                          className="border-white/20 dark:border-white/[0.08] text-foreground hover:bg-white/15 dark:hover:bg-white/[0.06] active:scale-[0.97] transition-all flex items-center gap-1 ml-auto"
                         >
                           <span>Ficha</span>
                           <ChevronRight className="h-4 w-4" />

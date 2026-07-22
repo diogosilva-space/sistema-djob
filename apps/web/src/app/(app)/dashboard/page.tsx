@@ -47,9 +47,9 @@ export default function DashboardPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
-        className="static px-0 mt-0 md:mx-0 md:mt-0 md:px-0 mb-0"
+        className="static"
         icon={LayoutDashboard}
         title="Painel Geral"
         subtitle="Métricas operacionais de vendas, estoque e produção em tempo real"
@@ -74,7 +74,7 @@ export default function DashboardPage() {
         <>
           <DashboardKpis kpis={summary.kpis} />
 
-          <section className="grid gap-4 lg:grid-cols-3">
+          <section className="grid gap-6 lg:grid-cols-3">
             <Card>
               <CardHeader className="p-4 pb-2">
                 <CardTitle className="text-base font-semibold">Ações rápidas</CardTitle>
@@ -106,7 +106,7 @@ export default function DashboardPage() {
             <DashboardSalesByTypeChart salesByProductType={summary.salesByProductType} />
           </section>
 
-          <section className="grid gap-4 lg:grid-cols-3">
+          <section className="grid gap-6 lg:grid-cols-3">
             <Card>
               <CardHeader className="p-4 pb-2">
                 <CardTitle className="text-base font-semibold">Últimos pedidos</CardTitle>
@@ -118,7 +118,7 @@ export default function DashboardPage() {
                     Nenhum pedido de venda registrado.
                   </p>
                 ) : (
-                  <div className="divide-y divide-border">
+                  <div className="divide-y divide-white/15 dark:divide-white/[0.06]">
                     {summary.recentOrders.map((order: DashboardSummary['recentOrders'][number]) => (
                       <Link
                         key={order.id}
@@ -159,8 +159,8 @@ export default function DashboardPage() {
 
 function DashboardLoading() {
   return (
-    <div className="space-y-4" aria-label="Carregando painel analítico">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="space-y-6 mt-6" aria-label="Carregando painel analítico">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {Array.from({ length: 4 }, (_, index) => (
           <Card key={index}>
             <CardContent className="space-y-3 p-4">
@@ -171,7 +171,7 @@ function DashboardLoading() {
           </Card>
         ))}
       </div>
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardContent className="p-4">
             <Skeleton className="h-72 w-full" />

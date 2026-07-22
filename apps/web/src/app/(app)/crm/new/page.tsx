@@ -26,12 +26,12 @@ function NewCustomerHeader() {
 
 export default function NewCustomerPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-4xl mx-auto space-y-6 mt-6">
       <Suspense fallback={<div className="text-center py-6">Carregando cabeçalho...</div>}>
         <NewCustomerHeader />
       </Suspense>
 
-      <div className="rounded-lg border bg-card p-8 shadow-sm">
+      <div className="rounded-xl glass-card p-8">
         <CustomerForm />
       </div>
     </div>

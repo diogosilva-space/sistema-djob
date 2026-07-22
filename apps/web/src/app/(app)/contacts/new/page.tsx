@@ -30,7 +30,7 @@ export default function NewContactPage() {
       setForm((current) => ({ ...current, [field]: event.target.value }));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={UserPlus}
         title="Novo contato"
@@ -41,9 +41,9 @@ export default function NewContactPage() {
           event.preventDefault();
           create.mutate(form);
         }}
-        className="rounded-lg border border-border bg-card p-5 shadow-sm"
+        className="rounded-xl glass-card p-5"
       >
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           <label className="grid gap-2 text-sm font-medium text-foreground">
             Nome / razão social
             <Input value={form.name} onChange={change('name')} required />
@@ -53,7 +53,7 @@ export default function NewContactPage() {
             <select
               value={form.role}
               onChange={change('role')}
-              className="h-8 rounded-lg border border-input bg-background px-3 text-sm"
+              className="h-8 rounded-lg border border-input px-3 text-sm glass-input"
             >
               <option value="CLIENT">Cliente</option>
               <option value="SUPPLIER">Fornecedor</option>
@@ -65,7 +65,7 @@ export default function NewContactPage() {
             <select
               value={form.type}
               onChange={change('type')}
-              className="h-8 rounded-lg border border-input bg-background px-3 text-sm"
+              className="h-8 rounded-lg border border-input px-3 text-sm glass-input"
             >
               <option value="JURIDICA">Pessoa jurídica</option>
               <option value="FISICA">Pessoa física</option>

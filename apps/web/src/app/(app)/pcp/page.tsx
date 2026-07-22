@@ -41,7 +41,7 @@ export default function PcpPage() {
     switch (status) {
       case 'PLANNED':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             <Clock className="h-3 w-3" />
             <span>Planejado</span>
           </span>
@@ -76,7 +76,7 @@ export default function PcpPage() {
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground border border-border">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/15 dark:bg-white/[0.06] text-foreground border border-white/20 dark:border-white/[0.08]">
             <span>{status}</span>
           </span>
         );
@@ -92,7 +92,7 @@ export default function PcpPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Cpu}
         title="Produção (PCP)"
@@ -105,18 +105,18 @@ export default function PcpPage() {
       </PageActionHeader>
 
       {orders.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-16 text-center border border-border rounded-lg bg-card">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-muted">
+        <div className="flex flex-col items-center justify-center p-16 text-center rounded-xl glass-card">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white/15 dark:bg-white/[0.06]">
             <Cpu className="h-5 w-5 text-muted-foreground" strokeWidth={1.5} />
           </div>
           <p className="text-sm text-muted-foreground">Nenhuma ordem de produção em andamento.</p>
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {orders.map((order) => (
             <Card
               key={order.id}
-              className="bg-card rounded-lg border border-border shadow-sm hover:shadow-sm transition-all flex flex-col justify-between"
+              className="rounded-xl glass-card hover:shadow-sm transition-all flex flex-col justify-between"
             >
               <CardHeader className="pb-3">
                 <div className="flex justify-between items-start">
@@ -132,7 +132,7 @@ export default function PcpPage() {
                 </div>
               </CardHeader>
               <CardContent className="pt-2">
-                <div className="text-sm space-y-2 border-t border-border pt-3">
+                <div className="text-sm space-y-2 border-t border-white/20 dark:border-white/[0.08] pt-3">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Cliente:</span>
                     <span className="font-semibold text-foreground truncate max-w-[170px]">
@@ -150,7 +150,7 @@ export default function PcpPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-foreground hover:text-foreground hover:bg-muted font-semibold active:scale-[0.97] transition-all flex items-center gap-1"
+                        className="text-foreground hover:text-foreground hover:bg-white/15 dark:hover:bg-white/[0.06] font-semibold active:scale-[0.97] transition-all flex items-center gap-1"
                       >
                         <span>Gerenciar OP</span>
                         <ArrowRight className="h-4 w-4" />

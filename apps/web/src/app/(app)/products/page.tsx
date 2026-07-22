@@ -6,7 +6,7 @@ import { PageActionHeader } from '@/components/dashboard/PageActionHeader';
 
 export default function ProductsPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Package}
         title="Produtos e Matérias-Primas"
@@ -15,7 +15,7 @@ export default function ProductsPage() {
 
       <Card className="flex flex-col items-center justify-center p-12 text-center">
         <CardHeader className="flex flex-col items-center">
-          <div className="p-3 bg-muted rounded-full mb-4">
+          <div className="p-3 bg-white/15 dark:bg-white/[0.06] rounded-full mb-4">
             <Package className="h-8 w-8 text-muted-foreground" />
           </div>
           <CardTitle className="text-base font-semibold">Catálogo de Produtos</CardTitle>

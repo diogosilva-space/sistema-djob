@@ -33,11 +33,11 @@ export function PipelineKpis({ metrics }: PipelineKpisProps) {
   ];
 
   return (
-    <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
       {items.map(({ label, value, icon: Icon }) => (
         <Card key={label}>
           <CardContent className="flex items-center gap-3 p-4">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/15 dark:bg-primary/10 backdrop-blur-sm text-primary">
               <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} />
             </div>
             <div className="min-w-0">

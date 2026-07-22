@@ -83,7 +83,7 @@ export function PipelineBoard() {
 
   if (pipeline.isLoading || metrics.isLoading) {
     return (
-      <div className="rounded-lg border border-border bg-card p-8 text-sm text-muted-foreground">
+      <div className="rounded-xl glass-card p-8 text-sm text-muted-foreground">
         Carregando pipeline...
       </div>
     );
@@ -91,7 +91,7 @@ export function PipelineBoard() {
 
   if (pipeline.isError || metrics.isError || !metrics.data) {
     return (
-      <div className="rounded-lg border border-destructive/20 bg-card p-8 text-sm text-destructive">
+      <div className="rounded-xl glass-card border-destructive/20 p-8 text-sm text-destructive">
         Não foi possível carregar o pipeline comercial.
       </div>
     );
@@ -100,7 +100,7 @@ export function PipelineBoard() {
   return (
     <>
       <PipelineKpis metrics={metrics.data} />
-      <section className="rounded-lg border border-border bg-card p-4 shadow-sm">
+      <section className="rounded-xl glass-card p-4">
         <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="relative w-full lg:max-w-sm">
             <Search
@@ -132,7 +132,7 @@ export function PipelineBoard() {
             {[...activeColumns, ...closedColumns].map((column) => (
               <details
                 key={column.status}
-                className="rounded-lg border border-border bg-card p-3"
+                className="rounded-xl glass-card p-3"
                 open={column.count > 0}
               >
                 <summary className="cursor-pointer text-sm font-semibold text-foreground">

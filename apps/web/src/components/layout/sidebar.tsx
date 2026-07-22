@@ -35,7 +35,7 @@ const operationalSections = [
     label: 'Comercial',
     items: [
       { href: '/contacts', label: 'Contatos', icon: Users },
-      { href: '/crm', label: 'Pipeline', icon: Target },
+      { href: '/crm', label: 'CRM', icon: Target },
       { href: '/vendas/orcamentos', label: 'Orçamentos', icon: FileText },
       { href: '/vendas/pedidos', label: 'Pedidos de Venda', icon: ShoppingCart },
     ],
@@ -73,6 +73,11 @@ export function Sidebar({ collapsed }: SidebarProps) {
         ]
       : operationalSections;
 
+  const allHrefs = navSections.flatMap((section) => section.items.map((item) => item.href));
+  const activeHref = allHrefs
+    .filter((href) => pathname === href || pathname.startsWith(`${href}/`))
+    .sort((a, b) => b.length - a.length)[0];
+
   return (
     <aside
       className={cn(
@@ -107,7 +112,7 @@ export function Sidebar({ collapsed }: SidebarProps) {
               )}
               <div className="flex flex-col gap-0.5">
                 {section.items.map((item) => {
-                  const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+                  const isActive = item.href === activeHref;
                   const Icon = item.icon;
                   return (
                     <Link

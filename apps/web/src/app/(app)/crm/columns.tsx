@@ -26,7 +26,7 @@ export const columns: ColumnDef<Customer>[] = [
       const type = row.getValue('type') as string;
       return (
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 bg-muted rounded-lg flex items-center justify-center border border-border">
+          <div className="h-9 w-9 bg-white/15 dark:bg-white/[0.08] rounded-lg flex items-center justify-center border border-white/20 dark:border-white/[0.10]">
             {type === 'JURIDICA' ? (
               <Building className="h-4.5 w-4.5 text-muted-foreground" />
             ) : (
@@ -108,7 +108,7 @@ export const columns: ColumnDef<Customer>[] = [
             <Button
               variant="outline"
               size="sm"
-              className="border-border text-foreground hover:bg-muted hover:text-foreground active:scale-[0.97] transition-all flex items-center gap-1"
+              className="text-foreground active:scale-[0.97] transition-all flex items-center gap-1"
             >
               <span>Gerenciar</span>
               <ChevronRight className="h-3.5 w-3.5" />

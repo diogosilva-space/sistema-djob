@@ -36,10 +36,10 @@ export function StageChangeModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md rounded-lg border border-border bg-card p-5 shadow-lg"
+        className="w-full max-w-md rounded-2xl glass-card-elevated p-6"
       >
         <h2 className="text-base font-semibold text-foreground">
           {isWon ? 'Confirmar oportunidade ganha' : 'Registrar oportunidade perdida'}

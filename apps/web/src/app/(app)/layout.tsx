@@ -11,14 +11,14 @@ import { useAuth } from '@/hooks/use-auth';
 
 function AppBackgrounds() {
   return (
-    <>
+    <div className="absolute inset-0 blur-[20px] dark:blur-[5px] scale-100 saturate-[0] brightness-[1] dark:brightness-[0.3]">
       <Image
         src="/images/login-hero-mobile-light.png"
         alt=""
         fill
         className="object-cover md:hidden dark:hidden"
         priority
-        quality={80}
+        quality={60}
         role="presentation"
       />
       <Image
@@ -27,7 +27,7 @@ function AppBackgrounds() {
         fill
         className="object-cover md:hidden hidden dark:block"
         priority
-        quality={80}
+        quality={60}
         role="presentation"
       />
       <Image
@@ -36,7 +36,7 @@ function AppBackgrounds() {
         fill
         className="object-cover hidden md:block dark:md:hidden"
         priority
-        quality={80}
+        quality={60}
         role="presentation"
       />
       <Image
@@ -45,10 +45,10 @@ function AppBackgrounds() {
         fill
         className="object-cover hidden dark:md:block"
         priority
-        quality={80}
+        quality={60}
         role="presentation"
       />
-    </>
+    </div>
   );
 }
 

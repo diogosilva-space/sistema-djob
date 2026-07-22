@@ -42,7 +42,7 @@ export function TaskForm({ onSubmit, isPending }: TaskFormProps) {
         <select
           value={priority}
           onChange={(event) => setPriority(event.target.value)}
-          className="h-8 rounded-lg border border-input bg-background px-2 text-xs text-foreground"
+          className="h-8 rounded-lg border glass-input px-2 text-xs text-foreground"
           aria-label="Prioridade"
         >
           <option value="LOW">Baixa</option>

@@ -35,13 +35,13 @@ export function OpportunityDetail({ id }: OpportunityDetailProps) {
 
   if (detail.isLoading)
     return (
-      <div className="rounded-lg border border-border bg-card p-8 text-sm text-muted-foreground">
+      <div className="rounded-xl glass-card p-8 text-sm text-muted-foreground">
         Carregando oportunidade...
       </div>
     );
   if (detail.isError || !detail.data)
     return (
-      <div className="rounded-lg border border-destructive/20 bg-card p-8 text-sm text-destructive">
+      <div className="rounded-xl glass-card border-destructive/20 p-8 text-sm text-destructive">
         Não foi possível carregar a oportunidade.
       </div>
     );
@@ -49,8 +49,8 @@ export function OpportunityDetail({ id }: OpportunityDetailProps) {
   const contact = opportunity.contact ?? opportunity.customer;
 
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
-      <div className="space-y-4 lg:col-span-2">
+    <div className="grid gap-6 lg:grid-cols-3">
+      <div className="space-y-6 lg:col-span-2">
         <Card>
           <CardHeader className="p-4 pb-2">
             <CardTitle className="text-base font-semibold">{opportunity.name}</CardTitle>
@@ -82,7 +82,7 @@ export function OpportunityDetail({ id }: OpportunityDetailProps) {
           </CardContent>
         </Card>
       </div>
-      <aside className="space-y-4">
+      <aside className="space-y-6">
         <Card>
           <CardHeader className="p-4 pb-2">
             <CardTitle className="text-base font-semibold">Contato</CardTitle>

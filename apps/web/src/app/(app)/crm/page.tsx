@@ -5,11 +5,11 @@ import { PipelineBoard } from '@/features/crm/components/PipelineBoard';
 
 export default function CrmPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <PageActionHeader
         icon={Target}
-        title="Pipeline de Vendas"
-        subtitle="Gerencie oportunidades e acompanhe o funil comercial"
+        title="Funil de Vendas"
+        subtitle="Gerencie oportunidades e acompanhe as etapas comerciais"
       />
       <PipelineBoard />
     </div>

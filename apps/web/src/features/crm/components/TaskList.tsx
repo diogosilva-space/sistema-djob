@@ -22,7 +22,7 @@ export function TaskList({ tasks, onComplete, isPending }: TaskListProps) {
       {tasks.map((task) => {
         const isDone = task.status === 'COMPLETED';
         return (
-          <li key={task.id} className="flex items-start gap-2 rounded-lg border border-border p-3">
+          <li key={task.id} className="flex items-start gap-2 rounded-xl border border-white/20 dark:border-white/[0.08] bg-white/30 dark:bg-white/[0.04] p-3">
             <Button
               type="button"
               variant="ghost"
